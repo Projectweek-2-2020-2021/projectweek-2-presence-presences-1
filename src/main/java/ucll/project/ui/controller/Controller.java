@@ -1,6 +1,6 @@
 package ucll.project.ui.controller;
 
-import ucll.project.domain.service.CountryService;
+import ucll.project.domain.service.LessonService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,14 +12,14 @@ import java.io.IOException;
 @WebServlet("/Controller")
 public class Controller extends HttpServlet {
     private HandlerFactory handlerFactory;
-    private CountryService service;
+    private LessonService service;
 
 
     @Override
     public void init() throws ServletException {
         super.init();
         handlerFactory = new HandlerFactory();
-        service = new CountryService();
+        service = new LessonService();
     }
 
 
@@ -44,7 +44,7 @@ public class Controller extends HttpServlet {
 
             String command = request.getParameter("command");
             if (command == null || command.trim().isEmpty()) {
-                command = "Index";
+                command = "LessonOverview";
             }
             RequestHandler handler = handlerFactory.getHandler(command, service);
             String destination = handler.handleRequest(request, response);

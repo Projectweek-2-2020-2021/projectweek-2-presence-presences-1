@@ -1,6 +1,6 @@
 package ucll.project.ui.controller;
 
-import ucll.project.domain.service.CountryService;
+import ucll.project.domain.service.LessonService;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,20 +9,20 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public abstract class RequestHandler {
-    private CountryService countryService;
+    private LessonService lessonService;
 
-    public RequestHandler(String command, CountryService countryService){
-        setCountryService(countryService);
+    public RequestHandler(String command, LessonService lessonService){
+        setCountryService(lessonService);
     }
 
-    private void setCountryService(CountryService countryService){
-        if (countryService == null){
+    private void setCountryService(LessonService lessonService){
+        if (lessonService == null){
             throw new ControllerException("Country service cannot be null.");
         }
-        this.countryService = countryService;
+        this.lessonService = lessonService;
     }
 
-    public CountryService getCountryService(){ return countryService; }
+    public LessonService getCountryService(){ return lessonService; }
 
     public abstract String handleRequest(HttpServletRequest request, HttpServletResponse response);
 
