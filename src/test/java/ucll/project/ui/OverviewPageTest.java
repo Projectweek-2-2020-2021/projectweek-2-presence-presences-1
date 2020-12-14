@@ -1,36 +1,25 @@
 package ucll.project.ui;
 
-import org.checkerframework.checker.units.qual.C;
 import org.junit.AfterClass;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
-import ucll.project.domain.db.CountryDB;
-import ucll.project.domain.db.CountryDBSQL;
-import ucll.project.domain.model.Country;
-import ucll.project.domain.service.CountryService;
-import ucll.project.util.DBConnectionManager;
-import ucll.project.util.DbConnectionService;
-
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.util.List;
+import ucll.project.domain.service.LessonService;
 
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertTrue;
 
 public class OverviewPageTest {
     private static WebDriver driver;
-    private static CountryService countryService;
+    private static LessonService lessonService;
 
 
     @BeforeClass
     public static void SetupDriver() {
         // Setup the Chrome driver for the whole class
         driver = ChromeDriverHelper.getDriver();
-        countryService = new CountryService();
+        lessonService = new LessonService();
 
     }
 
