@@ -29,7 +29,6 @@ public interface CountryDB {
      */
     Connection getConnection();
 
-
     /**
      * Reconnects application to db
      */

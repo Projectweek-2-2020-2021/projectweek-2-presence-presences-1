@@ -1,8 +1,6 @@
 package ucll.project.ui.controller;
 
 import ucll.project.domain.service.CountryService;
-import ucll.project.util.DBConnectionManager;
-import ucll.project.util.DbConnectionService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

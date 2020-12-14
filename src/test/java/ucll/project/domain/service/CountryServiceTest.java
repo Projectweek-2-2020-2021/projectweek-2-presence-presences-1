@@ -1,15 +1,10 @@
 package ucll.project.domain.service;
 
-import junit.framework.TestCase;
 import org.junit.*;
 import org.junit.runners.MethodSorters;
-import ucll.project.domain.db.CountryDBSQL;
 import ucll.project.domain.db.DbException;
 import ucll.project.domain.model.Country;
-import ucll.project.util.DBConnectionManager;
 import ucll.project.util.DbConnectionService;
-
-import java.sql.SQLException;
 
 import static org.junit.Assert.assertEquals;
 
