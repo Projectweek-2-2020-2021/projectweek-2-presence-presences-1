@@ -1,18 +1,23 @@
 package ucll.project.domain.country;
 
+import org.junit.Test;
 import ucll.project.domain.model.Country;
-import org.junit.*;
 import ucll.project.domain.model.DomainException;
 
+import static org.junit.Assert.assertEquals;
+
+/**
+ * This is a sample unit test, write your own!
+ */
 public class SampleCountryTest {
 
     @Test
     public void CreateCountryTest() {
         Country country = new Country("Name",1000,"Capital",3);
-        Assert.assertEquals("Name",country.getName());
-        Assert.assertEquals(1000,country.getNumberInhabitants());
-        Assert.assertEquals("Capital",country.getCapital());
-        Assert.assertEquals(3,country.getVotes());
+        assertEquals("Name",country.getName());
+        assertEquals(1000,country.getNumberInhabitants());
+        assertEquals("Capital",country.getCapital());
+        assertEquals(3,country.getVotes());
     }
 
     @Test(expected = DomainException.class)
@@ -23,7 +28,7 @@ public class SampleCountryTest {
     @Test
     public void Create_Country_With_Empty_Capital_Gives_Capital_Empty_String_Value(){
         Country country = new Country("Name", 1000, "", 3);
-        Assert.assertEquals("", country.getCapital());
+        assertEquals("", country.getCapital());
     }
 
     @Test (expected = DomainException.class)

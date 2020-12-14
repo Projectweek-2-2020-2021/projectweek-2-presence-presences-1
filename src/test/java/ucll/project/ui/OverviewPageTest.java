@@ -1,21 +1,37 @@
 package ucll.project.ui;
 
+import org.checkerframework.checker.units.qual.C;
 import org.junit.AfterClass;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
+import ucll.project.domain.db.CountryDB;
+import ucll.project.domain.db.CountryDBSQL;
+import ucll.project.domain.model.Country;
+import ucll.project.domain.service.CountryService;
+import ucll.project.util.DBConnectionManager;
+import ucll.project.util.DbConnectionService;
+
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.List;
 
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertTrue;
 
 public class OverviewPageTest {
     private static WebDriver driver;
+    private static CountryService countryService;
+
 
     @BeforeClass
     public static void SetupDriver() {
         // Setup the Chrome driver for the whole class
         driver = ChromeDriverHelper.getDriver();
+        countryService = new CountryService();
+
     }
 
     @AfterClass
@@ -38,5 +54,25 @@ public class OverviewPageTest {
         HomePage homePage = overviewPage.navigateToHomePage();
         //THEN HOMEPAGE IS SHOWN
         assertEquals("Tourism", homePage.getTitle());
+    }
+
+    @Test
+    public void overview_shows_correct_most_popular_country() {
+        //GIVEN
+        OverviewPage overviewPage = PageFactory.initElements(driver, OverviewPage.class);
+        /*
+        List<Country> countryList =  countryService.getCountries();
+        Country currentcountry = countryList.get(0);
+        for (Country country: countryList) {
+            if (country.getNumberInhabitants() > currentcountry.getNumberInhabitants()){
+                currentcountry = country;
+            }
+        }
+        */
+
+        //WHEN USER LOOKS AT MOST POPULAR COUNTRY
+        overviewPage.isMostPopularCountry("Spain");
+
+
     }
 }

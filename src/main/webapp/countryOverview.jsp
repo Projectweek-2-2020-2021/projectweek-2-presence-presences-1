@@ -1,6 +1,4 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@page import="java.util.HashMap" %>
-<%@page import="java.util.Collection" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <!DOCTYPE html>
@@ -12,12 +10,7 @@
 </head>
 <body>
 <jsp:include page="header.jsp"/>
-
 <main id="container">
-    <jsp:include page="title.jsp">
-        <jsp:param name="title" value="Countries"/>
-    </jsp:include>
-
     <article>
         <c:if test="${not empty popular}">
 
@@ -50,6 +43,8 @@
             </table>
         </c:if>
     </article>
+    <jsp:include page="footer.jsp"/>
 </main>
+
 </body>
 </html>
