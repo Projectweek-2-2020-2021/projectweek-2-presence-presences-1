@@ -5,7 +5,6 @@ import ucll.project.domain.model.Country;
 import ucll.project.domain.model.DomainException;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
 
 /**
  * This is a sample unit test, write your own!

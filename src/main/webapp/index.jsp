@@ -3,15 +3,12 @@
 <!DOCTYPE html>
 <html lang="nl">
 <head>
+    <link rel="stylesheet" href="css/sample.css">
     <meta charset="UTF-8">
     <title>Tourism</title>
-    <link rel="stylesheet" href="css/sample.css">
 </head>
 <body>
-<header role="banner">
-    <img alt="Toscane" src="images/toscaneRibbon.jpg">
-    <nav></nav>
-</header>
+<jsp:include page="header.jsp"/>
 <main>
     <article>
         <c:if test="${error != null}">
@@ -29,13 +26,8 @@
             That's why we want to help you in making the right choice.</p>
         <p>This site offers you information about countries.
             To make sure you choose your ideal destination.</p>
-        <p>
-            <a href="Controller?command=Overview">Country overview</a>
-        </p>
     </article>
+    <jsp:include page="footer.jsp"/>
 </main>
-<footer>
-
-</footer>
 </body>
 </html>
