@@ -4,8 +4,8 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 public class DbConnectionService {
-    private static String dbURL = "jdbc:postgresql://databanken.ucll.be:62021/webontwerp";
-    private static String searchPath = "web3b";
+    private static final String dbURL = "jdbc:postgresql://databanken.ucll.be:62021/hakkaton";
+    private static final String searchPath = "\"presence-team3\"";
     private static Connection dbConnection;
 
     public static Connection getDbConnection() {
@@ -13,7 +13,7 @@ public class DbConnectionService {
     }
 
     public static String getSearchPath() {
-        return  searchPath;
+        return searchPath;
     }
 
     public static void connect() {
