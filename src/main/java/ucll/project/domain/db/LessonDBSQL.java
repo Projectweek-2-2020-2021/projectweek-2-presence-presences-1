@@ -61,7 +61,7 @@ public class LessonDBSQL implements LessonDB {
     }
 
     private void makeLesson(ResultSet result, List<Lesson> lessons) throws SQLException {
-        String name = result.getString("name");
+        String name = result.getString("naam");
         Lesson lesson = new Lesson(name);
         lessons.add(lesson);
     }
