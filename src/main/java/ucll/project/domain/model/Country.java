@@ -81,7 +81,7 @@ public class Country {
 	}
 
 	public void setVotes(int votes) {
-		if (votes <= 0) {
+		if (votes < 0 || votes > 5) {
 			throw new DomainException("The number of votes must be between 0 and 5");
 		}
 		this.votes = votes;
