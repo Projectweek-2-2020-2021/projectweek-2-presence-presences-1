@@ -10,7 +10,7 @@ public class DBConnectionManager {
     public Connection connection;
     private static DBConnectionManager dbConnectionManager_instance = null;
 
-    private DBConnectionManager(String dbURL, String searchPath) {
+    public DBConnectionManager(String dbURL, String searchPath) {
         Properties dbProperties = new Properties();
         try {
             Class.forName("ucll.project.util.Secret");  // implementation of abstract class Credentials
