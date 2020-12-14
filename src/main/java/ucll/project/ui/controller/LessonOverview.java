@@ -1,7 +1,7 @@
 package ucll.project.ui.controller;
 
 import ucll.project.domain.model.Lesson;
-import ucll.project.domain.service.LessonService;
+import ucll.project.domain.service.ApplicationService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -9,8 +9,8 @@ import java.util.List;
 
 public class LessonOverview extends RequestHandler {
 
-    public LessonOverview(String command, LessonService lessonService) {
-        super(command, lessonService);
+    public LessonOverview(String command, ApplicationService applicationService) {
+        super(command, applicationService);
     }
 
     @Override

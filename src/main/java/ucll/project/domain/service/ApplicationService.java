@@ -7,7 +7,7 @@ import ucll.project.domain.model.Lesson;
 import java.sql.Connection;
 import java.util.List;
 
-public class LessonService {
+public class ApplicationService {
     private LessonDB db = new LessonDBSQL();
 
 //    public void addLesson(Lesson lesson) {
