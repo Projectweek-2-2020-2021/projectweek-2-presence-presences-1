@@ -10,6 +10,7 @@
 <body>
 <header role="banner">
     <img alt="Toscane" src="images/toscaneRibbon.jpg">
+    <nav></nav>
 </header>
 <main>
     <article>
