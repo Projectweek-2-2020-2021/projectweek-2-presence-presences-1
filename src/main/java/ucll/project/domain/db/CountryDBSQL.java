@@ -3,13 +3,16 @@ package ucll.project.domain.db;
 import ucll.project.domain.model.Country;
 import ucll.project.util.DbConnectionService;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CountryDBSQL implements CountryDB {
     private Connection connection;
-    private String schema;
+    private final String schema;
 
     public CountryDBSQL() {
 
@@ -49,8 +52,8 @@ public class CountryDBSQL implements CountryDB {
      * @throws DbException when there are problems with the connection to the database
      */
     public List<Country> getAll() {
-        List<Country> countries = new ArrayList<Country>();
-        String sql = "SELECT * FROM "+this.schema+".country";
+        List<Country> countries = new ArrayList<>();
+        String sql = "SELECT * FROM " + this.schema + ".country";
         try {
             PreparedStatement statementSql = connection.prepareStatement(sql);
             ResultSet result = statementSql.executeQuery();
