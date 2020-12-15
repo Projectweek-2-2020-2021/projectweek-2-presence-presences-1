@@ -1,5 +1,6 @@
 package ucll.project.ui.controller;
 
+import ucll.project.domain.model.Rol;
 import ucll.project.domain.service.ApplicationService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,6 +13,8 @@ public class ZetAanwezigheid extends RequestHandler{
 
     @Override
     public String handleRequest(HttpServletRequest request, HttpServletResponse response) {
+        Rol[] roles = new Rol[]{Rol.LECTOR};
+        Utility.checkRoles(request, roles);
         String aanwezigheid = request.getParameter("aanwezigheid");
         String les = request.getParameter("les");
         int lesId = getApplicationService().getVakId(les);

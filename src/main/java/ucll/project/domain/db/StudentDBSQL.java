@@ -92,9 +92,8 @@ public class StudentDBSQL implements StudentDB {
         String email = result.getString("email");
         String adres = result.getString("adres");
         String telefoonNummer = result.getString("telefoonnummer");
-        boolean aanwezig = result.getBoolean("aanwezig");
         String wachtwoord = result.getString("wachtwoord");
-        return new Student(rnummer, naam, voornaam, email, adres, telefoonNummer, aanwezig, wachtwoord);
+        return new Student(rnummer, naam, voornaam, email, adres, telefoonNummer, wachtwoord);
     }
 
 

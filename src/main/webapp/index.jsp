@@ -19,7 +19,7 @@
     <c:if test="${not empty errors}">
         <div class="alert-danger">
             <ul>
-                <c:forEach var="error" items="errors">
+                <c:forEach var="error" items="${errors}">
                     <li><c:out value="${error}"/></li>
                 </c:forEach>
             </ul>
@@ -28,9 +28,6 @@
     <c:choose>
         <c:when test="${not empty loggedIn}">
             <p>Welkom <c:out value="${loggedIn.voornaam}"/></p>
-            <form action="Controller?command=Afmelden" method="POST" novalidate>
-                <button type="submit" class="btn btn-primary">Afmelden</button>
-            </form>
         </c:when>
         <c:otherwise>
             <form action="Controller?command=Aanmelden" method="POST" novalidate>
