@@ -2,14 +2,17 @@ package ucll.project.domain.service;
 
 import ucll.project.domain.db.LessonDB;
 import ucll.project.domain.db.LessonDBSQL;
+import ucll.project.domain.db.StudentDB;
+import ucll.project.domain.db.StudentDBSQL;
 import ucll.project.domain.model.Lesson;
+import ucll.project.domain.model.Student;
 
 import java.sql.Connection;
 import java.util.List;
 
 public class ApplicationService {
     private LessonDB db = new LessonDBSQL();
-
+    private StudentDB dbstudent = new StudentDBSQL();
 //    public void addLesson(Lesson lesson) {
 //        db.add(lesson);
 //    }
@@ -34,5 +37,14 @@ public class ApplicationService {
      */
     public void reConnect() {
         db.reConnect();
+    }
+
+    public List<Student> getStudentPerVak(int id){
+        return dbstudent.getStudentenPerVak(id);
+
+    }
+
+    public int getVakId(String vaknaam){
+        return db.getLesId(vaknaam);
     }
 }

@@ -2,18 +2,20 @@ package ucll.project.domain.model;
 
 public class Student {
     private String rnummer, naam, voornaam, email, adres, telefoonNummer;
+    private boolean aanwezig;
 
     public Student() {
 
     }
 
-    public Student(String rnummer, String naam, String voornaam, String email, String adres, String telefoonNummer) {
+    public Student(String rnummer, String naam, String voornaam, String email, String adres, String telefoonNummer, boolean aanwezig) {
         setRNummer(rnummer);
         setNaam(naam);
         setVoornaam(voornaam);
         setEmail(email);
         setAdres(adres);
         setTelefoonNummer(telefoonNummer);
+        setAanwezig(aanwezig);
     }
 
     public void setRNummer(String rnummer) {
@@ -80,6 +82,14 @@ public class Student {
             throw new DomainException("telefoonNummer verkeerd!");
         }
         this.telefoonNummer = telefoonNummer;
+    }
+
+    public boolean isAanwezig() {
+        return aanwezig;
+    }
+
+    public void setAanwezig(boolean aanwezig) {
+        this.aanwezig = aanwezig;
     }
 
     @Override
