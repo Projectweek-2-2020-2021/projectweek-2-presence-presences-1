@@ -1,10 +1,12 @@
 package ucll.project.domain.db;
 
-import ucll.project.domain.model.Lesson;
 import ucll.project.domain.model.Student;
 import ucll.project.util.DbConnectionService;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +27,7 @@ public class StudentDBSQL implements StudentDB {
             PreparedStatement statementSql = connection.prepareStatement(sql);
             ResultSet result = statementSql.executeQuery();
             while (result.next()) {
-                makeStudent(result, students);
+                students.add(makeStudent(result));
             }
         } catch (SQLException e) {
             throw new DbException(e.getMessage(), e);
@@ -61,7 +63,7 @@ public class StudentDBSQL implements StudentDB {
             preparedStatement.setInt(1, id);
             ResultSet resultset = preparedStatement.executeQuery();
             while (resultset.next()){
-                makeStudent(resultset, students);
+                students.add(makeStudent(resultset));
             }
         }catch (SQLException e){
             throw new DbException(e.getMessage());
@@ -71,22 +73,19 @@ public class StudentDBSQL implements StudentDB {
 
     @Override
     public Student getStudent(String rnummer) {
-        List<Student> students = new ArrayList<>();
         String sql = "select * from student where r_nummer = ?";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, rnummer);
             ResultSet resultset = preparedStatement.executeQuery();
-            while (resultset.next()){
-                makeStudent(resultset, students);
-            }
+            resultset.next();
+            return makeStudent(resultset);
         } catch (SQLException e) {
-            throw new DbException(e.getMessage());
+            throw new DbException("Student bestaat niet!");
         }
-        return students.get(0);
     }
 
-    private void makeStudent(ResultSet result, List<Student> students) throws SQLException {
+    private Student makeStudent(ResultSet result) throws SQLException {
         String naam = result.getString("naam");
         String rnummer = result.getString("r_nummer");
         String voornaam = result.getString("voornaam");
@@ -95,8 +94,7 @@ public class StudentDBSQL implements StudentDB {
         String telefoonNummer = result.getString("telefoonnummer");
         boolean aanwezig = result.getBoolean("aanwezig");
         String wachtwoord = result.getString("wachtwoord");
-        Student student = new Student(rnummer, naam, voornaam, email, adres, telefoonNummer, aanwezig, wachtwoord);
-        students.add(student);
+        return new Student(rnummer, naam, voornaam, email, adres, telefoonNummer, aanwezig, wachtwoord);
     }
 
 

@@ -6,13 +6,12 @@ import ucll.project.domain.service.ApplicationService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
 import java.util.List;
 
-class LectorOverviewStudents extends RequestHandler{
+class LectorOverzichtStudenten extends RequestHandler {
 
 
-    public LectorOverviewStudents(String command, ApplicationService applicationService) {
+    public LectorOverzichtStudenten(String command, ApplicationService applicationService) {
         super(command, applicationService);
     }
 

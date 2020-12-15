@@ -1,6 +1,5 @@
 package ucll.project.ui.controller;
 
-import jdk.internal.vm.compiler.collections.EconomicMap;
 import ucll.project.domain.model.Lector;
 import ucll.project.domain.model.Student;
 import ucll.project.domain.service.ApplicationService;
@@ -12,59 +11,52 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Aanmelden extends RequestHandler {
+    List<String> errors = new ArrayList<>();
+
     public Aanmelden(String command, ApplicationService applicationService) {
         super(command, applicationService);
     }
 
     @Override
     public String handleRequest(HttpServletRequest request, HttpServletResponse response) {
-
-        List<String> errors = new ArrayList<>();
-
         String gebruikersnaam = request.getParameter("gebruikersnaam");
         String wachtwoord = request.getParameter("wachtwoord");
 
-        if (gebruikersnaam.startsWith("r")) {
-            Student student = new Student();
-            try {
-                student = getApplicationService().getStudent(gebruikersnaam);
-            } catch (Exception e) {
-                errors.add(e.getMessage());
-            }
-            try {
-                if (errors.isEmpty() && student.isCorrectWachtwoord(wachtwoord)) {
-                    HttpSession session = request.getSession();
-                    session.setAttribute("loggedIn", student);
-                }
-                else errors.add("Ongeldige gebruikersnaam of wachtwoord");
-            }
-            catch (Exception e) {
-                errors.add(e.getMessage());
-            }
+        if (gebruikersnaam.startsWith("u")) {
+            lectorAanmelding(gebruikersnaam, wachtwoord, request);
+        } else {
+            studentAanmelding(gebruikersnaam, wachtwoord, request);
         }
-//        else {
-//            Lector lector = new Lector();
-//            try {
-//                lector = getApplicationService().getLector(gebruikersnaam);
-//            } catch (Exception e) {
-//                errors.add(e.getMessage());
-//            }
-//            try {
-//                if (errors.isEmpty() && student.isCorrectWachtwoord(wachtwoord)) {
-//                    HttpSession session = request.getSession();
-//                    session.setAttribute("loggedIn", student);
-//                }
-//                else errors.add("Ongeldige gebruikersnaam of wachtwoord");
-//            }
-//            catch (Exception e) {
-//                errors.add(e.getMessage());
-//            }
-//        }
-
-
         if (!errors.isEmpty()) {
             request.setAttribute("errors", errors);
         }
         return "Controller?command=Index";
+    }
+
+    private void studentAanmelding(String gebruikersnaam, String wachtwoord, HttpServletRequest request) {
+        Student student;
+
+        try {
+            student = getApplicationService().getStudent(gebruikersnaam);
+            if (student != null && student.isCorrectWachtwoord(wachtwoord)) {
+                HttpSession session = request.getSession();
+                session.setAttribute("loggedIn", student);
+            } else errors.add("Ongeldige gebruikersnaam of wachtwoord");
+        } catch (Exception e) {
+            errors.add(e.getMessage());
+        }
+    }
+
+    private void lectorAanmelding(String gebruikersnaam, String wachtwoord, HttpServletRequest request) {
+        Lector lector;
+        try {
+            lector = getApplicationService().getLector(gebruikersnaam);
+            if (lector != null && lector.isCorrectWachtwoord(wachtwoord)) {
+                HttpSession session = request.getSession();
+                session.setAttribute("loggedIn", lector);
+            } else errors.add("Ongeldige gebruikersnaam of wachtwoord");
+        } catch (Exception e) {
+            errors.add(e.getMessage());
+        }
     }
 }

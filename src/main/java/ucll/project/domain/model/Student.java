@@ -25,7 +25,6 @@ public class Student {
     }
 
     public boolean isCorrectWachtwoord(String wachtwoord) {
-        if (wachtwoord.isEmpty()) throw new DomainException("Wachtwoord is fout!");
         return this.wachtwoord.equals(wachtwoord);
     }
 
