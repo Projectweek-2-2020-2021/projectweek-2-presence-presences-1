@@ -3,6 +3,7 @@ package ucll.project.domain.db;
 import ucll.project.domain.model.Student;
 import ucll.project.util.DbConnectionService;
 
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -29,7 +30,7 @@ public class StudentDBSQL implements StudentDB {
             while (result.next()) {
                 students.add(makeStudent(result));
             }
-        } catch (SQLException e) {
+        } catch (SQLException | NoSuchAlgorithmException e) {
             throw new DbException(e.getMessage(), e);
         }
         return students;
@@ -65,7 +66,7 @@ public class StudentDBSQL implements StudentDB {
             while (resultset.next()){
                 students.add(makeStudent(resultset));
             }
-        }catch (SQLException e){
+        }catch (SQLException | NoSuchAlgorithmException e){
             throw new DbException(e.getMessage());
         }
         return students;
@@ -80,12 +81,12 @@ public class StudentDBSQL implements StudentDB {
             ResultSet resultset = preparedStatement.executeQuery();
             resultset.next();
             return makeStudent(resultset);
-        } catch (SQLException e) {
+        } catch (SQLException | NoSuchAlgorithmException e) {
             throw new DbException("Student bestaat niet!");
         }
     }
 
-    private Student makeStudent(ResultSet result) throws SQLException {
+    private Student makeStudent(ResultSet result) throws SQLException, NoSuchAlgorithmException {
         String naam = result.getString("naam");
         String rnummer = result.getString("r_nummer");
         String voornaam = result.getString("voornaam");
