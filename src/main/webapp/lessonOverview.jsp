@@ -18,10 +18,12 @@
     <table class="table-striped">
         <tr>
             <th>Name</th>
+            <th>zie studenten</th>
         </tr>
         <c:forEach var="lesson" items="${lessonLijst}">
             <tr>
                 <td><c:out value="${lesson.name}"/></td>
+                <td><a href="Controller?command=LectorOverviewStudents&lesson=${lesson.name}">hier</a></td>
             </tr>
         </c:forEach>
     </table>
