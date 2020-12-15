@@ -10,9 +10,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-<jsp:include page="header.jsp"/>
+<jsp:include page="header.jsp">
+    <jsp:param name="actual" value="index"/>
+</jsp:include>
 <main class="container">
-    <p></p>
+    <p class="lead">Welkom bij de demonstratie hoofdpagina! <br>
+        Gebruik bovenstaande navigatie om naar de gewenste pagina te gaan.</p>
 </main>
 </body>
 </html>
