@@ -77,6 +77,24 @@ public class LessonDBSQL implements LessonDB {
         this.connection = DbConnectionService.getDbConnection();    // assign connection to DBSQL
     }
 
+    @Override
+    public int getLesId(String vaknaam) {
+        String sql = "SELECT id FROM " + this.schema + ".les" + " WHERE naam = ?";
+        int id = 0;
+        try {
+            PreparedStatement statementsql = connection.prepareStatement(sql);
+            statementsql.setString(1, vaknaam);
+            ResultSet result = statementsql.executeQuery();
+            while (result.next()){
+                id = result.getInt("id");
+            }
+        }catch (SQLException e){
+            throw new DbException(e.getMessage());
+        }
+
+        return id;
+    }
+
     private void makeLesson(ResultSet result, List<Lesson> lessons) throws SQLException {
         String name = result.getString("naam");
         int studiepunten = Integer.parseInt(result.getString("studiepunten"));

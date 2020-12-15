@@ -36,4 +36,6 @@ public interface LessonDB {
      */
     void reConnect();
 
+    int getLesId(String vaknaam);
+
 }
