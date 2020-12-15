@@ -1,6 +1,8 @@
 package ucll.project.domain.db;
 
+import ucll.project.domain.model.Lector;
 import ucll.project.domain.model.Lesson;
+import ucll.project.domain.model.Student;
 import ucll.project.util.DbConnectionService;
 
 import java.sql.Connection;
@@ -98,6 +100,8 @@ public class LessonDBSQL implements LessonDB {
 
         return id;
     }
+
+
 
     private void makeLesson(ResultSet result, List<Lesson> lessons) throws SQLException {
         String name = result.getString("naam");

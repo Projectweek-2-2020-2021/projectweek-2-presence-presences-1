@@ -1,7 +1,9 @@
 package ucll.project.domain.db;
 
 
+import ucll.project.domain.model.Lector;
 import ucll.project.domain.model.Lesson;
+import ucll.project.domain.model.Student;
 
 import java.sql.Connection;
 import java.util.List;
@@ -37,5 +39,7 @@ public interface LessonDB {
     void reConnect();
 
     int getLesId(String vaknaam);
+
+
 
 }

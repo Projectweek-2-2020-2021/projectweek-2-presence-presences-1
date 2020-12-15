@@ -53,6 +53,14 @@ public class ApplicationService {
         return dbLector.getLector(unummer);
     }
 
+    public List<Lector> getAllLectors(){return dbLector.getAllLectors();}
+
+    public int getLectorId(String lectorennummer) {
+        return dbLesson.getLesId(lectorennummer);
+    }
+
+    public List<Lector> getVakPerLector(int vakid){return dbLector.getLectorPerVak(vakid);};
+
     public void zetAanwezigheid(String aanwezigheid, int studentId, int lesId) {
         dbLesStudent.zetAanwezigheid(aanwezigheid, studentId, lesId);
     }

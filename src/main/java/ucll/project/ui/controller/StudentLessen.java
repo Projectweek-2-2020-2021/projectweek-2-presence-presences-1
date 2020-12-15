@@ -26,9 +26,22 @@ public class StudentLessen extends RequestHandler {
         datums.add("3/3/2020");
         datums.add("4/4/2020");
         request.setAttribute("datums", datums);
+        /*
 
         List<Lector> lectorlijst = new ArrayList<>();
+        for (Lesson les: lessenLijst
+             ) {
 
+            List<Lector> l = getApplicationService().getVakPerLector(getApplicationService().getVakId(les.getNaam()));
+            for (Lector lector: l
+                 ) {
+                lectorlijst.add(lector);
+            }
+        }
+
+
+        request.setAttribute("lectorenlijst", lectorlijst);
+        */
         return "studentLessen.jsp";
     }
 }
