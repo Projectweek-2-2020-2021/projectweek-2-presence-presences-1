@@ -1,8 +1,8 @@
 package ucll.project.domain.country;
 
 import org.junit.Test;
-import ucll.project.domain.model.Lesson;
 import ucll.project.domain.model.DomainException;
+import ucll.project.domain.model.Lesson;
 
 import static org.junit.Assert.assertEquals;
 
@@ -12,13 +12,13 @@ import static org.junit.Assert.assertEquals;
 public class SampleLessonTest {
 
     @Test
-    public void CreateCountryTest() {
-        Lesson lesson = new Lesson("Name");
-        assertEquals("Name", lesson.getName());
+    public void CreateLessonTest() {
+        Lesson lesson = new Lesson("Name", 3, "TI");
+        assertEquals("Name", lesson.getNaam());
     }
 
     @Test(expected = DomainException.class)
     public void CreateCountryWithEmptyNameThrowsException(){
-        Lesson lesson = new Lesson("");
+        Lesson lesson = new Lesson("", 3, "TI");
     }
 }

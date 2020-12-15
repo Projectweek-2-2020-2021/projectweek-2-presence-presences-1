@@ -1,19 +1,18 @@
 package ucll.project.ui.controller;
 
-
 import ucll.project.domain.service.LessonService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class LesOverviewLector extends RequestHandler {
+public class Index extends RequestHandler {
 
-    public LesOverviewLector(String command, LessonService countryService) {
-        super(command, countryService);
+    public Index(String command, LessonService lessonService) {
+        super(command, lessonService);
     }
 
     @Override
     public String handleRequest(HttpServletRequest request, HttpServletResponse response) {
-        return null;
+        return "index.jsp";
     }
 }
