@@ -16,6 +16,7 @@
 <main class="container">
     <p>Dit zijn de studenten voor het vak <c:out value="${les}"/></p>
     <div class="table-responsive">
+        <p>Aanwezigheden Studentenoverzicht</p>
         <table class="table">
             <tr>
                 <th>r-Nummer</th>
@@ -41,16 +42,15 @@
                     </td>
                     </tr>
             </c:forEach>
-            <caption>Aanwezigheden Studentenoverzicht</caption>
         </table>
     </div>
     <div class="table-responsive">
+        <p>Afwezigheden Studentenoverzicht</p>
         <table class="table">
             <tr>
                 <th>r-Nummer</th>
                 <th>Voornaam</th>
                 <th>Achternaam</th>
-
             </tr>
             <c:forEach items="${afwezig}" var="student">
                 <tr>
@@ -59,7 +59,6 @@
                     <td><c:out value='${student.naam}'/></td>
                 </tr>
             </c:forEach>
-            <caption>Afwezigheden Studentenoverzicht</caption>
         </table>
     </div>
     <jsp:include page="footer.jsp"/>

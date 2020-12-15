@@ -6,6 +6,7 @@ import ucll.project.domain.service.ApplicationService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.List;
 
 public class LectorLessen extends RequestHandler {
@@ -20,6 +21,13 @@ public class LectorLessen extends RequestHandler {
         Utility.checkRoles(request, roles);
         List<Lesson> lessenLijst = getApplicationService().getLessonForLector("u1234567");
         request.setAttribute("lessenLijst", lessenLijst);
+
+        ArrayList<String> datums = new ArrayList<>();
+        datums.add("1/1/2020");
+        datums.add("2/2/2020");
+        datums.add("3/3/2020");
+        datums.add("4/4/2020");
+        request.setAttribute("datums", datums);
         return "lectorLessen.jsp";
     }
 }
