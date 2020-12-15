@@ -70,6 +70,6 @@ public class ApplicationService {
     }
 
     public int getStudentId(String rnummer) {
-        return dbstudent.getStudentId(rnummer);
+        return dbStudent.getStudentId(rnummer);
     }
 }
