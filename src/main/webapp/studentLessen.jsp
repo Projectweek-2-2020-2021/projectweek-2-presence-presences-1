@@ -17,6 +17,7 @@
 </jsp:include>
 
 <main class="container">
+    <p>Dit is een tabel!</p>
     <div class="table-responsive">
         <table class="table">
             <tr>
