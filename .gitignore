@@ -14,6 +14,9 @@ src/main/java/ucll/project/util/Secret.java
 .idea/**/tasks.xml
 .idea/dictionaries
 
+#secret class
+src/main/java/ucll/project/util/Secret.java
+
 # Sensitive or high-churn files:
 kotlinc.xml
 .idea/**/dataSources/

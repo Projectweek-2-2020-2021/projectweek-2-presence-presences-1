@@ -18,11 +18,12 @@
     <table class="table-striped">
         <tr>
             <th>Name</th>
+            <th>Aanwezigheid</th>
         </tr>
         <c:forEach var="lesson" items="${lessonLijst}">
             <tr>
                 <td><c:out value="${lesson.name}"/></td>
-            </tr>
+                <td><a href="Controller?command=AanwezigheidConfirmation&les=${lesson}">Duid aanwezigheid aan</a></td>
         </c:forEach>
     </table>
 </main>
