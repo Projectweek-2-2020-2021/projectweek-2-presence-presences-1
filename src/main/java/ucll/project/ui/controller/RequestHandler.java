@@ -11,18 +11,20 @@ import java.io.IOException;
 public abstract class RequestHandler {
     private ApplicationService applicationService;
 
-    public RequestHandler(String command, ApplicationService applicationService){
-        setCountryService(applicationService);
+    public RequestHandler(String command, ApplicationService applicationService) {
+        setApplicationService(applicationService);
     }
 
-    private void setCountryService(ApplicationService applicationService){
-        if (applicationService == null){
+    public ApplicationService getApplicationService() {
+        return applicationService;
+    }
+
+    private void setApplicationService(ApplicationService applicationService) {
+        if (applicationService == null) {
             throw new ControllerException("Country service cannot be null.");
         }
         this.applicationService = applicationService;
     }
-
-    public ApplicationService getCountryService(){ return applicationService; }
 
     public abstract String handleRequest(HttpServletRequest request, HttpServletResponse response);
 

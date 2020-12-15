@@ -3,7 +3,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Lesoverzicht - Lector</title>
+    <title>Presences 1 - Lector lessen</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -12,19 +12,27 @@
 </head>
 <body>
 <header>
-    <jsp:include page="header.jsp"/>
+    <jsp:include page="header.jsp">
+        <jsp:param name="actual" value="lectorLessen"/>
+    </jsp:include>
 </header>
 <main class="container">
-    <table class="table-striped">
-        <tr>
-            <th>Vak</th>
-        </tr>
-        <c:forEach var="lessen" items="${lessenLijst}">
+    <div class="table-responsive">
+        <table class="table">
             <tr>
-                <td><c:out value="${lessen.name}"/></td>
+                <th>Vak</th>
+                <th>Studiepunten</th>
+                <th>Studierichting</th>
             </tr>
-        </c:forEach>
-    </table>
+            <c:forEach var="les" items="${lessenLijst}">
+                <tr>
+                    <td><c:out value="${les.naam}"/></td>
+                    <td><c:out value="${les.studiepunten}"/></td>
+                    <td><c:out value="${les.studierichting}"/></td>
+                </tr>
+            </c:forEach>
+        </table>
+    </div>
 </main>
 </body>
 </html>

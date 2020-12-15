@@ -14,7 +14,7 @@ public class HandlerFactory {
             Class handlerClass = Class.forName("ucll.project.ui.controller." + command);
             Object handlerObject = handlerClass.getConstructor(String.class, ApplicationService.class).newInstance(command, applicationService);
             handler = (RequestHandler) handlerObject;
-        } catch (ClassNotFoundException e){
+        } catch (ClassNotFoundException e) {
             throw new ControllerException(e.getMessage());
         } catch (Exception e) {
             throw new ControllerException(e.getMessage());
