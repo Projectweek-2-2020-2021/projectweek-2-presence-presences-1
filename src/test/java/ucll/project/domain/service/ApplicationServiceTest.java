@@ -9,8 +9,8 @@ import ucll.project.util.DbConnectionService;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 
-public class ApplicatieServiceTest {
-    ApplicatieService service = new ApplicatieService();
+public class ApplicationServiceTest {
+    ApplicationService service = new ApplicationService();
 
 
     @Before

@@ -1,6 +1,6 @@
 package ucll.project.ui.controller;
 
-import ucll.project.domain.service.ApplicatieService;
+import ucll.project.domain.service.ApplicationService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,14 +12,14 @@ import java.io.IOException;
 @WebServlet("/Controller")
 public class Controller extends HttpServlet {
     private HandlerFactory handlerFactory;
-    private ApplicatieService service;
+    private ApplicationService service;
 
 
     @Override
     public void init() throws ServletException {
         super.init();
         handlerFactory = new HandlerFactory();
-        service = new ApplicatieService();
+        service = new ApplicationService();
     }
 
 
