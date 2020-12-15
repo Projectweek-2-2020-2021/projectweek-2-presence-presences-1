@@ -7,9 +7,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
-public class LesOverviewLector extends RequestHandler {
+public class LectorLessen extends RequestHandler {
 
-    public LesOverviewLector(String command, ApplicationService applicationService) {
+    public LectorLessen(String command, ApplicationService applicationService) {
         super(command, applicationService);
     }
 
@@ -17,6 +17,6 @@ public class LesOverviewLector extends RequestHandler {
     public String handleRequest(HttpServletRequest request, HttpServletResponse response) {
         List<Lesson> lessenLijst = getApplicationService().getLessonForLector("u1234567");
         request.setAttribute("lessenLijst", lessenLijst);
-        return "LectorLessonOverview.jsp";
+        return "lectorLessen.jsp";
     }
 }

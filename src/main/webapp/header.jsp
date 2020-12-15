@@ -15,7 +15,13 @@
                     <a class="nav-link" href="Controller?command=Index">Home</a>
                 </li>
                 <li ${param.actual eq 'studentLessen'? 'class="nav-item active"':'class="nav-item"'}>
-                    <a class="nav-link" href="Controller?command=StudentLessen">Lessen</a>
+                    <a class="nav-link" href="Controller?command=StudentLessen">Student lessen</a>
+                </li>
+                <li ${param.actual eq 'lectorLessen'? 'class="nav-item active"':'class="nav-item"'}>
+                    <a class="nav-link" href="Controller?command=LectorLessen">Lector lessen</a>
+                </li>
+                <li ${param.actual eq 'lectorOverzichtStudenten'? 'class="nav-item active"':'class="nav-item"'}>
+                    <a class="nav-link" href="Controller?command=LectorOverviewStudents">Studenten</a>
                 </li>
             </ul>
         </div>

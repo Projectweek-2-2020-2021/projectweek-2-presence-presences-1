@@ -20,17 +20,17 @@
     <div class="table-responsive">
         <table class="table">
             <tr>
-                <th>Naam</th>
+                <th>Vak</th>
                 <th>Studiepunten</th>
                 <th>Studierichting</th>
                 <th>Aanwezig?</th>
             </tr>
-            <c:forEach var="lesson" items="${lessonLijst}">
+            <c:forEach var="les" items="${lessenLijst}">
                 <tr>
-                    <td><c:out value="${lesson.naam}"/></td>
-                    <td><c:out value="${lesson.studiepunten}"/></td>
-                    <td><c:out value="${lesson.studierichting}"/></td>
-                    <td><a href="Controller?command=AanwezigheidControle&naam=${lesson.naam}">Aanwezig</a></td>
+                    <td><c:out value="${les.naam}"/></td>
+                    <td><c:out value="${les.studiepunten}"/></td>
+                    <td><c:out value="${les.studierichting}"/></td>
+                    <td><a href="Controller?command=AanwezigheidControle&naam=${les.naam}">Aanwezig</a></td>
                 </tr>
             </c:forEach>
         </table>

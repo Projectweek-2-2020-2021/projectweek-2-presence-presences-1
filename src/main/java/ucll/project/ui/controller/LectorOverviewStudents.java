@@ -16,6 +16,6 @@ class LectorOverviewStudents extends RequestHandler{
     @Override
     public String handleRequest(HttpServletRequest request, HttpServletResponse response) {
         //request.setAttribute("students", studentservice.getAll());
-        return "leerkrachtoverzichtstudenten.jsp";
+        return "lectorOverzichtStudenten.jsp";
     }
 }
