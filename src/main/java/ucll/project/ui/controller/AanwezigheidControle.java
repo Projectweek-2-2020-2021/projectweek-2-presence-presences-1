@@ -1,13 +1,13 @@
 package ucll.project.ui.controller;
 
-import ucll.project.domain.service.LessonService;
+import ucll.project.domain.service.ApplicatieService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class AanwezigheidControle extends RequestHandler {
-    public AanwezigheidControle(String command, LessonService lessonService) {
-        super(command, lessonService);
+    public AanwezigheidControle(String command, ApplicatieService applicatieService) {
+        super(command, applicatieService);
     }
 
     @Override

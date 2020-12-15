@@ -1,14 +1,14 @@
 package ucll.project.ui.controller;
 
-import ucll.project.domain.service.LessonService;
+import ucll.project.domain.service.ApplicatieService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class Index extends RequestHandler {
 
-    public Index(String command, LessonService lessonService) {
-        super(command, lessonService);
+    public Index(String command, ApplicatieService applicatieService) {
+        super(command, applicatieService);
     }
 
     @Override

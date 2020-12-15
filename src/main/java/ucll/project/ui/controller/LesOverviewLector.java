@@ -1,14 +1,14 @@
 package ucll.project.ui.controller;
 
 
-import ucll.project.domain.service.LessonService;
+import ucll.project.domain.service.ApplicatieService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class LesOverviewLector extends RequestHandler {
 
-    public LesOverviewLector(String command, LessonService countryService) {
+    public LesOverviewLector(String command, ApplicatieService countryService) {
         super(command, countryService);
     }
 

@@ -1,26 +1,25 @@
 package ucll.project.domain.service;
 
-import org.junit.*;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.FixMethodOrder;
+import org.junit.Test;
 import org.junit.runners.MethodSorters;
-import ucll.project.domain.db.DbException;
-import ucll.project.domain.model.Lesson;
 import ucll.project.util.DbConnectionService;
-
-import static org.junit.Assert.assertEquals;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 
-public class LessonServiceTest {
-    LessonService service = new LessonService();
+public class ApplicatieServiceTest {
+    ApplicatieService service = new ApplicatieService();
 
 
     @Before
-    public void setup(){
+    public void setup() {
         DbConnectionService.connect();
     }
 
     @Test
-    public void E_disconnect(){
+    public void E_disconnect() {
         DbConnectionService.disconnect();
     }
 

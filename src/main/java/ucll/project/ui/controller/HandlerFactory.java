@@ -1,6 +1,6 @@
 package ucll.project.ui.controller;
 
-import ucll.project.domain.service.LessonService;
+import ucll.project.domain.service.ApplicatieService;
 
 public class HandlerFactory {
 
@@ -8,13 +8,13 @@ public class HandlerFactory {
 
     }
 
-    public RequestHandler getHandler(String command, LessonService lessonService) {
+    public RequestHandler getHandler(String command, ApplicatieService applicatieService) {
         RequestHandler handler = null;
         try {
             Class handlerClass = Class.forName("ucll.project.ui.controller." + command);
-            Object handlerObject = handlerClass.getConstructor(String.class, LessonService.class).newInstance(command, lessonService);
+            Object handlerObject = handlerClass.getConstructor(String.class, ApplicatieService.class).newInstance(command, applicatieService);
             handler = (RequestHandler) handlerObject;
-        } catch (ClassNotFoundException e){
+        } catch (ClassNotFoundException e) {
             throw new ControllerException(e.getMessage());
         } catch (Exception e) {
             throw new ControllerException(e.getMessage());

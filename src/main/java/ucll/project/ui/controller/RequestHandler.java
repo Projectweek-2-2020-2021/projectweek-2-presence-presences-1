@@ -1,6 +1,6 @@
 package ucll.project.ui.controller;
 
-import ucll.project.domain.service.LessonService;
+import ucll.project.domain.service.ApplicatieService;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,21 +9,21 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public abstract class RequestHandler {
-    private LessonService lessonService;
+    private ApplicatieService applicatieService;
 
-    public RequestHandler(String command, LessonService lessonService) {
-        setLessonService(lessonService);
+    public RequestHandler(String command, ApplicatieService applicatieService) {
+        setApplicatieService(applicatieService);
     }
 
-    public LessonService getLessonService() {
-        return lessonService;
+    public ApplicatieService getApplicatieService() {
+        return applicatieService;
     }
 
-    private void setLessonService(LessonService lessonService) {
-        if (lessonService == null) {
+    private void setApplicatieService(ApplicatieService applicatieService) {
+        if (applicatieService == null) {
             throw new ControllerException("Lesson service cannot be null.");
         }
-        this.lessonService = lessonService;
+        this.applicatieService = applicatieService;
     }
 
     public abstract String handleRequest(HttpServletRequest request, HttpServletResponse response);
