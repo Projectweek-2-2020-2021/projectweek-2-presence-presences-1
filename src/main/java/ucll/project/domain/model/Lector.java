@@ -3,6 +3,8 @@ package ucll.project.domain.model;
 public class Lector {
     private String voornaam, achternaam, lectorennummer;
 
+    public Lector() {}
+
     public Lector(String voornaam, String achternaam, String lectorennummer){
         setVoornaam(voornaam);
         setAchternaam(achternaam);

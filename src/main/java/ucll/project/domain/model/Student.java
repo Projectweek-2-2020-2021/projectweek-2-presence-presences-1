@@ -1,14 +1,14 @@
 package ucll.project.domain.model;
 
 public class Student {
-    private String rnummer, naam, voornaam, email, adres, telefoonNummer;
+    private String rnummer, naam, voornaam, email, adres, telefoonNummer, wachtwoord;
     private boolean aanwezig;
 
     public Student() {
 
     }
 
-    public Student(String rnummer, String naam, String voornaam, String email, String adres, String telefoonNummer, boolean aanwezig) {
+    public Student(String rnummer, String naam, String voornaam, String email, String adres, String telefoonNummer, boolean aanwezig, String wachtwoord) {
         setRNummer(rnummer);
         setNaam(naam);
         setVoornaam(voornaam);
@@ -16,6 +16,17 @@ public class Student {
         setAdres(adres);
         setTelefoonNummer(telefoonNummer);
         setAanwezig(aanwezig);
+        setWachtwoord(wachtwoord);
+    }
+
+    public void setWachtwoord(String wachtwoord) {
+        if (wachtwoord.isEmpty()) throw new DomainException("Wachtwoord mag niet leeg zijn");
+        this.wachtwoord = wachtwoord;
+    }
+
+    public boolean isCorrectWachtwoord(String wachtwoord) {
+        if (wachtwoord.isEmpty()) throw new DomainException("Wachtwoord is fout!");
+        return this.wachtwoord.equals(wachtwoord);
     }
 
     public void setRNummer(String rnummer) {

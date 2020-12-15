@@ -44,6 +44,10 @@ public class ApplicationService {
 
     }
 
+    public Student getStudent(String rnummer) {
+        return dbstudent.getStudent(rnummer);
+    }
+
     public int getVakId(String vaknaam){
         return db.getLesId(vaknaam);
     }
