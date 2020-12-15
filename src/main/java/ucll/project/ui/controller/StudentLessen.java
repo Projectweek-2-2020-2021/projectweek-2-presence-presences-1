@@ -15,7 +15,7 @@ public class StudentLessen extends RequestHandler {
 
     @Override
     public String handleRequest(HttpServletRequest request, HttpServletResponse response) {
-        List<Lesson> lessonLijst = getApplicatieService().getLessons();
+        List<Lesson> lessonLijst = getApplicationService().getLessons();
         request.setAttribute("lessonLijst", lessonLijst);
         return "studentLessen.jsp";
     }

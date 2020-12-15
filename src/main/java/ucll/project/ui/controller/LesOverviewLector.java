@@ -15,7 +15,7 @@ public class LesOverviewLector extends RequestHandler {
 
     @Override
     public String handleRequest(HttpServletRequest request, HttpServletResponse response) {
-        List<Lesson> lessenLijst = getCountryService().getLessonForLector("u1234567");
+        List<Lesson> lessenLijst = getApplicationService().getLessonForLector("u1234567");
         request.setAttribute("lessenLijst", lessenLijst);
         return "LectorLessonOverview.jsp";
     }
