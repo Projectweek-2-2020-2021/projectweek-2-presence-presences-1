@@ -13,32 +13,33 @@
 </head>
 <body>
 <jsp:include page="header.jsp"/>
-<main id="container">
-    <table>
-        <tr>
-            <th>r-Nummer</th>
-            <th>Voornaam</th>
-            <th>Achternaam</th>
-            <th>Status</th>
-        </tr>
-        <c:forEach items="${studentspervak}" var="student" >
+<main class="container">
+    <div class="table-responsive">
+        <table class="table">
             <tr>
-                <td><c:out value='${student.rnummer}'/></td>
-                <td><c:out value='${student.voornaam}'/></td>
-                <td><c:out value='${student.naam}'/></td>
-                <c:choose>
-                    <c:when test="${aanwezig}">
-                        <td>aanwezig</td>
-                    </c:when>
-                    <c:otherwise>
-                        <td>Niet aanwezig</td>
-                    </c:otherwise>
-                </c:choose>
+                <th>r-Nummer</th>
+                <th>Voornaam</th>
+                <th>Achternaam</th>
+                <th>Status</th>
             </tr>
-        </c:forEach>
-
-        <caption>Students overview</caption>
-    </table>
+            <c:forEach items="${studentspervak}" var="student">
+                <tr>
+                    <td><c:out value='${student.rnummer}'/></td>
+                    <td><c:out value='${student.voornaam}'/></td>
+                    <td><c:out value='${student.naam}'/></td>
+                    <c:choose>
+                        <c:when test="${aanwezig}">
+                            <td>aanwezig</td>
+                        </c:when>
+                        <c:otherwise>
+                            <td>Niet aanwezig</td>
+                        </c:otherwise>
+                    </c:choose>
+                </tr>
+            </c:forEach>
+            <caption>Studentenoverzicht</caption>
+        </table>
+    </div>
     <jsp:include page="footer.jsp"/>
 </main>
 <script src="vendor/jquery/jquery.slim.min.js"></script>
