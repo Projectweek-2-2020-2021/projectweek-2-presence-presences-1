@@ -22,9 +22,11 @@ class LectorOverzichtStudenten extends RequestHandler {
         Utility.checkRoles(request, roles);
         String vak = request.getParameter("vaknaam");
         int id = getApplicationService().getVakId(vak);
-        List<Student> students;
-        students = getApplicationService().getStudentPerVak(id);
-        request.setAttribute("studentspervak", students);
+        List<Student> aanwezig = getApplicationService().getAllAanwezigheid(id);
+        List<Student> afwezig = getApplicationService().getAllNietAanwezigheid(id);
+        request.setAttribute("les", vak);
+        request.setAttribute("aanwezig", aanwezig);
+        request.setAttribute("afwezig", afwezig);
 
         return "lectorOverzichtStudenten.jsp";
     }

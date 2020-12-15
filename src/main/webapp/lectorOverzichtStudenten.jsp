@@ -14,30 +14,52 @@
 <body>
 <jsp:include page="header.jsp"/>
 <main class="container">
+    <p>Dit zijn de studenten voor het vak <c:out value="${les}"/></p>
     <div class="table-responsive">
         <table class="table">
             <tr>
                 <th>r-Nummer</th>
                 <th>Voornaam</th>
                 <th>Achternaam</th>
-                <th>Status</th>
+                <th>Bevestig</th>
+                <th>Wijs af</th>
             </tr>
-            <c:forEach items="${studentspervak}" var="student">
+            <c:forEach items="${aanwezig}" var="student">
                 <tr>
                     <td><c:out value='${student.rnummer}'/></td>
                     <td><c:out value='${student.voornaam}'/></td>
                     <td><c:out value='${student.naam}'/></td>
-                    <c:choose>
-                        <c:when test="${aanwezig}">
-                            <td>aanwezig</td>
-                        </c:when>
-                        <c:otherwise>
-                            <td>Niet aanwezig</td>
-                        </c:otherwise>
-                    </c:choose>
+                    <td>
+                        <form action="Controller?command=Bevestig&bevestiging=ja&student=${student.rnummer}&les=${les}" method="post">
+                            <input type="submit" value="Bevestigen">
+                        </form>
+                    </td>
+                    <td>
+                        <form action="Controller?command=Bevestig&bevestiging=nee&student=${student.rnummer}&les=${les}" method="post">
+                            <input type="submit" value="Afwijzen">
+                        </form>
+                    </td>
+                    </tr>
+            </c:forEach>
+            <caption>Aanwezigheden Studentenoverzicht</caption>
+        </table>
+    </div>
+    <div class="table-responsive">
+        <table class="table">
+            <tr>
+                <th>r-Nummer</th>
+                <th>Voornaam</th>
+                <th>Achternaam</th>
+
+            </tr>
+            <c:forEach items="${afwezig}" var="student">
+                <tr>
+                    <td><c:out value='${student.rnummer}'/></td>
+                    <td><c:out value='${student.voornaam}'/></td>
+                    <td><c:out value='${student.naam}'/></td>
                 </tr>
             </c:forEach>
-            <caption>Studentenoverzicht</caption>
+            <caption>Afwezigheden Studentenoverzicht</caption>
         </table>
     </div>
     <jsp:include page="footer.jsp"/>

@@ -1,13 +1,10 @@
 package ucll.project.domain.db;
 
+import ucll.project.domain.model.Lesson;
 import ucll.project.domain.model.Student;
 import ucll.project.util.DbConnectionService;
 
-import java.security.NoSuchAlgorithmException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,9 +25,9 @@ public class StudentDBSQL implements StudentDB {
             PreparedStatement statementSql = connection.prepareStatement(sql);
             ResultSet result = statementSql.executeQuery();
             while (result.next()) {
-                students.add(makeStudent(result));
+                makeStudent(result, students);
             }
-        } catch (SQLException | NoSuchAlgorithmException e) {
+        } catch (SQLException e) {
             throw new DbException(e.getMessage(), e);
         }
         return students;
@@ -64,9 +61,9 @@ public class StudentDBSQL implements StudentDB {
             preparedStatement.setInt(1, id);
             ResultSet resultset = preparedStatement.executeQuery();
             while (resultset.next()){
-                students.add(makeStudent(resultset));
+                makeStudent(resultset, students);
             }
-        }catch (SQLException | NoSuchAlgorithmException e){
+        }catch (SQLException e){
             throw new DbException(e.getMessage());
         }
         return students;
@@ -74,19 +71,22 @@ public class StudentDBSQL implements StudentDB {
 
     @Override
     public Student getStudent(String rnummer) {
+        List<Student> students = new ArrayList<>();
         String sql = "select * from student where r_nummer = ?";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, rnummer);
             ResultSet resultset = preparedStatement.executeQuery();
-            resultset.next();
-            return makeStudent(resultset);
-        } catch (SQLException | NoSuchAlgorithmException e) {
-            throw new DbException("Student bestaat niet!");
+            while (resultset.next()){
+                makeStudent(resultset, students);
+            }
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage());
         }
+        return students.get(0);
     }
 
-    private Student makeStudent(ResultSet result) throws SQLException, NoSuchAlgorithmException {
+    private void makeStudent(ResultSet result, List<Student> students) throws SQLException {
         String naam = result.getString("naam");
         String rnummer = result.getString("r_nummer");
         String voornaam = result.getString("voornaam");
@@ -94,9 +94,27 @@ public class StudentDBSQL implements StudentDB {
         String adres = result.getString("adres");
         String telefoonNummer = result.getString("telefoonnummer");
         String wachtwoord = result.getString("wachtwoord");
-        return new Student(rnummer, naam, voornaam, email, adres, telefoonNummer, wachtwoord);
+        Student student = new Student(rnummer, naam, voornaam, email, adres, telefoonNummer, wachtwoord);
+        students.add(student);
     }
 
+    @Override
+    public int getStudentId(String rnummer) {
+        String sql = "SELECT id FROM " + this.schema + ".student" + " WHERE r_nummer = ?";
+        int id = 0;
+        try {
+            PreparedStatement statementsql = connection.prepareStatement(sql);
+            statementsql.setString(1, rnummer);
+            ResultSet result = statementsql.executeQuery();
+            while (result.next()){
+                id = result.getInt("id");
+            }
+        }catch (SQLException e){
+            throw new DbException(e.getMessage());
+        }
+
+        return id;
+    }
 
 
 }

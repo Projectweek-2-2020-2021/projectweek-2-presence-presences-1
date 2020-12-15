@@ -56,4 +56,20 @@ public class ApplicationService {
     public void zetAanwezigheid(String aanwezigheid, int studentId, int lesId) {
         dbLesStudent.zetAanwezigheid(aanwezigheid, studentId, lesId);
     }
+
+    public List<Student> getAllAanwezigheid(int lesId) {
+        return dbLesStudent.getAllAanwezigheid(lesId);
+    }
+
+    public List<Student> getAllNietAanwezigheid(int lesId) {
+        return dbLesStudent.getAllNietAanwezigheid(lesId);
+    }
+
+    public void zetBevestiging(String aanwezigheid, int studentId, int lesId) {
+        dbLesStudent.zetBevestiging(aanwezigheid, studentId, lesId);
+    }
+
+    public int getStudentId(String rnummer) {
+        return dbStudent.getStudentId(rnummer);
+    }
 }
