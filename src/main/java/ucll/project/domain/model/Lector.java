@@ -1,12 +1,16 @@
 package ucll.project.domain.model;
 
 public class Lector {
-    private String voornaam, achternaam, lectorennummer;
+    private String voornaam, achternaam, lectorennummer, wachtwoord;
 
-    public Lector(String voornaam, String achternaam, String lectorennummer){
+    public Lector() {
+    }
+
+    public Lector(String voornaam, String achternaam, String lectorennummer, String wachtwoord) {
         setVoornaam(voornaam);
         setAchternaam(achternaam);
         setLectorennummer(lectorennummer);
+        setWachtwoord(wachtwoord);
     }
 
     public String getVoornaam() {
@@ -27,13 +31,25 @@ public class Lector {
     }
 
     public void setAchternaam(String achternaam) {
-        if (achternaam == null || achternaam.trim().isEmpty()) throw new DomainException("Geef een geldige achternaam.");
+        if (achternaam == null || achternaam.trim().isEmpty())
+            throw new DomainException("Geef een geldige achternaam.");
         this.achternaam = achternaam;
     }
 
     public void setLectorennummer(String lectorennummer) {
-        if (lectorennummer == null || lectorennummer.trim().isEmpty()) throw new DomainException("Geef een geldig lectorennummer.");
-        if (lectorennummer.toLowerCase().charAt(0) != 'u' || lectorennummer.length() != 8) throw new DomainException("Uw lectorennummer moet van het formaat 'u1234567' zijn.");
+        if (lectorennummer == null || lectorennummer.trim().isEmpty())
+            throw new DomainException("Geef een geldig lectorennummer.");
+        if (lectorennummer.toLowerCase().charAt(0) != 'u' || lectorennummer.length() != 8)
+            throw new DomainException("Uw lectorennummer moet van het formaat 'u1234567' zijn.");
         this.lectorennummer = lectorennummer;
+    }
+
+    public void setWachtwoord(String wachtwoord) {
+        if (wachtwoord.isEmpty()) throw new DomainException("Wachtwoord is leeg!");
+        this.wachtwoord = wachtwoord;
+    }
+
+    public boolean isCorrectWachtwoord(String wachtwoord) {
+        return this.wachtwoord.equals(wachtwoord);
     }
 }

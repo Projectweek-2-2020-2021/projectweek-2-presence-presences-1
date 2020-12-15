@@ -1,6 +1,5 @@
 package ucll.project.domain.db;
 
-import ucll.project.domain.model.Lesson;
 import ucll.project.domain.model.Student;
 import ucll.project.util.DbConnectionService;
 
@@ -28,7 +27,7 @@ public class StudentDBSQL implements StudentDB {
             PreparedStatement statementSql = connection.prepareStatement(sql);
             ResultSet result = statementSql.executeQuery();
             while (result.next()) {
-                makeStudent(result, students);
+                students.add(makeStudent(result));
             }
         } catch (SQLException e) {
             throw new DbException(e.getMessage(), e);
@@ -64,7 +63,7 @@ public class StudentDBSQL implements StudentDB {
             preparedStatement.setInt(1, id);
             ResultSet resultset = preparedStatement.executeQuery();
             while (resultset.next()){
-                makeStudent(resultset, students);
+                students.add(makeStudent(resultset));
             }
         }catch (SQLException e){
             throw new DbException(e.getMessage());
@@ -72,16 +71,30 @@ public class StudentDBSQL implements StudentDB {
         return students;
     }
 
-    private void makeStudent(ResultSet result, List<Student> students) throws SQLException {
+    @Override
+    public Student getStudent(String rnummer) {
+        String sql = "select * from student where r_nummer = ?";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, rnummer);
+            ResultSet resultset = preparedStatement.executeQuery();
+            resultset.next();
+            return makeStudent(resultset);
+        } catch (SQLException e) {
+            throw new DbException("Student bestaat niet!");
+        }
+    }
+
+    private Student makeStudent(ResultSet result) throws SQLException {
         String naam = result.getString("naam");
         String rnummer = result.getString("r_nummer");
         String voornaam = result.getString("voornaam");
         String email = result.getString("email");
         String adres = result.getString("adres");
         String telefoonNummer = result.getString("telefoonnummer");
-        boolean aanwezig = result.getBoolean("aanwezig?");
-        Student student = new Student(rnummer, naam, voornaam, email, adres, telefoonNummer, aanwezig);
-        students.add(student);
+        boolean aanwezig = result.getBoolean("aanwezig");
+        String wachtwoord = result.getString("wachtwoord");
+        return new Student(rnummer, naam, voornaam, email, adres, telefoonNummer, aanwezig, wachtwoord);
     }
 
 

@@ -15,7 +15,41 @@
 </jsp:include>
 <main class="container">
     <p class="lead">Welkom bij de demonstratie hoofdpagina! <br>
-        Gebruik bovenstaande navigatie om naar de gewenste pagina te gaan.</p>
+        Gelieve u aan te melden hieronder. </p>
+    <c:if test="${not empty errors}">
+        <div class="alert-danger">
+            <ul>
+                <c:forEach var="error" items="errors">
+                    <li><c:out value="${error}"/></li>
+                </c:forEach>
+            </ul>
+        </div>
+    </c:if>
+    <c:choose>
+        <c:when test="${not empty loggedIn}">
+            <p>Welkom <c:out value="${loggedIn.voornaam}"/></p>
+            <form action="Controller?command=Afmelden" method="POST" novalidate>
+                <button type="submit" class="btn btn-primary">Afmelden</button>
+            </form>
+        </c:when>
+        <c:otherwise>
+            <form action="Controller?command=Aanmelden" method="POST" novalidate>
+                <div class="form-group">
+                    <label for="gebruikersnaam">ID:</label>
+                    <input type="text" class="form-control" style="width: auto" id="gebruikersnaam"
+                           name="gebruikersnaam" placeholder="rXXXXXXX" required>
+                    <small id="gebruikersnaamHulp" class="form-text text-muted">Gelieve uw R of U nummer te
+                        geven.</small>
+                </div>
+                <div class="form-group">
+                    <label for="wachtwoord">Wachtwoord:</label>
+                    <input type="password" class="form-control" style="width: auto" id="wachtwoord" name="wachtwoord"
+                           required>
+                </div>
+                <button type="submit" class="btn btn-primary">Aanmelden</button>
+            </form>
+        </c:otherwise>
+    </c:choose>
 </main>
 </body>
 </html>

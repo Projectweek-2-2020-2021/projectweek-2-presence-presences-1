@@ -1,5 +1,7 @@
 package ucll.project.domain.db;
 
+import ucll.project.domain.model.Lector;
+
 public interface LectorDB {
-    //Nog niet persé implementaties nodig, maar de klasse kan nuttig zijn indien nodig.
+    Lector getLector(String unummer);
 }
