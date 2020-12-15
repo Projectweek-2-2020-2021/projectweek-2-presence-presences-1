@@ -16,8 +16,17 @@
 <main class="container">
     <p class="lead">Welkom bij de demonstratie hoofdpagina! <br>
         Gelieve u aan te melden hieronder. </p>
+    <c:if test="${not empty notAuthorizedError}">
+        <div class="row">
+            <div class="alert alert-danger col-6" role="alert">
+                <ul>
+                    <li><c:out value="${notAuthorizedError}"/></li>
+                </ul>
+            </div>
+        </div>
+    </c:if>
     <c:if test="${not empty errors}">
-        <div class="alert-danger">
+        <div class="alert alert-danger" role="alert">
             <ul>
                 <c:forEach var="error" items="${errors}">
                     <li><c:out value="${error}"/></li>
