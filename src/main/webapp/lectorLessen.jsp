@@ -33,6 +33,7 @@
                     <td><a href="Controller?command=LectorOverviewStudents&vaknaam=<c:out value="${les.naam}"/>">hier</a></td>
                 </tr>
             </c:forEach>
+            <caption>Lessen voor lector</caption>
         </table>
     </div>
 </main>

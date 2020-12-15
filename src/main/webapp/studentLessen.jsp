@@ -33,6 +33,7 @@
                     <td><a href="Controller?command=AanwezigheidControle&naam=${les.naam}">Aanwezig</a></td>
                 </tr>
             </c:forEach>
+            <caption>Lessen voor student</caption>
         </table>
     </div>
 </main>
