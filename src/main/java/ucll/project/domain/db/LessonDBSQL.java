@@ -24,7 +24,9 @@ public class LessonDBSQL implements LessonDB {
      * Returns a list with all countries stored in the database
      * @return An arraylist with all countries stored in the database
      * @throws DbException when there are problems with the connection to the database
+     * Indeed
      */
+
     @Override
     public List<Lesson> getAll() {
         List<Lesson> lessons = new ArrayList<>();
