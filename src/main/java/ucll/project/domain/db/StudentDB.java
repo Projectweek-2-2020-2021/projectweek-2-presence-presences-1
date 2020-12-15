@@ -28,5 +28,6 @@ public interface StudentDB {
 
     List<Student> getStudentenPerVak(int id);
 
+    Student getStudent(String rnummer);
 
 }
