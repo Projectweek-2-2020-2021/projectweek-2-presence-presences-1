@@ -1,16 +1,16 @@
 package ucll.project.ui.controller;
 
 
-import ucll.project.domain.service.LessonService;
+import ucll.project.domain.service.ApplicationService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-class OverviewTeacherStudents extends RequestHandler{
+class LectorOverviewStudents extends RequestHandler{
 
 
-    public OverviewTeacherStudents(String command, LessonService lessonService) {
-        super(command, lessonService);
+    public LectorOverviewStudents(String command, ApplicationService applicationService) {
+        super(command, applicationService);
     }
 
     @Override
