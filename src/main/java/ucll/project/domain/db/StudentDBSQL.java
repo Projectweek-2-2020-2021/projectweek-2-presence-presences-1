@@ -93,12 +93,28 @@ public class StudentDBSQL implements StudentDB {
         String email = result.getString("email");
         String adres = result.getString("adres");
         String telefoonNummer = result.getString("telefoonnummer");
-        boolean aanwezig = result.getBoolean("aanwezig");
         String wachtwoord = result.getString("wachtwoord");
-        Student student = new Student(rnummer, naam, voornaam, email, adres, telefoonNummer, aanwezig, wachtwoord);
+        Student student = new Student(rnummer, naam, voornaam, email, adres, telefoonNummer, wachtwoord);
         students.add(student);
     }
 
+    @Override
+    public int getStudentId(String rnummer) {
+        String sql = "SELECT id FROM " + this.schema + ".student" + " WHERE r_nummer = ?";
+        int id = 0;
+        try {
+            PreparedStatement statementsql = connection.prepareStatement(sql);
+            statementsql.setString(1, rnummer);
+            ResultSet result = statementsql.executeQuery();
+            while (result.next()){
+                id = result.getInt("id");
+            }
+        }catch (SQLException e){
+            throw new DbException(e.getMessage());
+        }
+
+        return id;
+    }
 
 
 }

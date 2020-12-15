@@ -30,4 +30,5 @@ public interface StudentDB {
 
     Student getStudent(String rnummer);
 
+     int getStudentId(String rnummer);
 }
