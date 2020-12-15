@@ -30,8 +30,9 @@
                 </c:if>
                 <c:if test="${not empty loggedIn}">
                     <li>
-                        <form style="margin-bottom: 0" action="Controller?command=Afmelden" method="POST" novalidate>
-                            <button type="submit" class="btn btn-primary">Afmelden</button>
+                        <form style="margin-bottom: 0;" action="Controller?command=Afmelden" method="POST" novalidate>
+                            <button type="submit" class="btn btn-primary" style="background-color: #343a40;"><strong>Afmelden</strong>
+                            </button>
                         </form>
                     </li>
                 </c:if>
