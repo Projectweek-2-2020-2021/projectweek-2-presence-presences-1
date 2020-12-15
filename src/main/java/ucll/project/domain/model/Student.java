@@ -23,7 +23,6 @@ public class Student {
     }
 
     public boolean isCorrectWachtwoord(String wachtwoord) {
-        if (wachtwoord.isEmpty()) throw new DomainException("Wachtwoord is fout!");
         return this.wachtwoord.equals(wachtwoord);
     }
 
@@ -92,7 +91,6 @@ public class Student {
         }
         this.telefoonNummer = telefoonNummer;
     }
-
 
     @Override
     public String toString() {
