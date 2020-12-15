@@ -21,11 +21,11 @@
             <th>Achternaam</th>
             <th>Status</th>
         </tr>
-        <c:forEach var="student" items="${students}">
+        <c:forEach items="${studentspervak}" var="student" >
             <tr>
                 <td><c:out value='${student.rnummer}'/></td>
-                <td><c:out value='${student.firstName}'/></td>
-                <td><c:out value='${student.lastName}'/></td>
+                <td><c:out value='${student.voornaam}'/></td>
+                <td><c:out value='${student.naam}'/></td>
                 <c:choose>
                     <c:when test="${aanwezig}">
                         <td>aanwezig</td>

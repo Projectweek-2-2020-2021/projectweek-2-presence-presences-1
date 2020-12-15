@@ -58,7 +58,7 @@ public class StudentDBSQL implements StudentDB {
     @Override
     public List<Student> getStudentenPerVak(int id) {
         List<Student> students = new ArrayList<>();
-        String sql = "select * from student inner join lesstudent on student.id = lesstudent.studentid inner join les on les.id = lesstudent.lesid where les.id = ?";
+        String sql = "select * from student inner join lesstudent on student.id = lesstudent.studentid inner join les on les.id = lesstudent.lesid where les.id = ?;";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, id);
@@ -73,8 +73,14 @@ public class StudentDBSQL implements StudentDB {
     }
 
     private void makeStudent(ResultSet result, List<Student> students) throws SQLException {
-        String name = result.getString("naam");
-        Student student = new Student();
+        String naam = result.getString("naam");
+        String rnummer = result.getString("r_nummer");
+        String voornaam = result.getString("voornaam");
+        String email = result.getString("email");
+        String adres = result.getString("adres");
+        String telefoonNummer = result.getString("telefoonnummer");
+        boolean aanwezig = result.getBoolean("aanwezig?");
+        Student student = new Student(rnummer, naam, voornaam, email, adres, telefoonNummer, aanwezig);
         students.add(student);
     }
 
