@@ -1,10 +1,12 @@
 package ucll.project.domain.db;
 
-import ucll.project.domain.model.DomainException;
 import ucll.project.domain.model.Lesson;
 import ucll.project.util.DbConnectionService;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +24,9 @@ public class LessonDBSQL implements LessonDB {
      * Returns a list with all countries stored in the database
      * @return An arraylist with all countries stored in the database
      * @throws DbException when there are problems with the connection to the database
+     * Indeed
      */
+
     @Override
     public List<Lesson> getAll() {
         List<Lesson> lessons = new ArrayList<>();
@@ -102,29 +106,4 @@ public class LessonDBSQL implements LessonDB {
         Lesson lesson = new Lesson(name, studiepunten, studierichting);
         lessons.add(lesson);
     }
-
-    //    /**
-//     * Stores the given country in the database
-//     *
-//     * @param country The country to be added
-//     * @throws DbException if the given country is null
-//     * @throws DbException if the given country can not be added
-//     */
-//    @Override
-//    public void add(Country country) {
-//        if (country == null) {
-//            throw new DbException("Nothing to add");
-//        }
-//        String sql = "INSERT INTO "+this.schema+".country (name, capital, inhabitants, votes) VALUES (?, ?, ?, ?)";
-//        try {
-//            PreparedStatement statementSQL = connection.prepareStatement(sql);
-//            statementSQL.setString(1, country.getName());
-//            statementSQL.setString(2, country.getCapital());
-//            statementSQL.setInt(3, country.getNumberInhabitants());
-//            statementSQL.setInt(4, country.getVotes());
-//            statementSQL.execute();
-//        } catch (SQLException e) {
-//            throw new DbException(e);
-//        }
-//    }
 }

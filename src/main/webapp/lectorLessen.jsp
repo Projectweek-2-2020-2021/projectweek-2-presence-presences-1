@@ -23,12 +23,14 @@
                 <th>Vak</th>
                 <th>Studiepunten</th>
                 <th>Studierichting</th>
+                <th>Studenten van vak</th>
             </tr>
             <c:forEach var="les" items="${lessenLijst}">
                 <tr>
                     <td><c:out value="${les.naam}"/></td>
                     <td><c:out value="${les.studiepunten}"/></td>
                     <td><c:out value="${les.studierichting}"/></td>
+                    <td><a href="Controller?command=LectorOverviewStudents&vaknaam=<c:out value="${les.naam}"/>">hier</a></td>
                 </tr>
             </c:forEach>
         </table>

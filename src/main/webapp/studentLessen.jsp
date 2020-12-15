@@ -12,26 +12,31 @@
 </head>
 <body>
 
-<jsp:include page="header.jsp"/>
+<jsp:include page="header.jsp">
+    <jsp:param name="actual" value="studentLessen"/>
+</jsp:include>
 
 <main class="container">
-    <table class="table-striped">
-        <tr>
-            <th>Name</th>
-            <th>zie studenten</th>
-        </tr>
-        <c:forEach var="lesson" items="${lessonLijst}">
+    <div class="table-responsive">
+        <table class="table">
             <tr>
-                <td><c:out value="${lesson.name}"/></td>
-                <td><a href="Controller?command=LectorOverviewStudents&lesson=${lesson.name}">hier</a></td>
+                <th>Vak</th>
+                <th>Studiepunten</th>
+                <th>Studierichting</th>
+                <th>Aanwezig?</th>
             </tr>
-        </c:forEach>
-    </table>
+            <c:forEach var="les" items="${lessenLijst}">
+                <tr>
+                    <td><c:out value="${les.naam}"/></td>
+                    <td><c:out value="${les.studiepunten}"/></td>
+                    <td><c:out value="${les.studierichting}"/></td>
+                    <td><a href="Controller?command=AanwezigheidControle&naam=${les.naam}">Aanwezig</a></td>
+                </tr>
+            </c:forEach>
+        </table>
+    </div>
 </main>
 
 <jsp:include page="footer.jsp"/>
-
-<script src="vendor/jquery/jquery.slim.min.js"></script>
-<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
