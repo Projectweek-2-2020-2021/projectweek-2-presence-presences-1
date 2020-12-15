@@ -18,10 +18,10 @@
 
 <main class="container">
     <div class="table-responsive">
-        <c:forEach var="datum" items="datums">
+        <c:forEach var="datum" items="${datums}">
             <table class="table table-hover">
                 <tr>
-                    <th>Datum</th>
+                    <th><c:out value="${datum}"/></th>
                     <th>info</th>
                     <th>Leerkracht</th>
                 </tr>
@@ -31,28 +31,11 @@
                         <td><c:out value="${les.naam}"/>, dit vak heeft <c:out value="${les.studiepunten}"/> studiepunten
                             in de richting <c:out value="${les.studierichting}"/></td>
                         <!--<td><a href="Controller?command=AanwezigheidControle&naam=${les.naam}">Aanwezig</a></td> !-->
-                        <td><c:out value="${leerkracht}"></c:out></td>
+                        <td><c:out value="${leerkracht}"/></td>
                     </tr>
                 </c:forEach>
             </table>
         </c:forEach>
-        <table class="table">
-            <tr>
-                <th>Vak</th>
-                <th>Studiepunten</th>
-                <th>Studierichting</th>
-                <th>Aanwezig?</th>
-            </tr>
-            <c:forEach var="les" items="${lessenLijst}">
-                <tr>
-                    <td><c:out value="${les.naam}"/></td>
-                    <td><c:out value="${les.studiepunten}"/></td>
-                    <td><c:out value="${les.studierichting}"/></td>
-                    <td><a href="Controller?command=AanwezigheidControle&naam=${les.naam}">Aanwezig</a></td>
-                </tr>
-            </c:forEach>
-            <caption>Lessen voor student</caption>
-        </table>
     </div>
 </main>
 
