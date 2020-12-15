@@ -18,6 +18,9 @@
                     <a class="nav-link" href="Controller?command=LesOverviewLector">Lectoroverzicht</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="Controller?command=OverviewTeacherStudents">Home</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="#">Services</a>
                 </li>
                 <li class="nav-item">
