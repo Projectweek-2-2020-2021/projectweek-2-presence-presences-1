@@ -21,15 +21,15 @@
             <jsp:param name="actual" value="studentLessen"/>
         </jsp:include>
         <main class="container">
-            <p class="lead">Zet hier je aanwezigheid voor het vak <c:out value="vak"/></p>
-            <form action="Controller?ZetAanwezigheid" method="post" novalidate="novalidate">
+            <p class="lead">Zet hier je aanwezigheid voor het vak <c:out value="${naam}"/></p>
+            <form action="Controller?command=ZetAanwezigheid&les=${naam}" method="post" novalidate="novalidate">
                 <p>
                     <label for="ja">Ja</label>
-                    <input type="checkbox" id="ja" name="ja">
+                    <input type="radio" value="ja" id="ja" name="aanwezigheid">
                 </p>
                 <p>
                     <label for="nee">Nee</label>
-                    <input type="checkbox" id="nee" name="nee">
+                    <input type="radio" value="nee" id="nee" name="aanwezigheid" checked>
                 </p>
                 <p>
                     <input type="submit" id="submit" name="submit">

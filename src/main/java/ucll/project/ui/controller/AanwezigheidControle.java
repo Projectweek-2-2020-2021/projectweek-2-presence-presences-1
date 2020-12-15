@@ -13,6 +13,7 @@ public class AanwezigheidControle extends RequestHandler {
     @Override
     public String handleRequest(HttpServletRequest request, HttpServletResponse response) {
         String lesNaam = request.getParameter("naam");
+        request.setAttribute("naam", lesNaam);
         return "bevestigAanwezigheid.jsp";
     }
 }

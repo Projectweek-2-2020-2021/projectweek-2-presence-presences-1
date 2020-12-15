@@ -1,9 +1,6 @@
 package ucll.project.domain.service;
 
-import ucll.project.domain.db.LessonDB;
-import ucll.project.domain.db.LessonDBSQL;
-import ucll.project.domain.db.StudentDB;
-import ucll.project.domain.db.StudentDBSQL;
+import ucll.project.domain.db.*;
 import ucll.project.domain.model.Lesson;
 import ucll.project.domain.model.Student;
 
@@ -13,6 +10,7 @@ import java.util.List;
 public class ApplicationService {
     private LessonDB db = new LessonDBSQL();
     private StudentDB dbstudent = new StudentDBSQL();
+    private LesStudentDB dbLesStudent = new LesStudentDBSQL();
 //    public void addLesson(Lesson lesson) {
 //        db.add(lesson);
 //    }
@@ -46,5 +44,9 @@ public class ApplicationService {
 
     public int getVakId(String vaknaam){
         return db.getLesId(vaknaam);
+    }
+
+    public void zetAanwezigheid(String aanwezigheid, int studentId, int lesId) {
+        dbLesStudent.zetAanwezigheid(aanwezigheid, studentId, lesId);
     }
 }
