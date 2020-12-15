@@ -18,6 +18,24 @@
 
 <main class="container">
     <div class="table-responsive">
+        <c:forEach var="datum" items="datums">
+            <table class="table table-hover">
+                <tr>
+                    <th>Datum</th>
+                    <th>info</th>
+                    <th>Leerkracht</th>
+                </tr>
+                <c:forEach var="les" items="${lessenLijst}">
+                    <tr class="table-row" data-href="Controller?command=AanwezigheidControle&naam=<c:out value="${les.naam}"/>">
+                        <td><c:out value="${les.tijd}"/></td>
+                        <td><c:out value="${les.naam}"/>, dit vak heeft <c:out value="${les.studiepunten}"/> studiepunten
+                            in de richting <c:out value="${les.studierichting}"/></td>
+                        <!--<td><a href="Controller?command=AanwezigheidControle&naam=${les.naam}">Aanwezig</a></td> !-->
+                        <td><c:out value="${leerkracht}"></c:out></td>
+                    </tr>
+                </c:forEach>
+            </table>
+        </c:forEach>
         <table class="table">
             <tr>
                 <th>Vak</th>
@@ -37,6 +55,16 @@
         </table>
     </div>
 </main>
+
+
+<script>
+    $(document).ready(function($) {
+        $(".table-row").click(function() {
+            window.document.location = $(this).data("href");
+        });
+    });
+</script>
+
 
 <jsp:include page="footer.jsp"/>
 </body>

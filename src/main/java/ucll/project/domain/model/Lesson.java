@@ -5,13 +5,13 @@ import java.util.ArrayList;
 public class Lesson implements Comparable<Lesson> {
 
 	ArrayList<String> richtingen = new ArrayList<>();
-	private String naam, studierichting;
+	private String naam, studierichting, tijd;
 	private int studiepunten;
 
 	public Lesson() {
 	}
 
-	public Lesson(String naam, int studiepunten, String studierichting) {
+	public Lesson(String naam, int studiepunten, String studierichting, String tijd) {
 		setNaam(naam);
 		setStudiepunten(studiepunten);
 
@@ -19,6 +19,7 @@ public class Lesson implements Comparable<Lesson> {
 		richtingen.add("OM");
 		richtingen.add("BM");
 		setStudierichting(studierichting);
+		setTijd(tijd);
 	}
 
 	public String getStudierichting() {
@@ -53,6 +54,17 @@ public class Lesson implements Comparable<Lesson> {
 			throw new DomainException("Name may not be empty!");
 		}
 		this.naam = naam;
+	}
+
+	public void setTijd(String tijd) {
+		if (naam == null || naam.isEmpty()) {
+			throw new DomainException("Name may not be empty!");
+		}
+		this.tijd = tijd;
+	}
+
+	public String getTijd() {
+		return tijd;
 	}
 
 	@Override

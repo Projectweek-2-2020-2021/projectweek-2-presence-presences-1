@@ -103,7 +103,8 @@ public class LessonDBSQL implements LessonDB {
         String name = result.getString("naam");
         int studiepunten = Integer.parseInt(result.getString("studiepunten"));
         String studierichting = result.getString("studierichting");
-        Lesson lesson = new Lesson(name, studiepunten, studierichting);
+        String tijd = result.getString("tijd");
+        Lesson lesson = new Lesson(name, studiepunten, studierichting, tijd);
         lessons.add(lesson);
     }
 }
