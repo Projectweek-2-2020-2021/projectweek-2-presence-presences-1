@@ -5,21 +5,21 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
-import ucll.project.domain.service.LessonService;
+import ucll.project.domain.service.ApplicationService;
 
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertTrue;
 
 public class OverviewPageTest {
     private static WebDriver driver;
-    private static LessonService lessonService;
+    private static ApplicationService applicationService;
 
 
     @BeforeClass
     public static void SetupDriver() {
         // Setup the Chrome driver for the whole class
         driver = ChromeDriverHelper.getDriver();
-        lessonService = new LessonService();
+        applicationService = new ApplicationService();
 
     }
 
