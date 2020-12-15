@@ -1,6 +1,7 @@
 package ucll.project.ui.controller;
 
 
+import ucll.project.domain.model.Rol;
 import ucll.project.domain.model.Student;
 import ucll.project.domain.service.ApplicationService;
 
@@ -17,11 +18,15 @@ class LectorOverzichtStudenten extends RequestHandler {
 
     @Override
     public String handleRequest(HttpServletRequest request, HttpServletResponse response) {
+        Rol[] roles = new Rol[]{Rol.LECTOR};
+        Utility.checkRoles(request, roles);
         String vak = request.getParameter("vaknaam");
         int id = getApplicationService().getVakId(vak);
-        List<Student> students;
-        students = getApplicationService().getStudentPerVak(id);
-        request.setAttribute("studentspervak", students);
+        List<Student> aanwezig = getApplicationService().getAllAanwezigheid(id);
+        List<Student> afwezig = getApplicationService().getAllNietAanwezigheid(id);
+        request.setAttribute("les", vak);
+        request.setAttribute("aanwezig", aanwezig);
+        request.setAttribute("afwezig", afwezig);
 
         return "lectorOverzichtStudenten.jsp";
     }

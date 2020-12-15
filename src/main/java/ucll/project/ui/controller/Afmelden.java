@@ -12,6 +12,7 @@ public class Afmelden extends RequestHandler {
 
     @Override
     public String handleRequest(HttpServletRequest request, HttpServletResponse response) {
+        Utility.checkRoles(request, roles);
         request.getSession().invalidate();
         return "Controller?command=Index";
     }

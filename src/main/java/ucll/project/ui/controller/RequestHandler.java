@@ -1,5 +1,6 @@
 package ucll.project.ui.controller;
 
+import ucll.project.domain.model.Rol;
 import ucll.project.domain.service.ApplicationService;
 
 import javax.servlet.RequestDispatcher;
@@ -10,6 +11,7 @@ import java.io.IOException;
 
 public abstract class RequestHandler {
     private ApplicationService applicationService;
+    protected Rol[] roles = new Rol[]{Rol.STUDENT, Rol.LECTOR}; // Default rollen voor pagina's waar beide rollen in kunnen
 
     public RequestHandler(String command, ApplicationService applicationService) {
         setApplicationService(applicationService);
@@ -32,6 +34,4 @@ public abstract class RequestHandler {
         RequestDispatcher view = request.getRequestDispatcher(destination);
         view.forward(request, response);
     }
-
-
 }

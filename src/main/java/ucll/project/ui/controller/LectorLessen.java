@@ -1,6 +1,7 @@
 package ucll.project.ui.controller;
 
 import ucll.project.domain.model.Lesson;
+import ucll.project.domain.model.Rol;
 import ucll.project.domain.service.ApplicationService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,6 +16,8 @@ public class LectorLessen extends RequestHandler {
 
     @Override
     public String handleRequest(HttpServletRequest request, HttpServletResponse response) {
+        Rol[] roles = new Rol[]{Rol.LECTOR};
+        Utility.checkRoles(request, roles);
         List<Lesson> lessenLijst = getApplicationService().getLessonForLector("u1234567");
         request.setAttribute("lessenLijst", lessenLijst);
         return "lectorLessen.jsp";

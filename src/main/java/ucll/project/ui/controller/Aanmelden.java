@@ -41,6 +41,7 @@ public class Aanmelden extends RequestHandler {
             if (student != null && student.isCorrectWachtwoord(wachtwoord)) {
                 HttpSession session = request.getSession();
                 session.setAttribute("loggedIn", student);
+                session.setAttribute("rol", "student");
             } else errors.add("Ongeldige gebruikersnaam of wachtwoord");
         } catch (Exception e) {
             errors.add(e.getMessage());
@@ -54,6 +55,7 @@ public class Aanmelden extends RequestHandler {
             if (lector != null && lector.isCorrectWachtwoord(wachtwoord)) {
                 HttpSession session = request.getSession();
                 session.setAttribute("loggedIn", lector);
+                session.setAttribute("rol", "lector");
             } else errors.add("Ongeldige gebruikersnaam of wachtwoord");
         } catch (Exception e) {
             errors.add(e.getMessage());

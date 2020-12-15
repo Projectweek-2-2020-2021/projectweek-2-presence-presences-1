@@ -49,9 +49,12 @@ public class Controller extends HttpServlet {
             RequestHandler handler = handlerFactory.getHandler(command, service);
             String destination = handler.handleRequest(request, response);
             handler.forwardRequest(destination, request, response);
+        } catch (NotAuthorizedException e) {
+            request.setAttribute("notAuthorizedError", "Je bent niet geautoriseerd om de gewenste pagina te bezoeken. Gelieve aan te melden.");
+            request.getRequestDispatcher("index.jsp").forward(request, response);
         } catch (Exception e) {
             request.setAttribute("error", e.getMessage());
-            request.setAttribute("stacktrace",e.getStackTrace());
+            request.setAttribute("stacktrace", e.getStackTrace());
             request.getRequestDispatcher("index.jsp").forward(request, response);
 //            throw new ControllerException(e.getMessage());
         }
