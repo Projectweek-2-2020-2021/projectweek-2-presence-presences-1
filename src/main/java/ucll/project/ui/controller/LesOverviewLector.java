@@ -1,9 +1,11 @@
 package ucll.project.ui.controller;
 
+import ucll.project.domain.model.Lesson;
 import ucll.project.domain.service.ApplicationService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 public class LesOverviewLector extends RequestHandler {
 
@@ -13,6 +15,8 @@ public class LesOverviewLector extends RequestHandler {
 
     @Override
     public String handleRequest(HttpServletRequest request, HttpServletResponse response) {
-        return null;
+        List<Lesson> lessenLijst = getCountryService().getLessonForLector("u1234567");
+        request.setAttribute("lessenLijst", lessenLijst);
+        return "LectorLessonOverview.jsp";
     }
 }

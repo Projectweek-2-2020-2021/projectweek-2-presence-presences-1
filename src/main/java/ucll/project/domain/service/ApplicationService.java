@@ -18,6 +18,10 @@ public class ApplicationService {
         return db.getAll();
     }
 
+    public List<Lesson> getLessonForLector(String lectorennummer){
+        return db.getAllForLector(lectorennummer);
+    }
+
     /**
      * @return connection with database
      */
