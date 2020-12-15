@@ -7,6 +7,7 @@ import ucll.project.domain.service.ApplicationService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,9 +19,9 @@ public class Aanmelden extends RequestHandler {
     }
 
     @Override
-    public String handleRequest(HttpServletRequest request, HttpServletResponse response) {
+    public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws NoSuchAlgorithmException {
         String gebruikersnaam = request.getParameter("gebruikersnaam");
-        String wachtwoord = request.getParameter("wachtwoord");
+        String wachtwoord = Utility.wachtwoordEncryptie(request.getParameter("wachtwoord"));
 
         if (gebruikersnaam.startsWith("u")) {
             lectorAanmelding(gebruikersnaam, wachtwoord, request);

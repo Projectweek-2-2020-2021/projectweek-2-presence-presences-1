@@ -1,5 +1,9 @@
 package ucll.project.domain.model;
 
+import ucll.project.ui.controller.Utility;
+
+import java.security.NoSuchAlgorithmException;
+
 public class Student {
     private String rnummer, naam, voornaam, email, adres, telefoonNummer, wachtwoord;
 
@@ -7,7 +11,7 @@ public class Student {
 
     }
 
-    public Student(String rnummer, String naam, String voornaam, String email, String adres, String telefoonNummer, String wachtwoord) {
+    public Student(String rnummer, String naam, String voornaam, String email, String adres, String telefoonNummer, String wachtwoord) throws NoSuchAlgorithmException {
         setRNummer(rnummer);
         setNaam(naam);
         setVoornaam(voornaam);
@@ -17,7 +21,7 @@ public class Student {
         setWachtwoord(wachtwoord);
     }
 
-    public void setWachtwoord(String wachtwoord) {
+    public void setWachtwoord(String wachtwoord) throws NoSuchAlgorithmException {
         if (wachtwoord.isEmpty()) throw new DomainException("Wachtwoord mag niet leeg zijn");
         this.wachtwoord = wachtwoord;
     }
