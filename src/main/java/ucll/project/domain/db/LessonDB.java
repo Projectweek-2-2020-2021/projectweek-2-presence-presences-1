@@ -24,6 +24,7 @@ public interface LessonDB {
 
     List<Lesson> getAll();
 
+    List<Lesson> getAllForLector(String lectorennummer);
     /**
      * @return the connection with the db, if there is one
      */

@@ -63,7 +63,6 @@
             <artifactId>selenium-firefox-driver</artifactId>
             <version>3.141.59</version>
         </dependency>
-
         <dependency>
             <groupId>org.postgresql</groupId><!-- -->
             <artifactId>postgresql</artifactId>
@@ -78,11 +77,6 @@
             <groupId>javax.xml.bind</groupId>
             <artifactId>jaxb-api</artifactId>
             <version>2.3.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <version>42.2.18</version>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>

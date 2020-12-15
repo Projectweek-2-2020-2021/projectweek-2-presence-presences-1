@@ -1,12 +1,10 @@
 package ucll.project.domain.db;
 
+import ucll.project.domain.model.DomainException;
 import ucll.project.domain.model.Lesson;
 import ucll.project.util.DbConnectionService;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,6 +38,25 @@ public class LessonDBSQL implements LessonDB {
         }
         return lessons;
     }
+
+    //Les zou een kolom lectorennummer moeten bevatten
+    @Override
+    public List<Lesson> getAllForLector(String nummer) {
+        List<Lesson> lessons = new ArrayList<>();
+        String sql = "SELECT * FROM " + this.schema + ".les" + " WHERE lector_nummer = ?";
+        try{
+            PreparedStatement statementsql = connection.prepareStatement(sql);
+            statementsql.setString(1, nummer.toLowerCase());
+            ResultSet result = statementsql.executeQuery();
+            while (result.next()){
+                makeLesson(result, lessons);
+            }
+        }catch (SQLException e){
+            throw new DbException(e.getMessage());
+        }
+        return lessons;
+    }
+
 
     /**
      * @return the connection with the db, if there is one

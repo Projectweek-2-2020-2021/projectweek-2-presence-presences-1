@@ -8,7 +8,7 @@ import java.sql.Connection;
 import java.util.List;
 
 public class ApplicationService {
-    private final LessonDB db = new LessonDBSQL();
+    private LessonDB db = new LessonDBSQL();
 
 //    public void addLesson(Lesson lesson) {
 //        db.add(lesson);
@@ -16,6 +16,10 @@ public class ApplicationService {
 
     public List<Lesson> getLessons() {
         return db.getAll();
+    }
+
+    public List<Lesson> getLessonForLector(String lectorennummer){
+        return db.getAllForLector(lectorennummer);
     }
 
     /**
