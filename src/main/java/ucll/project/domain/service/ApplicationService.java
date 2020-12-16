@@ -59,7 +59,7 @@ public class ApplicationService {
         return dbLesson.getLesId(lectorennummer);
     }
 
-    public List<Lector> getVakPerLector(int vakid){return dbLector.getLectorPerVak(vakid);};
+    public List<Lector> getLectorPerVak(int vakid){return dbLector.getLectorPerVak(vakid);};
 
     public void zetAanwezigheid(String aanwezigheid, int studentId, int lesId) {
         dbLesStudent.zetAanwezigheid(aanwezigheid, studentId, lesId);

@@ -18,9 +18,17 @@ pipeline {
             }
         }
         stage('Test') {
+        agent {
+                label 'selenium'
+            }
             steps {
                 sh 'mvn test'
             }
+            post {
+                    always {
+                            junit 'target/surefire-reports/*.xml'
+                    }
+                }
         }
         stage('Build War File'){
             steps {
@@ -41,9 +49,5 @@ pipeline {
             }
         }
     }
-    post {
-        always {
-                junit 'target/surefire-reports/*.xml'
-        }
-    }
+
 }

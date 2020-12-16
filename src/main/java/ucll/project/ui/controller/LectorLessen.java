@@ -1,5 +1,6 @@
 package ucll.project.ui.controller;
 
+import ucll.project.domain.model.Lector;
 import ucll.project.domain.model.Lesson;
 import ucll.project.domain.model.Rol;
 import ucll.project.domain.service.ApplicationService;
@@ -19,7 +20,8 @@ public class LectorLessen extends RequestHandler {
     public String handleRequest(HttpServletRequest request, HttpServletResponse response) {
         Rol[] roles = new Rol[]{Rol.LECTOR};
         Utility.checkRoles(request, roles);
-        List<Lesson> lessenLijst = getApplicationService().getLessonForLector("u1234567");
+        Lector lector = (Lector) request.getSession().getAttribute("loggedIn");
+        List<Lesson> lessenLijst = getApplicationService().getLessonForLector(lector.getLectorennummer());
         request.setAttribute("lessenLijst", lessenLijst);
 
         ArrayList<String> datums = new ArrayList<>();

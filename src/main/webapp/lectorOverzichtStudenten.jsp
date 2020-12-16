@@ -14,9 +14,9 @@
 <body>
 <jsp:include page="header.jsp"/>
 <main class="container">
-    <p>Dit zijn de studenten voor het vak <c:out value="${les}"/></p>
+    <h1><c:out value="${les}"/></h1>
     <div class="table-responsive">
-        <p>Aanwezigheden Studentenoverzicht</p>
+        <h2>Aanwezigheden Studentenoverzicht</h2>
         <table class="table">
             <tr>
                 <th>r-Nummer</th>
@@ -45,7 +45,7 @@
         </table>
     </div>
     <div class="table-responsive">
-        <p>Afwezigheden Studentenoverzicht</p>
+        <h2>Afwezigheden Studentenoverzicht</h2>
         <table class="table">
             <tr>
                 <th>r-Nummer</th>
