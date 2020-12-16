@@ -35,7 +35,7 @@ public class HomePageTest {
         //WHEN
 
         //THEN
-        assertEquals("Tourism", driver.getTitle());
+        assertEquals("Home Page", driver.getTitle());
     }
 
 }
