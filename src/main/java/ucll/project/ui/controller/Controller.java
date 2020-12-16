@@ -44,7 +44,7 @@ public class Controller extends HttpServlet {
 
             String command = request.getParameter("command");
             if (command == null || command.trim().isEmpty()) {
-                command = "LessonOverview";
+                command = "Index";
             }
             RequestHandler handler = handlerFactory.getHandler(command, service);
             String destination = handler.handleRequest(request, response);
