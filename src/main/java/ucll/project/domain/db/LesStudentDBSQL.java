@@ -28,18 +28,20 @@ public class LesStudentDBSQL implements LesStudentDB{
     }
 
     @Override
-    public void zetAanwezigheid(String aanwezigheid, int studentId, int lesId) {
-        String sql = "UPDATE " + this.schema + ".lesstudent" + " SET aanwezigheid = ? WHERE studentid = ? AND lesid = ?";
+    public void zetAanwezigheid(String aanwezigheid, String rnummer, int lesId) {
+        String sql = "UPDATE " + this.schema + ".lesstudent as L " +
+                "SET aanwezigheid = ? FROM " + this.schema + ".student AS S " +
+                "WHERE L.studentid = S.id AND S.r_nummer = ? AND L.lesid = ?";
 
         try {
             PreparedStatement statementsql = connection.prepareStatement(sql);
             statementsql.setBoolean(1, aanwezigheid.equals("ja"));
-            statementsql.setInt(2, studentId);
+            statementsql.setString(2, rnummer);
             statementsql.setInt(3, lesId);
 
             statementsql.execute();
 
-        } catch (SQLException e){
+        } catch (SQLException e) {
             throw new DbException(e.getMessage());
         }
     }
@@ -65,6 +67,7 @@ public class LesStudentDBSQL implements LesStudentDB{
     public List<Student> getAllAanwezigheid(int lesId) {
         String sql = "SELECT * FROM " + this.schema + ".lesstudent" + " INNER JOIN" + this.schema + ".student ON lesstudent.studentid = student.id WHERE aanwezigheid = true AND lesid = ? AND bevestiging is not true";
         List<Student> students = new ArrayList<>();
+
         try {
             PreparedStatement statementsql = connection.prepareStatement(sql);
             statementsql.setInt(1, lesId);
@@ -83,6 +86,7 @@ public class LesStudentDBSQL implements LesStudentDB{
     public List<Student> getAllNietAanwezigheid(int lesId) {
         String sql = "SELECT * FROM " + this.schema + ".lesstudent" + " INNER JOIN" + this.schema + ".student ON lesstudent.studentid = student.id WHERE aanwezigheid = false OR aanwezigheid is null AND lesid = ? AND bevestiging is null";
         List<Student> students = new ArrayList<>();
+
         try {
             PreparedStatement statementsql = connection.prepareStatement(sql);
             statementsql.setInt(1, lesId);
@@ -118,6 +122,39 @@ public class LesStudentDBSQL implements LesStudentDB{
         return null;
     }
 
+    @Override
+    public void zetGewettigdeAfwezigheid(int studentId, int lesId) {
+        String sql = "UPDATE " + this.schema + ".lesstudent" + " SET gewettigdafwezig = true WHERE studentid = ? AND lesid = ?";
+
+        try {
+            PreparedStatement statementsql = connection.prepareStatement(sql);
+            statementsql.setInt(1, studentId);
+            statementsql.setInt(2, lesId);
+            statementsql.execute();
+
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        }
+    }
+
+    @Override
+    public List<Student> getAllStudentsStatus(int lesId) {
+        String sql = "SELECT * FROM " + this.schema + ".lesstudent" + " INNER JOIN" + this.schema + ".student ON lesstudent.studentid = student.id WHERE lesid = ?";
+        List<Student> students = new ArrayList<>();
+
+        try {
+            PreparedStatement statementSql = connection.prepareStatement(sql);
+            statementSql.setInt(1, lesId);
+            ResultSet result = statementSql.executeQuery();
+            while (result.next()) {
+                makeStudent(result, students);
+            }
+        } catch (SQLException | NoSuchAlgorithmException e) {
+            throw new DbException(e.getMessage());
+        }
+        return students;
+    }
+
     private void makeStudent(ResultSet result, List<Student> students) throws SQLException, NoSuchAlgorithmException {
         String naam = result.getString("naam");
         String rnummer = result.getString("r_nummer");
@@ -126,7 +163,32 @@ public class LesStudentDBSQL implements LesStudentDB{
         String adres = result.getString("adres");
         String telefoonNummer = result.getString("telefoonnummer");
         String wachtwoord = result.getString("wachtwoord");
-        Student student = new Student(rnummer, naam, voornaam, email, adres, telefoonNummer, wachtwoord);
+        boolean aanwezigheid = result.getBoolean("aanwezigheid");
+        boolean bevestiging = result.getBoolean("bevestiging");
+        boolean gewettigdafwezig = result.getBoolean("gewettigdafwezig");
+        String status = bepaalStatus(aanwezigheid, bevestiging, gewettigdafwezig);
+        Student student = new Student(rnummer, naam, voornaam, email, adres, telefoonNummer, wachtwoord, status);
         students.add(student);
+    }
+
+    private String bepaalStatus(boolean aanwezigheid, boolean bevestiging, boolean gewettigdafwezig) {
+        String status = "Pending";
+        if (aanwezigheid) {
+            if (bevestiging) {
+                status = "Aanwezig";
+            }
+        }
+        if (!aanwezigheid) {
+            if (bevestiging) {
+                status = "Aanwezig";
+            }
+            if (!bevestiging) {
+                status = "Afwezig";
+            }
+        }
+        if (gewettigdafwezig) {
+            status = "Gewettigd afwezig";
+        }
+        return status;
     }
 }

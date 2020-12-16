@@ -23,10 +23,11 @@ class LectorOverzichtStudenten extends RequestHandler {
         String vak = request.getParameter("vaknaam");
         int id = getApplicationService().getVakId(vak);
         List<Student> aanwezig = getApplicationService().getAllAanwezigheid(id);
-        List<Student> afwezig = getApplicationService().getAllNietAanwezigheid(id);
+//        List<Student> afwezig = getApplicationService().getAllNietAanwezigheid(id);
+        List<Student> studenten = getApplicationService().getAllStudentsStatus(id);
         request.setAttribute("les", vak);
         request.setAttribute("aanwezig", aanwezig);
-        request.setAttribute("afwezig", afwezig);
+        request.setAttribute("afwezig", studenten);
 
         return "lectorOverzichtStudenten.jsp";
     }

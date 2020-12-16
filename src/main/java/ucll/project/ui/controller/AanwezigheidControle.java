@@ -1,6 +1,5 @@
 package ucll.project.ui.controller;
 
-import ucll.project.domain.model.Rol;
 import ucll.project.domain.service.ApplicationService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,8 +12,8 @@ public class AanwezigheidControle extends RequestHandler {
 
     @Override
     public String handleRequest(HttpServletRequest request, HttpServletResponse response) {
-        Rol[] roles = new Rol[]{Rol.STUDENT};
-        Utility.checkRoles(request, roles);
+//        Rol[] roles = new Rol[]{Rol.STUDENT};
+//        Utility.checkRoles(request, roles);
         String lesNaam = request.getParameter("naam");
         request.setAttribute("naam", lesNaam);
         return "bevestigAanwezigheid.jsp";

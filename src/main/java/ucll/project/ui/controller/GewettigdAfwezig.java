@@ -4,18 +4,19 @@ import ucll.project.domain.service.ApplicationService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.security.NoSuchAlgorithmException;
 
-public class Bevestig extends RequestHandler{
-    public Bevestig(String command, ApplicationService applicationService) {
+public class GewettigdAfwezig extends RequestHandler {
+    public GewettigdAfwezig(String command, ApplicationService applicationService) {
         super(command, applicationService);
     }
 
     @Override
-    public String handleRequest(HttpServletRequest request, HttpServletResponse response) {
-        String bevestiging = request.getParameter("bevestiging");
+    public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws NoSuchAlgorithmException {
         int studentId = getApplicationService().getStudentId(request.getParameter("student"));
         int lesId = getApplicationService().getVakId(request.getParameter("les"));
-        getApplicationService().zetBevestiging(bevestiging, studentId, lesId);
+        getApplicationService().zetGewettigdeAfwezigheid(studentId, lesId);
+
         return "Controller?LectorOverzichtStudenten&vaknaam=" + request.getParameter("les");
     }
 }

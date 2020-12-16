@@ -54,16 +54,20 @@ public class ApplicationService {
         return dbLector.getLector(unummer);
     }
 
-    public List<Lector> getAllLectors(){return dbLector.getAllLectors();}
+    public List<Lector> getAllLectors() {
+        return dbLector.getAllLectors();
+    }
 
     public int getLectorId(String lectorennummer) {
         return dbLesson.getLesId(lectorennummer);
     }
 
-    public List<Lector> getLectorPerVak(int vakid){return dbLector.getLectorPerVak(vakid);};
+    public List<Lector> getLectorPerVak(int vakid) {
+        return dbLector.getLectorPerVak(vakid);
+    }
 
-    public void zetAanwezigheid(String aanwezigheid, int studentId, int lesId) {
-        dbLesStudent.zetAanwezigheid(aanwezigheid, studentId, lesId);
+    public void zetAanwezigheid(String aanwezigheid, String rnummer, int lesId) {
+        dbLesStudent.zetAanwezigheid(aanwezigheid, rnummer, lesId);
     }
 
     public List<Student> getAllAanwezigheid(int lesId) {
@@ -74,11 +78,21 @@ public class ApplicationService {
         return dbLesStudent.getAllNietAanwezigheid(lesId);
     }
 
+    public List<Student> getAllStudentsStatus(int lesId) {
+        return dbLesStudent.getAllStudentsStatus(lesId);
+    }
+
+    public void zetGewettigdeAfwezigheid(int studentId, int lesId) {
+        dbLesStudent.zetGewettigdeAfwezigheid(studentId, lesId);
+    }
+
     public void zetBevestiging(String aanwezigheid, int studentId, int lesId) {
         dbLesStudent.zetBevestiging(aanwezigheid, studentId, lesId);
     }
 
-    public List<Date> getAllDatums(){return dbLesStudent.getAllDatums();}
+    public List<Date> getAllDatums() {
+        return dbLesStudent.getAllDatums();
+    }
 
     public int getStudentId(String rnummer) {
         return dbStudent.getStudentId(rnummer);
@@ -87,4 +101,5 @@ public class ApplicationService {
     public List<Lesson> getLessenVoorStudent(int studentid) {
         return dbLesStudent.getLessenVoorStudent(studentid);
     }
+
 }
