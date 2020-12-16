@@ -35,6 +35,11 @@ public class StudentLessen extends RequestHandler {
 
         for (Date d : datums){
              lessenLijst = getApplicationService().getLessenVoorStudent(id, d);
+             for (Lesson l : lessenLijst){
+                 int lesid = getApplicationService().getVakId(l.getNaam());
+                 String status = getApplicationService().getstatus(id, lesid, d);
+                 l.setStatus(status);
+             }
              lessenPerDag.put(d,lessenLijst);
         }
 

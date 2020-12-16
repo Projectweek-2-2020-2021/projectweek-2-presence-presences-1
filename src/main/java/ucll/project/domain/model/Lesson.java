@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Lesson implements Comparable<Lesson> {
 
 	ArrayList<String> richtingen = new ArrayList<>();
-	private String naam, studierichting, tijd;
+	private String naam, studierichting, tijd, status;
 	private int studiepunten;
 
 	public Lesson() {
@@ -22,8 +22,29 @@ public class Lesson implements Comparable<Lesson> {
 		setTijd(tijd);
 	}
 
+	public Lesson(String naam, int studiepunten, String studierichting, String tijd, String status){
+		setNaam(naam);
+		setStudiepunten(studiepunten);
+
+		richtingen.add("TI");
+		richtingen.add("OM");
+		richtingen.add("BM");
+		setStudierichting(studierichting);
+		setTijd(tijd);
+
+		this.status = status;
+	}
+
 	public String getStudierichting() {
 		return studierichting;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	public void setStudierichting(String studierichting) {

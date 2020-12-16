@@ -26,7 +26,19 @@
                     <th>Leerkracht</th>
                 </tr>
                 <c:forEach var="les" items="${list.value}" varStatus="status">
-                    <tr class="table-row" data-href="Controller?command=AanwezigheidControle&naam=<c:out value="${les.naam}"/>&datum=<c:out value="${list.key}"/>">
+                    <c:if test="${les.status == 'aanwezig'}">
+                        <c:set var="studentStatus" value="table-success"/>
+                    </c:if>
+                    <c:if test="${les.status == 'afwezig'}">
+                        <c:set var="studentStatus" value="table-danger"/>
+                    </c:if>
+                    <c:if test="${les.status == 'pending'}">
+                        <c:set var="studentStatus" value="table-warning"/>
+                    </c:if>
+                    <c:if test="${les.status == 'gewettigd afwezig'}">
+                        <c:set var="studentStatus" value="table-info"/>
+                    </c:if>
+                    <tr class="table-row ${studentStatus}"  data-href="Controller?command=AanwezigheidControle&naam=<c:out value="${les.naam}"/>&datum=<c:out value="${list.key}"/>">
                         <td><c:out value="${les.tijd}"/></td>
                         <td><c:out value="${les.naam}"/>, dit vak heeft <c:out value="${les.studiepunten}"/> studiepunten
                             in de richting <c:out value="${les.studierichting}"/></td>
