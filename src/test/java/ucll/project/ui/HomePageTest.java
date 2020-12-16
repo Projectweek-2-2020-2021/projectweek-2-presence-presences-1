@@ -15,7 +15,7 @@ public class HomePageTest {
     @BeforeClass
     public static void SetupDriver() {
         // Setup the Chrome driver for the whole class
-        driver = ChromeDriverHelper.getDriver();
+        driver = DriverHelper.getDriver();
     }
 
     @AfterClass
