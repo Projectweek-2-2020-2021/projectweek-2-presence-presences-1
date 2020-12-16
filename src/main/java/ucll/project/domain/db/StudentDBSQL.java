@@ -1,13 +1,11 @@
 package ucll.project.domain.db;
 
+import ucll.project.domain.model.Lesson;
 import ucll.project.domain.model.Student;
 import ucll.project.util.DbConnectionService;
 
 import java.security.NoSuchAlgorithmException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,15 +56,15 @@ public class StudentDBSQL implements StudentDB {
     @Override
     public List<Student> getStudentenPerVak(int id) {
         List<Student> students = new ArrayList<>();
-        String sql = "select * from student inner join lesstudent on student.id = lesstudent.studentid inner join les on les.id = lesstudent.lesid where les.id = ?;";
+        String sql = "select * from " + this.schema + ".student inner join " + this.schema + ".lesstudent on student.id = lesstudent.studentid inner join " + this.schema + ".les on les.id = lesstudent.lesid where les.id = ?;";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, id);
             ResultSet resultset = preparedStatement.executeQuery();
-            while (resultset.next()) {
+            while (resultset.next()){
                 makeStudent(resultset, students);
             }
-        } catch (SQLException | NoSuchAlgorithmException e) {
+        }catch (SQLException | NoSuchAlgorithmException e){
             throw new DbException(e.getMessage());
         }
         return students;
@@ -80,7 +78,7 @@ public class StudentDBSQL implements StudentDB {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, rnummer);
             ResultSet resultset = preparedStatement.executeQuery();
-            while (resultset.next()) {
+            while (resultset.next()){
                 makeStudent(resultset, students);
             }
         } catch (SQLException | NoSuchAlgorithmException e) {

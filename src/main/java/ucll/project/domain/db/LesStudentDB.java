@@ -1,5 +1,6 @@
 package ucll.project.domain.db;
 
+import ucll.project.domain.model.Lesson;
 import ucll.project.domain.model.Student;
 
 import java.util.List;
@@ -15,4 +16,6 @@ public interface LesStudentDB {
     List<Student> getAllAanwezigheid(int lesId);
 
     List<Student> getAllNietAanwezigheid(int lesId);
+
+    List<Lesson> getLessenVoorStudent(int studentid);
 }

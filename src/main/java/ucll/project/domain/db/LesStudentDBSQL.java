@@ -1,5 +1,6 @@
 package ucll.project.domain.db;
 
+import ucll.project.domain.model.Lesson;
 import ucll.project.domain.model.Student;
 import ucll.project.util.DbConnectionService;
 
@@ -95,6 +96,24 @@ public class LesStudentDBSQL implements LesStudentDB{
         return students;
     }
 
+    @Override
+    public List<Lesson> getLessenVoorStudent(int studentid) {
+        String sql = "SELECT * FROM " + this.schema + ".lesstudent INNER JOIN " + this.schema + ".les ON lesstudent.lesid = les.id"  + " WHERE studentid = ?";
+        List<Lesson> lessons = new ArrayList<>();
+        try {
+            PreparedStatement statementsql = connection.prepareStatement(sql);
+            statementsql.setInt(1, studentid);
+
+            ResultSet result = statementsql.executeQuery();
+            while (result.next()) {
+                makeLesson(result, lessons);
+            }
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        }
+        return lessons;
+    }
+
     private void makeStudent(ResultSet result, List<Student> students) throws SQLException, NoSuchAlgorithmException {
         String naam = result.getString("naam");
         String rnummer = result.getString("r_nummer");
@@ -105,5 +124,14 @@ public class LesStudentDBSQL implements LesStudentDB{
         String wachtwoord = result.getString("wachtwoord");
         Student student = new Student(rnummer, naam, voornaam, email, adres, telefoonNummer, wachtwoord);
         students.add(student);
+    }
+
+    private void makeLesson(ResultSet result, List<Lesson> lessons) throws SQLException {
+        String name = result.getString("naam");
+        int studiepunten = Integer.parseInt(result.getString("studiepunten"));
+        String studierichting = result.getString("studierichting");
+        String tijd = result.getString("tijd");
+        Lesson lesson = new Lesson(name, studiepunten, studierichting, tijd);
+        lessons.add(lesson);
     }
 }
