@@ -9,6 +9,16 @@ public class Student {
 
     }
 
+    public Student(String rnummer, String naam, String voornaam, String email, String adres, String telefoonNummer, String wachtwoord) throws NoSuchAlgorithmException {
+        setRNummer(rnummer);
+        setNaam(naam);
+        setVoornaam(voornaam);
+        setEmail(email);
+        setAdres(adres);
+        setTelefoonNummer(telefoonNummer);
+        setWachtwoord(wachtwoord);
+    }
+
     public Student(String rnummer, String naam, String voornaam, String email, String adres, String telefoonNummer, String wachtwoord, String status) throws NoSuchAlgorithmException {
         setRNummer(rnummer);
         setNaam(naam);

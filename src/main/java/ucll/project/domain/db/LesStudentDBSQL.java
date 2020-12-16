@@ -6,8 +6,6 @@ import ucll.project.util.DbConnectionService;
 
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +25,7 @@ public class LesStudentDBSQL implements LesStudentDB{
 
     @Override
     public void zetAanwezigheid(String aanwezigheid, int studentId, int lesId, java.util.Date datum) {
-        String sql = "UPDATE " + this.schema + ".lesstudent" + " SET aanwezigheid = ? WHERE studentid = ? AND lesid = ? AND datum = ?";
+        String sql = "UPDATE " + this.schema + ".lesstudent" + " SET aanwezigheid = ? WHERE studentid = ? AND lesid = ? AND datum = ? AND gewettigdafwezig = ?";
         //LocalDate date = LocalDate.parse(datum, DateTimeFormatter.ofPattern("YYYY-MM-dd"));
         try {
             PreparedStatement statementsql = connection.prepareStatement(sql);
@@ -44,7 +42,7 @@ public class LesStudentDBSQL implements LesStudentDB{
 
     @Override
     public void zetBevestiging(String bevestiging, int studentId, int lesId, java.util.Date datum) {
-        String sql = "UPDATE " + this.schema + ".lesstudent" + " SET bevestiging = ? WHERE studentid = ? AND lesid = ? AND datum = ?";
+        String sql = "UPDATE " + this.schema + ".lesstudent" + " SET bevestiging = ?, gewettigdafwezig = false WHERE studentid = ? AND lesid = ? AND datum = ?";
         //LocalDate date = LocalDate.parse(datum, DateTimeFormatter.ofPattern("YYYY-MM-dd"));
         try {
             PreparedStatement statementsql = connection.prepareStatement(sql);
@@ -61,7 +59,7 @@ public class LesStudentDBSQL implements LesStudentDB{
 
     @Override
     public List<Student> getAllAanwezigheid(int lesId, java.util.Date datum) {
-        String sql = "SELECT * FROM " + this.schema + ".lesstudent" + " INNER JOIN" + this.schema + ".student ON lesstudent.studentid = student.id WHERE aanwezigheid = true AND lesid = ? AND bevestiging is null AND datum = ?";
+        String sql = "SELECT * FROM " + this.schema + ".lesstudent" + " INNER JOIN" + this.schema + ".student ON lesstudent.studentid = student.id WHERE aanwezigheid = true AND lesid = ? AND bevestiging is not true AND datum = ?";
         List<Student> students = new ArrayList<>();
         //LocalDate date = LocalDate.parse(datum, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         try {
@@ -80,7 +78,7 @@ public class LesStudentDBSQL implements LesStudentDB{
 
     @Override
     public List<Student> getAllNietAanwezigheid(int lesId, java.util.Date datum) {
-        String sql = "SELECT * FROM " + this.schema + ".lesstudent" + " INNER JOIN" + this.schema + ".student ON lesstudent.studentid = student.id WHERE lesid = ? AND bevestiging is null AND datum = ? AND aanwezigheid = false OR aanwezigheid is null";
+        String sql = "SELECT * FROM " + this.schema + ".lesstudent" + " INNER JOIN" + this.schema + ".student ON lesstudent.studentid = student.id WHERE lesid = ? AND datum = ?";
         List<Student> students = new ArrayList<>();
         //LocalDate date = LocalDate.parse(datum, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         try {

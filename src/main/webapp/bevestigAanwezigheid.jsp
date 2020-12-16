@@ -22,7 +22,8 @@
         </jsp:include>
         <main class="container">
             <p class="lead">Zet hier je aanwezigheid voor het vak <c:out value="${naam}"/></p>
-            <form action="Controller?command=ZetAanwezigheid&les=${naam}&datum=${datum}" method="post" novalidate="novalidate">
+            <form action="Controller?command=ZetAanwezigheid&les=${naam}&datum=${datum}" method="post"
+                  novalidate="novalidate">
                 <p>
                     <label for="ja">Ja</label>
                     <input type="radio" value="ja" id="ja" name="aanwezigheid">
@@ -32,7 +33,8 @@
                     <input type="radio" value="nee" id="nee" name="aanwezigheid" checked>
                 </p>
                 <p>
-                    <input type="submit" id="submit" name="submit">
+                    <button type="submit" class="btn btn-primary" style="background-color: #343a40;">
+                        <strong>Bevestigen</strong></button>
                 </p>
             </form>
         </main>

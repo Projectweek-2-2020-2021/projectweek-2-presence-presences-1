@@ -97,7 +97,7 @@ public class StudentDBSQL implements StudentDB {
         String adres = result.getString("adres");
         String telefoonNummer = result.getString("telefoonnummer");
         String wachtwoord = result.getString("wachtwoord");
-        Student student = new Student(rnummer, naam, voornaam, email, adres, telefoonNummer, wachtwoord, "status");
+        Student student = new Student(rnummer, naam, voornaam, email, adres, telefoonNummer, wachtwoord);
         students.add(student);
     }
 
