@@ -6,6 +6,7 @@ import ucll.project.domain.model.Lesson;
 import ucll.project.domain.model.Student;
 
 import java.sql.Connection;
+import java.util.Date;
 import java.util.List;
 
 public class ApplicationService {
@@ -76,6 +77,8 @@ public class ApplicationService {
     public void zetBevestiging(String aanwezigheid, int studentId, int lesId) {
         dbLesStudent.zetBevestiging(aanwezigheid, studentId, lesId);
     }
+
+    public List<Date> getAllDatums(){return dbLesStudent.getAllDatums();}
 
     public int getStudentId(String rnummer) {
         return dbStudent.getStudentId(rnummer);

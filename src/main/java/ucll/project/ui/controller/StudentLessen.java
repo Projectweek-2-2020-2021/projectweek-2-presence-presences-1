@@ -7,7 +7,10 @@ import ucll.project.domain.service.ApplicationService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 public class StudentLessen extends RequestHandler {
@@ -23,19 +26,15 @@ public class StudentLessen extends RequestHandler {
         List<Lesson> lessenLijst = getApplicationService().getLessons();
         request.setAttribute("lessenLijst", lessenLijst);
 
-        ArrayList<String> datums = new ArrayList<>();
-        datums.add("1/1/2020");
-        datums.add("2/2/2020");
-        datums.add("3/3/2020");
-        datums.add("4/4/2020");
+        List<Date> datums = getApplicationService().getAllDatums();
+        Collections.sort(datums);
+
         request.setAttribute("datums", datums);
 
 
         List<List<Lector>> lectorlijst = new ArrayList<>();
         for (Lesson les: lessenLijst
              ) {
-            System.out.println(getApplicationService().getVakId(les.getNaam()));
-            System.out.println(getApplicationService().getLectorPerVak(getApplicationService().getVakId(les.getNaam())));
             List<Lector> l = getApplicationService().getLectorPerVak(getApplicationService().getVakId(les.getNaam()));
             lectorlijst.add(l);
         }

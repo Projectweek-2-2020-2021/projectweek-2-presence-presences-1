@@ -2,6 +2,8 @@ package ucll.project.domain.db;
 
 import ucll.project.domain.model.Student;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 public interface LesStudentDB {
@@ -15,4 +17,6 @@ public interface LesStudentDB {
     List<Student> getAllAanwezigheid(int lesId);
 
     List<Student> getAllNietAanwezigheid(int lesId);
+
+    List<Date> getAllDatums();
 }

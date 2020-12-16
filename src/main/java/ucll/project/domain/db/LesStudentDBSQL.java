@@ -8,7 +8,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class LesStudentDBSQL implements LesStudentDB{
@@ -93,6 +95,22 @@ public class LesStudentDBSQL implements LesStudentDB{
             throw new DbException(e.getMessage());
         }
         return students;
+    }
+
+    @Override
+    public List<Date> getAllDatums() {
+        String sql = "SELECT distinct datum FROM " + this.schema + ".lesstudent";
+        List<Date> datums = new ArrayList<>();
+        try {
+            PreparedStatement statementsql = connection.prepareStatement(sql);
+            ResultSet result = statementsql.executeQuery();
+            while (result.next()) {
+                datums.add(result.getDate("datum"));
+            }
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        }
+        return datums;
     }
 
     private void makeStudent(ResultSet result, List<Student> students) throws SQLException, NoSuchAlgorithmException {
