@@ -56,7 +56,7 @@ public class StudentDBSQL implements StudentDB {
     @Override
     public List<Student> getStudentenPerVak(int id) {
         List<Student> students = new ArrayList<>();
-        String sql = "select * from student inner join lesstudent on student.id = lesstudent.studentid inner join les on les.id = lesstudent.lesid where les.id = ?;";
+        String sql = "select * from " + this.schema + ".student inner join " + this.schema + ".lesstudent on student.id = lesstudent.studentid inner join " + this.schema + ".les on les.id = lesstudent.lesid where les.id = ?;";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, id);

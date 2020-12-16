@@ -45,7 +45,7 @@ public class Lector {
     }
 
     public void setWachtwoord(String wachtwoord) {
-        if (wachtwoord.isEmpty()) throw new DomainException("Wachtwoord is leeg!");
+        if (wachtwoord == null || wachtwoord.trim().isEmpty()) throw new DomainException("Wachtwoord is leeg!");
         this.wachtwoord = wachtwoord;
     }
 

@@ -1,4 +1,4 @@
-package ucll.project.ui;
+/*package ucll.project.ui;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -26,7 +26,6 @@ public class HomePageTest {
 
     /**
      * This is a sample test, remove this test and write your own!
-     */
 
     @Test
     public void NavigationTest_Index_Gives_Homepage() {
@@ -39,3 +38,4 @@ public class HomePageTest {
     }
 
 }
+*/

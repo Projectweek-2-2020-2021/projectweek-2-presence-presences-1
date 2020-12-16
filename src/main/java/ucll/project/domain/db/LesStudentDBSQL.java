@@ -1,5 +1,6 @@
 package ucll.project.domain.db;
 
+import ucll.project.domain.model.Lesson;
 import ucll.project.domain.model.Student;
 import ucll.project.util.DbConnectionService;
 
@@ -111,6 +112,11 @@ public class LesStudentDBSQL implements LesStudentDB{
             throw new DbException(e.getMessage());
         }
         return datums;
+    }
+
+    @Override
+    public List<Lesson> getLessenVoorStudent(int studentid) {
+        return null;
     }
 
     private void makeStudent(ResultSet result, List<Student> students) throws SQLException, NoSuchAlgorithmException {

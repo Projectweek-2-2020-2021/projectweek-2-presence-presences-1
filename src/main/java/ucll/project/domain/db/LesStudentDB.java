@@ -1,5 +1,6 @@
 package ucll.project.domain.db;
 
+import ucll.project.domain.model.Lesson;
 import ucll.project.domain.model.Student;
 
 import java.time.LocalDate;
@@ -19,4 +20,6 @@ public interface LesStudentDB {
     List<Student> getAllNietAanwezigheid(int lesId);
 
     List<Date> getAllDatums();
+
+    List<Lesson> getLessenVoorStudent(int studentid);
 }

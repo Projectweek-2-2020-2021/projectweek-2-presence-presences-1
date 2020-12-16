@@ -31,12 +31,12 @@
                     <td><c:out value='${student.voornaam}'/></td>
                     <td><c:out value='${student.naam}'/></td>
                     <td>
-                        <form action="Controller?command=Bevestig&bevestiging=ja&student=${student.rnummer}&les=${les}" method="post">
+                        <form method="post" action="Controller?command=Bevestig&bevestiging=ja&student=${student.rnummer}&les=${les}" >
                             <input type="submit" value="Bevestigen">
                         </form>
                     </td>
                     <td>
-                        <form action="Controller?command=Bevestig&bevestiging=nee&student=${student.rnummer}&les=${les}" method="post">
+                        <form method="post" action="Controller?command=Bevestig&bevestiging=nee&student=${student.rnummer}&les=${les}">
                             <input type="submit" value="Afwijzen">
                         </form>
                     </td>

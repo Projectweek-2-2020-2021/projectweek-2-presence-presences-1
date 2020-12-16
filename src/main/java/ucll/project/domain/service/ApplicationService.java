@@ -83,4 +83,8 @@ public class ApplicationService {
     public int getStudentId(String rnummer) {
         return dbStudent.getStudentId(rnummer);
     }
+
+    public List<Lesson> getLessenVoorStudent(int studentid) {
+        return dbLesStudent.getLessenVoorStudent(studentid);
+    }
 }

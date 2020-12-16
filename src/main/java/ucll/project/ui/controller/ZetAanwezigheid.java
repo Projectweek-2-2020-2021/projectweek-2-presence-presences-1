@@ -13,7 +13,7 @@ public class ZetAanwezigheid extends RequestHandler{
 
     @Override
     public String handleRequest(HttpServletRequest request, HttpServletResponse response) {
-        Rol[] roles = new Rol[]{Rol.LECTOR};
+        Rol[] roles = new Rol[]{Rol.STUDENT};
         Utility.checkRoles(request, roles);
         String aanwezigheid = request.getParameter("aanwezigheid");
         String les = request.getParameter("les");

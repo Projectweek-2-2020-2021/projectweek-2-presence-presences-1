@@ -15,8 +15,10 @@ public class Bevestig extends RequestHandler{
         String bevestiging = request.getParameter("bevestiging");
         int studentId = getApplicationService().getStudentId(request.getParameter("student"));
         int lesId = getApplicationService().getVakId(request.getParameter("les"));
+        String les = request.getParameter("les");
         getApplicationService().zetBevestiging(bevestiging, studentId, lesId);
+        String url = "Controller?command=LectorOverzichtStudenten&vaknaam=" + les;
 
-        return "Controller?LectorOverviewStudents&vaknaam=" + request.getParameter("les");
+        return url;
     }
 }
