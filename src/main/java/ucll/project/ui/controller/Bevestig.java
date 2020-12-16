@@ -17,7 +17,7 @@ public class Bevestig extends RequestHandler{
     public String handleRequest(HttpServletRequest request, HttpServletResponse response) {
         String bevestiging = request.getParameter("bevestiging");
         String datum = request.getParameter("datum");
-        LocalDate date = LocalDate.parse(datum, DateTimeFormatter.ofPattern("YYYY-MM-dd"));
+        LocalDate date = LocalDate.parse(datum, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         int studentId = getApplicationService().getStudentId(request.getParameter("student"));
         int lesId = getApplicationService().getVakId(request.getParameter("les"));
         String les = request.getParameter("les");

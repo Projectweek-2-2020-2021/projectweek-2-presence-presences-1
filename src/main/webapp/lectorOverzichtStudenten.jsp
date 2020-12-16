@@ -31,12 +31,12 @@
                     <td><c:out value='${student.voornaam}'/></td>
                     <td><c:out value='${student.naam}'/></td>
                     <td>
-                        <form method="post" action="Controller?command=Bevestig&bevestiging=ja&student=${student.rnummer}&les=${les}" >
+                        <form method="post" action="Controller?command=Bevestig&bevestiging=ja&student=${student.rnummer}&les=${les}&datum=${datum}" >
                             <input type="submit" value="Bevestigen">
                         </form>
                     </td>
                     <td>
-                        <form method="post" action="Controller?command=Bevestig&bevestiging=nee&student=${student.rnummer}&les=${les}">
+                        <form method="post" action="Controller?command=Bevestig&bevestiging=nee&student=${student.rnummer}&les=${les}&datum=${datum}">
                             <input type="submit" value="Afwijzen">
                         </form>
                     </td>
@@ -62,13 +62,13 @@
                     <td><c:out value='${student.naam}'/></td>
                     <td><c:out value='${student.status}'/></td>
                     <td>
-                        <form action="Controller?command=Bevestig&bevestiging=ja&student=${student.rnummer}&les=${les}"
+                        <form action="Controller?command=Bevestig&bevestiging=ja&student=${student.rnummer}&les=${les}&datum=${datum}"
                               method="post">
                             <input type="submit" value="Aanwezig">
                         </form>
                     </td>
                     <td>
-                        <form action="Controller?command=GewettigdAfwezig&student=${student.rnummer}&les=${les}"
+                        <form action="Controller?command=GewettigdAfwezig&student=${student.rnummer}&les=${les}&datum=${datum}"
                               method="post">
                             <input type="submit" value="Gewettigd afwezig">
                         </form>

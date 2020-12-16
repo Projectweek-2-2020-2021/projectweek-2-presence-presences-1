@@ -89,4 +89,8 @@ public class ApplicationService {
     public List<Date> getAllDatums() {
         return dbLesStudent.getAllDatums();
     }
+
+    public void zetGewettigdeAfwezigheid(int studentId, int lesId) {
+        dbLesStudent.zetGewettigdeAfwezigheid(studentId, lesId);
+    }
 }

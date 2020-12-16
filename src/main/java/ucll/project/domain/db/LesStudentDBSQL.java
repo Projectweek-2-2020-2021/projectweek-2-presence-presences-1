@@ -124,7 +124,11 @@ public class LesStudentDBSQL implements LesStudentDB{
         String adres = result.getString("adres");
         String telefoonNummer = result.getString("telefoonnummer");
         String wachtwoord = result.getString("wachtwoord");
-        Student student = new Student(rnummer, naam, voornaam, email, adres, telefoonNummer, wachtwoord);
+        boolean aanwezigheid = result.getBoolean("aanwezigheid");
+        boolean bevestiging = result.getBoolean("bevestiging");
+        boolean gewettigdafwezig = result.getBoolean("gewettigdafwezig");
+        String status = bepaalStatus(aanwezigheid, bevestiging, gewettigdafwezig);
+        Student student = new Student(rnummer, naam, voornaam, email, adres, telefoonNummer, wachtwoord, status);
         students.add(student);
     }
 
@@ -152,4 +156,42 @@ public class LesStudentDBSQL implements LesStudentDB{
         }
         return datums;
     }
+
+    @Override
+    public void zetGewettigdeAfwezigheid(int studentId, int lesId) {
+        String sql = "UPDATE " + this.schema + ".lesstudent" + " SET gewettigdafwezig = true WHERE studentid = ? AND lesid = ?";
+
+        try {
+            PreparedStatement statementsql = connection.prepareStatement(sql);
+            statementsql.setInt(1, studentId);
+            statementsql.setInt(2, lesId);
+            statementsql.execute();
+
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        }
+    }
+
+
+    private String bepaalStatus(boolean aanwezigheid, boolean bevestiging, boolean gewettigdafwezig) {
+        String status = "Pending";
+        if (aanwezigheid) {
+            if (bevestiging) {
+                status = "Aanwezig";
+            }
+        }
+        if (!aanwezigheid) {
+            if (bevestiging) {
+                status = "Aanwezig";
+            }
+            if (!bevestiging) {
+                status = "Afwezig";
+            }
+        }
+        if (gewettigdafwezig) {
+            status = "Gewettigd afwezig";
+        }
+        return status;
+    }
+
 }
