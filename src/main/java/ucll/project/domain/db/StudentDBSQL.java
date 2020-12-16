@@ -1,10 +1,13 @@
 package ucll.project.domain.db;
 
-import ucll.project.domain.model.Lesson;
 import ucll.project.domain.model.Student;
 import ucll.project.util.DbConnectionService;
 
-import java.sql.*;
+import java.security.NoSuchAlgorithmException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +30,7 @@ public class StudentDBSQL implements StudentDB {
             while (result.next()) {
                 makeStudent(result, students);
             }
-        } catch (SQLException e) {
+        } catch (SQLException | NoSuchAlgorithmException e) {
             throw new DbException(e.getMessage(), e);
         }
         return students;
@@ -60,10 +63,10 @@ public class StudentDBSQL implements StudentDB {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, id);
             ResultSet resultset = preparedStatement.executeQuery();
-            while (resultset.next()){
+            while (resultset.next()) {
                 makeStudent(resultset, students);
             }
-        }catch (SQLException e){
+        } catch (SQLException | NoSuchAlgorithmException e) {
             throw new DbException(e.getMessage());
         }
         return students;
@@ -77,16 +80,16 @@ public class StudentDBSQL implements StudentDB {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, rnummer);
             ResultSet resultset = preparedStatement.executeQuery();
-            while (resultset.next()){
+            while (resultset.next()) {
                 makeStudent(resultset, students);
             }
-        } catch (SQLException e) {
+        } catch (SQLException | NoSuchAlgorithmException e) {
             throw new DbException(e.getMessage());
         }
         return students.get(0);
     }
 
-    private void makeStudent(ResultSet result, List<Student> students) throws SQLException {
+    private void makeStudent(ResultSet result, List<Student> students) throws SQLException, NoSuchAlgorithmException {
         String naam = result.getString("naam");
         String rnummer = result.getString("r_nummer");
         String voornaam = result.getString("voornaam");

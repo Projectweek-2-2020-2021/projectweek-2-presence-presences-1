@@ -3,6 +3,7 @@ package ucll.project.domain.db;
 import ucll.project.domain.model.Student;
 import ucll.project.util.DbConnectionService;
 
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LesStudentDBSQL implements LesStudentDB{
-    private Connection connection;
+    private final Connection connection;
     private final String schema;
 
     public LesStudentDBSQL() {
@@ -30,11 +31,7 @@ public class LesStudentDBSQL implements LesStudentDB{
 
         try {
             PreparedStatement statementsql = connection.prepareStatement(sql);
-            if (aanwezigheid.equals("ja")) {
-                statementsql.setBoolean(1, true);
-            } else {
-                statementsql.setBoolean(1, false);
-            }
+            statementsql.setBoolean(1, aanwezigheid.equals("ja"));
             statementsql.setInt(2, studentId);
             statementsql.setInt(3, lesId);
 
@@ -51,11 +48,7 @@ public class LesStudentDBSQL implements LesStudentDB{
 
         try {
             PreparedStatement statementsql = connection.prepareStatement(sql);
-            if (bevestiging.equals("ja")) {
-                statementsql.setBoolean(1, true);
-            } else {
-                statementsql.setBoolean(1, false);
-            }
+            statementsql.setBoolean(1, bevestiging.equals("ja"));
             statementsql.setInt(2, studentId);
             statementsql.setInt(3, lesId);
 
@@ -78,7 +71,7 @@ public class LesStudentDBSQL implements LesStudentDB{
             while (result.next()) {
                 makeStudent(result, students);
             }
-        } catch (SQLException e) {
+        } catch (SQLException | NoSuchAlgorithmException e) {
             throw new DbException(e.getMessage());
         }
         return students;
@@ -96,13 +89,13 @@ public class LesStudentDBSQL implements LesStudentDB{
             while (result.next()) {
                 makeStudent(result, students);
             }
-        } catch (SQLException e) {
+        } catch (SQLException | NoSuchAlgorithmException e) {
             throw new DbException(e.getMessage());
         }
         return students;
     }
 
-    private void makeStudent(ResultSet result, List<Student> students) throws SQLException {
+    private void makeStudent(ResultSet result, List<Student> students) throws SQLException, NoSuchAlgorithmException {
         String naam = result.getString("naam");
         String rnummer = result.getString("r_nummer");
         String voornaam = result.getString("voornaam");
