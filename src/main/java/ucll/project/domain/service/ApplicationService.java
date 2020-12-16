@@ -6,7 +6,7 @@ import ucll.project.domain.model.Lesson;
 import ucll.project.domain.model.Student;
 
 import java.sql.Connection;
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 public class ApplicationService {
@@ -19,8 +19,8 @@ public class ApplicationService {
         return dbLesson.getAll();
     }
 
-    public List<Lesson> getLessonForLector(String lectorennummer) {
-        return dbLesson.getAllForLector(lectorennummer);
+    public List<Lesson> getLessonForLector(int id, Date date) {
+        return dbLesson.getLessenVoorLector(id, date);
     }
 
     /**
@@ -57,24 +57,24 @@ public class ApplicationService {
     public List<Lector> getAllLectors(){return dbLector.getAllLectors();}
 
     public int getLectorId(String lectorennummer) {
-        return dbLesson.getLesId(lectorennummer);
+        return dbLector.getLectorId(lectorennummer);
     }
 
     public List<Lector> getLectorPerVak(int vakid){return dbLector.getLectorPerVak(vakid);};
 
-    public void zetAanwezigheid(String aanwezigheid, int studentId, int lesId, String datum) {
+    public void zetAanwezigheid(String aanwezigheid, int studentId, int lesId, Date datum) {
         dbLesStudent.zetAanwezigheid(aanwezigheid, studentId, lesId, datum);
     }
 
-    public List<Student> getAllAanwezigheid(int lesId, String datum) {
+    public List<Student> getAllAanwezigheid(int lesId, Date datum) {
         return dbLesStudent.getAllAanwezigheid(lesId, datum);
     }
 
-    public List<Student> getAllNietAanwezigheid(int lesId, String datum) {
+    public List<Student> getAllNietAanwezigheid(int lesId, Date datum) {
         return dbLesStudent.getAllNietAanwezigheid(lesId, datum);
     }
 
-    public void zetBevestiging(String aanwezigheid, int studentId, int lesId, String datum) {
+    public void zetBevestiging(String aanwezigheid, int studentId, int lesId, Date datum) {
         dbLesStudent.zetBevestiging(aanwezigheid, studentId, lesId, datum);
     }
 
@@ -82,7 +82,11 @@ public class ApplicationService {
         return dbStudent.getStudentId(rnummer);
     }
 
-    public List<Lesson> getLessenVoorStudent(int studentid, String datum) {
+    public List<Lesson> getLessenVoorStudent(int studentid, Date datum) {
         return dbLesStudent.getLessenVoorStudent(studentid, datum);
+    }
+
+    public List<Date> getAllDatums() {
+        return dbLesStudent.getAllDatums();
     }
 }

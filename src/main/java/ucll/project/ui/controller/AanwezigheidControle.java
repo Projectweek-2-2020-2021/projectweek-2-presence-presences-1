@@ -16,7 +16,9 @@ public class AanwezigheidControle extends RequestHandler {
         Rol[] roles = new Rol[]{Rol.STUDENT};
         Utility.checkRoles(request, roles);
         String lesNaam = request.getParameter("naam");
+        String datum = request.getParameter("datum");
         request.setAttribute("naam", lesNaam);
+        request.setAttribute("datum", datum);
         return "bevestigAanwezigheid.jsp";
     }
 }

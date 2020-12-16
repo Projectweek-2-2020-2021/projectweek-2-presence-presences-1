@@ -6,6 +6,7 @@ import ucll.project.domain.model.Lesson;
 import ucll.project.domain.model.Student;
 
 import java.sql.Connection;
+import java.util.Date;
 import java.util.List;
 
 public interface LessonDB {
@@ -26,7 +27,7 @@ public interface LessonDB {
 
     List<Lesson> getAll();
 
-    List<Lesson> getAllForLector(String lectorennummer);
+    List<Lesson> getLessenVoorLector(int id, Date datum);
     /**
      * @return the connection with the db, if there is one
      */

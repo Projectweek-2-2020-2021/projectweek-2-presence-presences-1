@@ -9,7 +9,6 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Formatter;
 import java.util.List;
 
 public class LesStudentDBSQL implements LesStudentDB{
@@ -27,15 +26,15 @@ public class LesStudentDBSQL implements LesStudentDB{
     }
 
     @Override
-    public void zetAanwezigheid(String aanwezigheid, int studentId, int lesId, String datum) {
+    public void zetAanwezigheid(String aanwezigheid, int studentId, int lesId, java.util.Date datum) {
         String sql = "UPDATE " + this.schema + ".lesstudent" + " SET aanwezigheid = ? WHERE studentid = ? AND lesid = ? AND datum = ?";
-        LocalDate date = LocalDate.parse(datum, DateTimeFormatter.ofPattern("YYYY-MM-dd"));
+        //LocalDate date = LocalDate.parse(datum, DateTimeFormatter.ofPattern("YYYY-MM-dd"));
         try {
             PreparedStatement statementsql = connection.prepareStatement(sql);
             statementsql.setBoolean(1, aanwezigheid.equals("ja"));
             statementsql.setInt(2, studentId);
             statementsql.setInt(3, lesId);
-            statementsql.setDate(4, Date.valueOf(date));
+            statementsql.setDate(4, (Date) datum);
             statementsql.execute();
 
         } catch (SQLException e){
@@ -44,15 +43,15 @@ public class LesStudentDBSQL implements LesStudentDB{
     }
 
     @Override
-    public void zetBevestiging(String bevestiging, int studentId, int lesId, String datum) {
+    public void zetBevestiging(String bevestiging, int studentId, int lesId, java.util.Date datum) {
         String sql = "UPDATE " + this.schema + ".lesstudent" + " SET bevestiging = ? WHERE studentid = ? AND lesid = ? AND datum = ?";
-        LocalDate date = LocalDate.parse(datum, DateTimeFormatter.ofPattern("YYYY-MM-dd"));
+        //LocalDate date = LocalDate.parse(datum, DateTimeFormatter.ofPattern("YYYY-MM-dd"));
         try {
             PreparedStatement statementsql = connection.prepareStatement(sql);
             statementsql.setBoolean(1, bevestiging.equals("ja"));
             statementsql.setInt(2, studentId);
             statementsql.setInt(3, lesId);
-            statementsql.setDate(4, Date.valueOf(date));
+            statementsql.setDate(4, (Date) datum);
             statementsql.execute();
 
         } catch (SQLException e){
@@ -61,14 +60,14 @@ public class LesStudentDBSQL implements LesStudentDB{
     }
 
     @Override
-    public List<Student> getAllAanwezigheid(int lesId, String datum) {
+    public List<Student> getAllAanwezigheid(int lesId, java.util.Date datum) {
         String sql = "SELECT * FROM " + this.schema + ".lesstudent" + " INNER JOIN" + this.schema + ".student ON lesstudent.studentid = student.id WHERE aanwezigheid = true AND lesid = ? AND bevestiging is null AND datum = ?";
         List<Student> students = new ArrayList<>();
-        LocalDate date = LocalDate.parse(datum, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        //LocalDate date = LocalDate.parse(datum, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         try {
             PreparedStatement statementsql = connection.prepareStatement(sql);
             statementsql.setInt(1, lesId);
-            statementsql.setDate(2, Date.valueOf(date));
+            statementsql.setDate(2, (Date) datum);
             ResultSet result = statementsql.executeQuery();
             while (result.next()) {
                 makeStudent(result, students);
@@ -80,14 +79,14 @@ public class LesStudentDBSQL implements LesStudentDB{
     }
 
     @Override
-    public List<Student> getAllNietAanwezigheid(int lesId, String datum) {
+    public List<Student> getAllNietAanwezigheid(int lesId, java.util.Date datum) {
         String sql = "SELECT * FROM " + this.schema + ".lesstudent" + " INNER JOIN" + this.schema + ".student ON lesstudent.studentid = student.id WHERE lesid = ? AND bevestiging is null AND datum = ? AND aanwezigheid = false OR aanwezigheid is null";
         List<Student> students = new ArrayList<>();
-        LocalDate date = LocalDate.parse(datum, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        //LocalDate date = LocalDate.parse(datum, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         try {
             PreparedStatement statementsql = connection.prepareStatement(sql);
             statementsql.setInt(1, lesId);
-            statementsql.setDate(2, Date.valueOf(date));
+            statementsql.setDate(2, (Date) datum);
             ResultSet result = statementsql.executeQuery();
             while (result.next()) {
                 makeStudent(result, students);
@@ -99,14 +98,14 @@ public class LesStudentDBSQL implements LesStudentDB{
     }
 
     @Override
-    public List<Lesson> getLessenVoorStudent(int studentid, String datum) {
+    public List<Lesson> getLessenVoorStudent(int studentid, java.util.Date datum) {
         String sql = "SELECT * FROM " + this.schema + ".lesstudent INNER JOIN " + this.schema + ".les ON lesstudent.lesid = les.id"  + " WHERE studentid = ? AND datum = ?";
         List<Lesson> lessons = new ArrayList<>();
-        LocalDate date = LocalDate.parse(datum, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        // LocalDate date = LocalDate.parse(datum, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         try {
             PreparedStatement statementsql = connection.prepareStatement(sql);
             statementsql.setInt(1, studentid);
-            statementsql.setDate(2, Date.valueOf(date));
+            statementsql.setDate(2, (Date) datum);
             ResultSet result = statementsql.executeQuery();
             while (result.next()) {
                 makeLesson(result, lessons);
@@ -136,5 +135,21 @@ public class LesStudentDBSQL implements LesStudentDB{
         String tijd = result.getString("tijd");
         Lesson lesson = new Lesson(name, studiepunten, studierichting, tijd);
         lessons.add(lesson);
+    }
+
+    @Override
+    public List<java.util.Date> getAllDatums() {
+        String sql = "SELECT distinct datum FROM " + this.schema + ".lesstudent";
+        List<java.util.Date> datums = new ArrayList<>();
+        try {
+            PreparedStatement statementsql = connection.prepareStatement(sql);
+            ResultSet result = statementsql.executeQuery();
+            while (result.next()) {
+                datums.add(result.getDate("datum"));
+            }
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        }
+        return datums;
     }
 }

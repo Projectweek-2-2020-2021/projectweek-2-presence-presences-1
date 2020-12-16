@@ -70,12 +70,12 @@ public class LectorDBSQL implements LectorDB {
     }
 
     @Override
-    public int getLectorId(String lectornaam) {
+    public int getLectorId(String nummer) {
         String sql = "SELECT id FROM " + this.schema + ".lector" + " WHERE nummer = ?";
         int id = 0;
         try {
             PreparedStatement statementsql = connection.prepareStatement(sql);
-            statementsql.setString(1, lectornaam);
+            statementsql.setString(1, nummer);
             ResultSet result = statementsql.executeQuery();
             while (result.next()){
                 id = result.getInt("id");

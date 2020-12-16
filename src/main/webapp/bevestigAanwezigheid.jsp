@@ -22,7 +22,7 @@
         </jsp:include>
         <main class="container">
             <p class="lead">Zet hier je aanwezigheid voor het vak <c:out value="${naam}"/></p>
-            <form action="Controller?command=ZetAanwezigheid&les=${naam}" method="post" novalidate="novalidate">
+            <form action="Controller?command=ZetAanwezigheid&les=${naam}&datum=${datum}" method="post" novalidate="novalidate">
                 <p>
                     <label for="ja">Ja</label>
                     <input type="radio" value="ja" id="ja" name="aanwezigheid">

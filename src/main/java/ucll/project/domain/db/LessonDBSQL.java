@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class LessonDBSQL implements LessonDB {
@@ -45,14 +46,13 @@ public class LessonDBSQL implements LessonDB {
         return lessons;
     }
 
-    //Les zou een kolom lectorennummer moeten bevatten
-    @Override
-    public List<Lesson> getAllForLector(String nummer) {
+    public List<Lesson> getLessenVoorLector(int id, Date datum) {
         List<Lesson> lessons = new ArrayList<>();
-        String sql = "SELECT * FROM " + this.schema + ".les" + " WHERE lector_nummer = ?";
+        String sql = "SELECT DISTINCT id, tijd, naam, studiepunten, studierichting, datum FROM " + this.schema + ".les INNER JOIN " + this.schema + ".leslector on les.id = leslector.lesid INNER JOIN " + this.schema + ".lesstudent ON leslector.lesid = lesstudent.lesid WHERE leslector.lectorid = ? AND datum = ? ";
         try{
             PreparedStatement statementsql = connection.prepareStatement(sql);
-            statementsql.setString(1, nummer.toLowerCase());
+            statementsql.setInt(1, id);
+            statementsql.setDate(2, (java.sql.Date) datum);
             ResultSet result = statementsql.executeQuery();
             while (result.next()){
                 makeLesson(result, lessons);

@@ -3,15 +3,14 @@ package ucll.project.ui.controller;
 import ucll.project.domain.model.Lector;
 import ucll.project.domain.model.Lesson;
 import ucll.project.domain.model.Rol;
+import ucll.project.domain.model.Student;
 import ucll.project.domain.service.ApplicationService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 public class StudentLessen extends RequestHandler {
 
@@ -21,15 +20,25 @@ public class StudentLessen extends RequestHandler {
 
     @Override
     public String handleRequest(HttpServletRequest request, HttpServletResponse response) {
+        LinkedHashMap<Date, List<Lesson>> lessenPerDag = new LinkedHashMap<>();
+        List<Lesson> lessenLijst = new ArrayList<>();
+        HttpSession session = request.getSession();
+        Student student = (Student) session.getAttribute("loggedIn");
         Rol[] roles = new Rol[]{Rol.STUDENT};
         Utility.checkRoles(request, roles);
-        List<Lesson> lessenLijst = getApplicationService().getLessons();
-        request.setAttribute("lessenLijst", lessenLijst);
+        int id = getApplicationService().getStudentId(student.getRnummer());
+
+
 
         List<Date> datums = getApplicationService().getAllDatums();
         Collections.sort(datums);
 
-        request.setAttribute("datums", datums);
+        for (Date d : datums){
+             lessenLijst = getApplicationService().getLessenVoorStudent(id, d);
+             lessenPerDag.put(d,lessenLijst);
+        }
+
+        request.setAttribute("lessenPerDag", lessenPerDag);
 
 
         List<List<Lector>> lectorlijst = new ArrayList<>();

@@ -7,6 +7,9 @@ import ucll.project.domain.service.ApplicationService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 class LectorOverzichtStudenten extends RequestHandler {
@@ -23,8 +26,9 @@ class LectorOverzichtStudenten extends RequestHandler {
         String vak = request.getParameter("vaknaam");
         int id = getApplicationService().getVakId(vak);
         String datum = request.getParameter("datum");
-        List<Student> aanwezig = getApplicationService().getAllAanwezigheid(id, datum);
-        List<Student> afwezig = getApplicationService().getAllNietAanwezigheid(id, datum);
+        LocalDate date = LocalDate.parse(datum, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        List<Student> aanwezig = getApplicationService().getAllAanwezigheid(id, Date.valueOf(date));
+        List<Student> afwezig = getApplicationService().getAllNietAanwezigheid(id, Date.valueOf(date));
         request.setAttribute("les", vak);
         request.setAttribute("aanwezig", aanwezig);
         request.setAttribute("afwezig", afwezig);

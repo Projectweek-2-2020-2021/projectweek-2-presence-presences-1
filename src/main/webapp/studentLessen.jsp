@@ -18,15 +18,15 @@
 
 <main class="container">
     <div class="table-responsive">
-        <c:forEach var="datum" items="${datums}">
+        <c:forEach var="list" items="${lessenPerDag}">
             <table class="table table-hover">
                 <tr>
-                    <th><c:out value="${datum}"/></th>
+                    <th><c:out value="${list.key}"/></th>
                     <th>info</th>
                     <th>Leerkracht</th>
                 </tr>
-                <c:forEach var="les" items="${lessenLijst}" varStatus="status">
-                    <tr class="table-row" data-href="Controller?command=AanwezigheidControle&naam=<c:out value="${les.naam}"/>">
+                <c:forEach var="les" items="${list.value}" varStatus="status">
+                    <tr class="table-row" data-href="Controller?command=AanwezigheidControle&naam=<c:out value="${les.naam}"/>&datum=<c:out value="${list.key}"/>">
                         <td><c:out value="${les.tijd}"/></td>
                         <td><c:out value="${les.naam}"/>, dit vak heeft <c:out value="${les.studiepunten}"/> studiepunten
                             in de richting <c:out value="${les.studierichting}"/></td>
