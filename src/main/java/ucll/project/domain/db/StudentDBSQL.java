@@ -4,6 +4,7 @@ import ucll.project.domain.model.Lesson;
 import ucll.project.domain.model.Student;
 import ucll.project.util.DbConnectionService;
 
+import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +28,7 @@ public class StudentDBSQL implements StudentDB {
             while (result.next()) {
                 makeStudent(result, students);
             }
-        } catch (SQLException e) {
+        } catch (SQLException | NoSuchAlgorithmException e) {
             throw new DbException(e.getMessage(), e);
         }
         return students;
@@ -63,7 +64,7 @@ public class StudentDBSQL implements StudentDB {
             while (resultset.next()){
                 makeStudent(resultset, students);
             }
-        }catch (SQLException e){
+        }catch (SQLException | NoSuchAlgorithmException e){
             throw new DbException(e.getMessage());
         }
         return students;
@@ -80,13 +81,13 @@ public class StudentDBSQL implements StudentDB {
             while (resultset.next()){
                 makeStudent(resultset, students);
             }
-        } catch (SQLException e) {
+        } catch (SQLException | NoSuchAlgorithmException e) {
             throw new DbException(e.getMessage());
         }
         return students.get(0);
     }
 
-    private void makeStudent(ResultSet result, List<Student> students) throws SQLException {
+    private void makeStudent(ResultSet result, List<Student> students) throws SQLException, NoSuchAlgorithmException {
         String naam = result.getString("naam");
         String rnummer = result.getString("r_nummer");
         String voornaam = result.getString("voornaam");

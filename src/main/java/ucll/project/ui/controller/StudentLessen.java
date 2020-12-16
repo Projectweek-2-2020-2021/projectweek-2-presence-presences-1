@@ -45,6 +45,7 @@ public class StudentLessen extends RequestHandler {
 
         request.setAttribute("lectorenlijst", lectorlijst);
         */
+        
         return "studentLessen.jsp";
     }
 }

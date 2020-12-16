@@ -25,13 +25,13 @@
                     <th>info</th>
                     <th>Leerkracht</th>
                 </tr>
-                <c:forEach var="les" items="${lessenLijst}">
+                <c:forEach var="les" items="${lessenLijst}" varStatus="status">
                     <tr class="table-row" data-href="Controller?command=AanwezigheidControle&naam=<c:out value="${les.naam}"/>">
                         <td><c:out value="${les.tijd}"/></td>
                         <td><c:out value="${les.naam}"/>, dit vak heeft <c:out value="${les.studiepunten}"/> studiepunten
                             in de richting <c:out value="${les.studierichting}"/></td>
                         <!--<td><a href="Controller?command=AanwezigheidControle&naam=${les.naam}">Aanwezig</a></td> !-->
-                        <td><c:out value="${leerkracht}"/></td>
+                        <td><c:out value="${leerkrachten[status.index]}"/></td>
                     </tr>
                 </c:forEach>
             </table>
