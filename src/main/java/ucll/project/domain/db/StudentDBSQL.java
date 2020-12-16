@@ -1,11 +1,13 @@
 package ucll.project.domain.db;
 
-import ucll.project.domain.model.Lesson;
 import ucll.project.domain.model.Student;
 import ucll.project.util.DbConnectionService;
 
 import java.security.NoSuchAlgorithmException;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -95,13 +97,14 @@ public class StudentDBSQL implements StudentDB {
         String adres = result.getString("adres");
         String telefoonNummer = result.getString("telefoonnummer");
         String wachtwoord = result.getString("wachtwoord");
-        Student student = new Student(rnummer, naam, voornaam, email, adres, telefoonNummer, wachtwoord);
+        Student student = new Student(rnummer, naam, voornaam, email, adres, telefoonNummer, wachtwoord, "status");
         students.add(student);
     }
 
     @Override
     public int getStudentId(String rnummer) {
         String sql = "SELECT id FROM " + this.schema + ".student" + " WHERE r_nummer = ?";
+
         int id = 0;
         try {
             PreparedStatement statementsql = connection.prepareStatement(sql);

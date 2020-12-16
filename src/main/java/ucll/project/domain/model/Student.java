@@ -1,17 +1,15 @@
 package ucll.project.domain.model;
 
-import ucll.project.ui.controller.Utility;
-
 import java.security.NoSuchAlgorithmException;
 
 public class Student {
-    private String rnummer, naam, voornaam, email, adres, telefoonNummer, wachtwoord;
+    private String rnummer, naam, voornaam, email, adres, telefoonNummer, wachtwoord, status;
 
     public Student() {
 
     }
 
-    public Student(String rnummer, String naam, String voornaam, String email, String adres, String telefoonNummer, String wachtwoord) throws NoSuchAlgorithmException {
+    public Student(String rnummer, String naam, String voornaam, String email, String adres, String telefoonNummer, String wachtwoord, String status) throws NoSuchAlgorithmException {
         setRNummer(rnummer);
         setNaam(naam);
         setVoornaam(voornaam);
@@ -19,6 +17,16 @@ public class Student {
         setAdres(adres);
         setTelefoonNummer(telefoonNummer);
         setWachtwoord(wachtwoord);
+        setStatus(status);
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        if (status == null || status.isEmpty()) throw new DomainException("Status is leeg!");
+        this.status = status;
     }
 
     public void setWachtwoord(String wachtwoord) throws NoSuchAlgorithmException {

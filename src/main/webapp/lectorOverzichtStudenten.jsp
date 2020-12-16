@@ -51,12 +51,28 @@
                 <th>r-Nummer</th>
                 <th>Voornaam</th>
                 <th>Achternaam</th>
+                <th>Status</th>
+                <th>Bevestig</th>
+                <th>Gewettigd afwezig</th>
             </tr>
             <c:forEach items="${afwezig}" var="student">
                 <tr>
                     <td><c:out value='${student.rnummer}'/></td>
                     <td><c:out value='${student.voornaam}'/></td>
                     <td><c:out value='${student.naam}'/></td>
+                    <td><c:out value='${student.status}'/></td>
+                    <td>
+                        <form action="Controller?command=Bevestig&bevestiging=ja&student=${student.rnummer}&les=${les}"
+                              method="post">
+                            <input type="submit" value="Aanwezig">
+                        </form>
+                    </td>
+                    <td>
+                        <form action="Controller?command=GewettigdAfwezig&student=${student.rnummer}&les=${les}"
+                              method="post">
+                            <input type="submit" value="Gewettigd afwezig">
+                        </form>
+                    </td>
                 </tr>
             </c:forEach>
         </table>
