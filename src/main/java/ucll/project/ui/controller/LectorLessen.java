@@ -25,10 +25,10 @@ public class LectorLessen extends RequestHandler {
         request.setAttribute("lessenLijst", lessenLijst);
 
         ArrayList<String> datums = new ArrayList<>();
-        datums.add("1/1/2020");
-        datums.add("2/2/2020");
-        datums.add("3/3/2020");
-        datums.add("4/4/2020");
+        datums.add("01/01/2020");
+        datums.add("02/02/2020");
+        datums.add("03/03/2020");
+        datums.add("04/04/2020");
         request.setAttribute("datums", datums);
         return "lectorLessen.jsp";
     }

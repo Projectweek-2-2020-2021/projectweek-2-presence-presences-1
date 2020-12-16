@@ -13,10 +13,11 @@ public class Bevestig extends RequestHandler{
     @Override
     public String handleRequest(HttpServletRequest request, HttpServletResponse response) {
         String bevestiging = request.getParameter("bevestiging");
+        String datum = request.getParameter("datum");
         int studentId = getApplicationService().getStudentId(request.getParameter("student"));
         int lesId = getApplicationService().getVakId(request.getParameter("les"));
         String les = request.getParameter("les");
-        getApplicationService().zetBevestiging(bevestiging, studentId, lesId);
+        getApplicationService().zetBevestiging(bevestiging, studentId, lesId, datum);
         String url = "Controller?command=LectorOverzichtStudenten&vaknaam=" + les;
 
         return url;

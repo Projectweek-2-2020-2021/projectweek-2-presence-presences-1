@@ -27,7 +27,7 @@
                     <th>groep</th>
                 </tr>
                 <c:forEach var="les" items="${lessenLijst}">
-                    <tr class="table-row" data-href="Controller?command=LectorOverzichtStudenten&vaknaam=<c:out value="${les.naam}"/>">
+                    <tr class="table-row" data-href="Controller?command=LectorOverzichtStudenten&vaknaam=<c:out value="${les.naam}"/>&datum=<c:out value="${datum}"/>">
                         <td><c:out value="${les.tijd}"/></td>
                         <td><c:out value="${les.naam}"/></td>
                         <td><c:out value="${les.studiepunten}"/></td>

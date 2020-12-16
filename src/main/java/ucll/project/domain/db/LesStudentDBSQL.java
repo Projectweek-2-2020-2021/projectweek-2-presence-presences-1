@@ -5,11 +5,11 @@ import ucll.project.domain.model.Student;
 import ucll.project.util.DbConnectionService;
 
 import java.security.NoSuchAlgorithmException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Formatter;
 import java.util.List;
 
 public class LesStudentDBSQL implements LesStudentDB{
@@ -27,15 +27,15 @@ public class LesStudentDBSQL implements LesStudentDB{
     }
 
     @Override
-    public void zetAanwezigheid(String aanwezigheid, int studentId, int lesId) {
-        String sql = "UPDATE " + this.schema + ".lesstudent" + " SET aanwezigheid = ? WHERE studentid = ? AND lesid = ?";
-
+    public void zetAanwezigheid(String aanwezigheid, int studentId, int lesId, String datum) {
+        String sql = "UPDATE " + this.schema + ".lesstudent" + " SET aanwezigheid = ? WHERE studentid = ? AND lesid = ? AND datum = ?";
+        LocalDate date = LocalDate.parse(datum, DateTimeFormatter.ofPattern("YYYY-MM-dd"));
         try {
             PreparedStatement statementsql = connection.prepareStatement(sql);
             statementsql.setBoolean(1, aanwezigheid.equals("ja"));
             statementsql.setInt(2, studentId);
             statementsql.setInt(3, lesId);
-
+            statementsql.setDate(4, Date.valueOf(date));
             statementsql.execute();
 
         } catch (SQLException e){
@@ -44,15 +44,15 @@ public class LesStudentDBSQL implements LesStudentDB{
     }
 
     @Override
-    public void zetBevestiging(String bevestiging, int studentId, int lesId) {
-        String sql = "UPDATE " + this.schema + ".lesstudent" + " SET bevestiging = ? WHERE studentid = ? AND lesid = ?";
-
+    public void zetBevestiging(String bevestiging, int studentId, int lesId, String datum) {
+        String sql = "UPDATE " + this.schema + ".lesstudent" + " SET bevestiging = ? WHERE studentid = ? AND lesid = ? AND datum = ?";
+        LocalDate date = LocalDate.parse(datum, DateTimeFormatter.ofPattern("YYYY-MM-dd"));
         try {
             PreparedStatement statementsql = connection.prepareStatement(sql);
             statementsql.setBoolean(1, bevestiging.equals("ja"));
             statementsql.setInt(2, studentId);
             statementsql.setInt(3, lesId);
-
+            statementsql.setDate(4, Date.valueOf(date));
             statementsql.execute();
 
         } catch (SQLException e){
@@ -61,13 +61,14 @@ public class LesStudentDBSQL implements LesStudentDB{
     }
 
     @Override
-    public List<Student> getAllAanwezigheid(int lesId) {
-        String sql = "SELECT * FROM " + this.schema + ".lesstudent" + " INNER JOIN" + this.schema + ".student ON lesstudent.studentid = student.id WHERE aanwezigheid = true AND lesid = ? AND bevestiging is null";
+    public List<Student> getAllAanwezigheid(int lesId, String datum) {
+        String sql = "SELECT * FROM " + this.schema + ".lesstudent" + " INNER JOIN" + this.schema + ".student ON lesstudent.studentid = student.id WHERE aanwezigheid = true AND lesid = ? AND bevestiging is null AND datum = ?";
         List<Student> students = new ArrayList<>();
+        LocalDate date = LocalDate.parse(datum, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         try {
             PreparedStatement statementsql = connection.prepareStatement(sql);
             statementsql.setInt(1, lesId);
-
+            statementsql.setDate(2, Date.valueOf(date));
             ResultSet result = statementsql.executeQuery();
             while (result.next()) {
                 makeStudent(result, students);
@@ -79,13 +80,14 @@ public class LesStudentDBSQL implements LesStudentDB{
     }
 
     @Override
-    public List<Student> getAllNietAanwezigheid(int lesId) {
-        String sql = "SELECT * FROM " + this.schema + ".lesstudent" + " INNER JOIN" + this.schema + ".student ON lesstudent.studentid = student.id WHERE aanwezigheid = false OR aanwezigheid is null AND lesid = ? AND bevestiging is null";
+    public List<Student> getAllNietAanwezigheid(int lesId, String datum) {
+        String sql = "SELECT * FROM " + this.schema + ".lesstudent" + " INNER JOIN" + this.schema + ".student ON lesstudent.studentid = student.id WHERE lesid = ? AND bevestiging is null AND datum = ? AND aanwezigheid = false OR aanwezigheid is null";
         List<Student> students = new ArrayList<>();
+        LocalDate date = LocalDate.parse(datum, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         try {
             PreparedStatement statementsql = connection.prepareStatement(sql);
             statementsql.setInt(1, lesId);
-
+            statementsql.setDate(2, Date.valueOf(date));
             ResultSet result = statementsql.executeQuery();
             while (result.next()) {
                 makeStudent(result, students);
@@ -97,13 +99,14 @@ public class LesStudentDBSQL implements LesStudentDB{
     }
 
     @Override
-    public List<Lesson> getLessenVoorStudent(int studentid) {
-        String sql = "SELECT * FROM " + this.schema + ".lesstudent INNER JOIN " + this.schema + ".les ON lesstudent.lesid = les.id"  + " WHERE studentid = ?";
+    public List<Lesson> getLessenVoorStudent(int studentid, String datum) {
+        String sql = "SELECT * FROM " + this.schema + ".lesstudent INNER JOIN " + this.schema + ".les ON lesstudent.lesid = les.id"  + " WHERE studentid = ? AND datum = ?";
         List<Lesson> lessons = new ArrayList<>();
+        LocalDate date = LocalDate.parse(datum, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         try {
             PreparedStatement statementsql = connection.prepareStatement(sql);
             statementsql.setInt(1, studentid);
-
+            statementsql.setDate(2, Date.valueOf(date));
             ResultSet result = statementsql.executeQuery();
             while (result.next()) {
                 makeLesson(result, lessons);

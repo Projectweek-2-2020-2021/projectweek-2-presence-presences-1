@@ -6,6 +6,7 @@ import ucll.project.domain.model.Lesson;
 import ucll.project.domain.model.Student;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.util.List;
 
 public class ApplicationService {
@@ -61,27 +62,27 @@ public class ApplicationService {
 
     public List<Lector> getLectorPerVak(int vakid){return dbLector.getLectorPerVak(vakid);};
 
-    public void zetAanwezigheid(String aanwezigheid, int studentId, int lesId) {
-        dbLesStudent.zetAanwezigheid(aanwezigheid, studentId, lesId);
+    public void zetAanwezigheid(String aanwezigheid, int studentId, int lesId, String datum) {
+        dbLesStudent.zetAanwezigheid(aanwezigheid, studentId, lesId, datum);
     }
 
-    public List<Student> getAllAanwezigheid(int lesId) {
-        return dbLesStudent.getAllAanwezigheid(lesId);
+    public List<Student> getAllAanwezigheid(int lesId, String datum) {
+        return dbLesStudent.getAllAanwezigheid(lesId, datum);
     }
 
-    public List<Student> getAllNietAanwezigheid(int lesId) {
-        return dbLesStudent.getAllNietAanwezigheid(lesId);
+    public List<Student> getAllNietAanwezigheid(int lesId, String datum) {
+        return dbLesStudent.getAllNietAanwezigheid(lesId, datum);
     }
 
-    public void zetBevestiging(String aanwezigheid, int studentId, int lesId) {
-        dbLesStudent.zetBevestiging(aanwezigheid, studentId, lesId);
+    public void zetBevestiging(String aanwezigheid, int studentId, int lesId, String datum) {
+        dbLesStudent.zetBevestiging(aanwezigheid, studentId, lesId, datum);
     }
 
     public int getStudentId(String rnummer) {
         return dbStudent.getStudentId(rnummer);
     }
 
-    public List<Lesson> getLessenVoorStudent(int studentid) {
-        return dbLesStudent.getLessenVoorStudent(studentid);
+    public List<Lesson> getLessenVoorStudent(int studentid, String datum) {
+        return dbLesStudent.getLessenVoorStudent(studentid, datum);
     }
 }

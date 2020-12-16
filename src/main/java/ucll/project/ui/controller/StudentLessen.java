@@ -25,16 +25,19 @@ public class StudentLessen extends RequestHandler {
         Utility.checkRoles(request, roles);
         Student student = (Student) session.getAttribute("loggedIn");
         int id = getApplicationService().getStudentId(student.getRnummer());
-        List<Lesson> lessenLijst = getApplicationService().getLessenVoorStudent(id);
+        String datum = request.getParameter("datum");
+        List<Lesson> lessenLijst = getApplicationService().getLessenVoorStudent(id, datum);
         request.setAttribute("lessenLijst", lessenLijst);
 
+
+        /*
         ArrayList<String> datums = new ArrayList<>();
         datums.add("1/1/2020");
         datums.add("2/2/2020");
         datums.add("3/3/2020");
         datums.add("4/4/2020");
         request.setAttribute("datums", datums);
-
+        */
         /*
 
         List<Lector> lectorlijst = new ArrayList<>();

@@ -18,7 +18,8 @@ public class ZetAanwezigheid extends RequestHandler{
         String aanwezigheid = request.getParameter("aanwezigheid");
         String les = request.getParameter("les");
         int lesId = getApplicationService().getVakId(les);
-        getApplicationService().zetAanwezigheid(aanwezigheid, 1, lesId);
+        String datum = request.getParameter("datum");
+        getApplicationService().zetAanwezigheid(aanwezigheid, 1, lesId, datum);
         return "Controller?command=StudentLessen";
     }
 }

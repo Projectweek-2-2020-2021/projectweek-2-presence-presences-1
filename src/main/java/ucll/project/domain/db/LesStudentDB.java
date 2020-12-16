@@ -9,13 +9,13 @@ public interface LesStudentDB {
 
     void reConnect();
 
-    void zetAanwezigheid(String aanwezigheid, int studentId, int lesId);
+    void zetAanwezigheid(String aanwezigheid, int studentId, int lesId, String datum);
 
-    void zetBevestiging(String bevestiging, int studentId, int lesId);
+    void zetBevestiging(String bevestiging, int studentId, int lesId, String datum);
 
-    List<Student> getAllAanwezigheid(int lesId);
+    List<Student> getAllAanwezigheid(int lesId, String datum);
 
-    List<Student> getAllNietAanwezigheid(int lesId);
+    List<Student> getAllNietAanwezigheid(int lesId, String datum);
 
-    List<Lesson> getLessenVoorStudent(int studentid);
+    List<Lesson> getLessenVoorStudent(int studentid, String datum);
 }
