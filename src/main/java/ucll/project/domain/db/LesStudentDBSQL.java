@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LesStudentDBSQL implements LesStudentDB{
-    private Connection connection;
+    private final Connection connection;
     private final String schema;
 
     public LesStudentDBSQL() {
@@ -31,11 +31,7 @@ public class LesStudentDBSQL implements LesStudentDB{
 
         try {
             PreparedStatement statementsql = connection.prepareStatement(sql);
-            if (aanwezigheid.equals("ja")) {
-                statementsql.setBoolean(1, true);
-            } else {
-                statementsql.setBoolean(1, false);
-            }
+            statementsql.setBoolean(1, aanwezigheid.equals("ja"));
             statementsql.setInt(2, studentId);
             statementsql.setInt(3, lesId);
 
@@ -52,11 +48,7 @@ public class LesStudentDBSQL implements LesStudentDB{
 
         try {
             PreparedStatement statementsql = connection.prepareStatement(sql);
-            if (bevestiging.equals("ja")) {
-                statementsql.setBoolean(1, true);
-            } else {
-                statementsql.setBoolean(1, false);
-            }
+            statementsql.setBoolean(1, bevestiging.equals("ja"));
             statementsql.setInt(2, studentId);
             statementsql.setInt(3, lesId);
 
