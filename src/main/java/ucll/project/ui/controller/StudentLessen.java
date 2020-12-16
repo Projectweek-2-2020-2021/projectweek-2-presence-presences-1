@@ -3,13 +3,14 @@ package ucll.project.ui.controller;
 import ucll.project.domain.model.Lector;
 import ucll.project.domain.model.Lesson;
 import ucll.project.domain.model.Rol;
-import ucll.project.domain.model.Student;
 import ucll.project.domain.service.ApplicationService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 public class StudentLessen extends RequestHandler {
@@ -20,40 +21,27 @@ public class StudentLessen extends RequestHandler {
 
     @Override
     public String handleRequest(HttpServletRequest request, HttpServletResponse response) {
-        HttpSession session = request.getSession();
         Rol[] roles = new Rol[]{Rol.STUDENT};
         Utility.checkRoles(request, roles);
-        Student student = (Student) session.getAttribute("loggedIn");
-        int id = getApplicationService().getStudentId(student.getRnummer());
-        String datum = request.getParameter("datum");
-        List<Lesson> lessenLijst = getApplicationService().getLessenVoorStudent(id, datum);
+        List<Lesson> lessenLijst = getApplicationService().getLessons();
         request.setAttribute("lessenLijst", lessenLijst);
 
+        List<Date> datums = getApplicationService().getAllDatums();
+        Collections.sort(datums);
 
-        /*
-        ArrayList<String> datums = new ArrayList<>();
-        datums.add("1/1/2020");
-        datums.add("2/2/2020");
-        datums.add("3/3/2020");
-        datums.add("4/4/2020");
         request.setAttribute("datums", datums);
-        */
-        /*
 
-        List<Lector> lectorlijst = new ArrayList<>();
+
+        List<List<Lector>> lectorlijst = new ArrayList<>();
         for (Lesson les: lessenLijst
              ) {
-
-            List<Lector> l = getApplicationService().getVakPerLector(getApplicationService().getVakId(les.getNaam()));
-            for (Lector lector: l
-                 ) {
-                lectorlijst.add(lector);
-            }
+            List<Lector> l = getApplicationService().getLectorPerVak(getApplicationService().getVakId(les.getNaam()));
+            lectorlijst.add(l);
         }
 
-
         request.setAttribute("lectorenlijst", lectorlijst);
-        */
+
+
         return "studentLessen.jsp";
     }
 }
