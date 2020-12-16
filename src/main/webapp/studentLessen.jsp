@@ -38,6 +38,9 @@
                     <c:if test="${les.status == 'gewettigd afwezig'}">
                         <c:set var="studentStatus" value="table-info"/>
                     </c:if>
+                    <c:if test="${les.status == 'onbekend'}">
+                        <c:set var="studentStatus" value="table-light"/>
+                    </c:if>
                     <tr class="table-row ${studentStatus}"  data-href="Controller?command=AanwezigheidControle&naam=<c:out value="${les.naam}"/>&datum=<c:out value="${list.key}"/>">
                         <td><c:out value="${les.tijd}"/></td>
                         <td><c:out value="${les.naam}"/>, dit vak heeft <c:out value="${les.studiepunten}"/> studiepunten

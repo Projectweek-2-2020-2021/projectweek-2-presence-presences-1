@@ -129,7 +129,7 @@ public class StudentDBSQL implements StudentDB {
 
         String status = "";
         boolean aanwezig = false;
-        boolean bevestiging = false;
+        Boolean bevestiging = null;
         boolean gewettigdafwezig = false;
 
         try{
@@ -141,26 +141,32 @@ public class StudentDBSQL implements StudentDB {
             while (result.next()){
                 aanwezig = result.getBoolean("aanwezigheid");
                 bevestiging = result.getBoolean("bevestiging");
+                if (result.wasNull()) bevestiging = null;
                 gewettigdafwezig = result.getBoolean("gewettigdafwezig");
             }
         } catch (SQLException e){
             throw new DbException(e.getMessage());
         }
-
-        if (aanwezig && bevestiging) {
-            status = "aanwezig";
+        if (!aanwezig && bevestiging == null && !gewettigdafwezig){
+            return "onbekend";
         }
-        if (!aanwezig && bevestiging) {
-            status = "aanwezig";
+        if (aanwezig && bevestiging == null /*|| !aanwezig && bevestiging == null*/){
+            return "pending";
         }
-        if (aanwezig && !bevestiging) {
-            status = "afwezig";
+        if (!aanwezig && bevestiging == null && gewettigdafwezig){
+            return "gewettigd afwezig";
         }
         if (!aanwezig && !bevestiging && !gewettigdafwezig){
-            status = "pending";
+            status = "onbekend";
         }
-        if (gewettigdafwezig) {
-            status = "gewettigd afwezig";
+        if (aanwezig && bevestiging == true) {
+            status = "aanwezig";
+        }
+        if (!aanwezig && bevestiging == true) {
+            status = "aanwezig";
+        }
+        if (aanwezig && bevestiging == false) {
+            status = "afwezig";
         }
         return status;
     }
