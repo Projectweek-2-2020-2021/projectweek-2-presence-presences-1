@@ -41,6 +41,6 @@ public interface LessonDB {
 
     int getLesId(String vaknaam);
 
-
+    
 
 }
