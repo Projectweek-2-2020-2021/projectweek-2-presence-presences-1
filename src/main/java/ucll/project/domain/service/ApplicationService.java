@@ -100,6 +100,10 @@ public class ApplicationService {
         return dbLesStudent.getLokaal(getVakId(lesson.getNaam()));
     }
 
+    public String getGroep(Lesson lesson){
+        return dbLesStudent.getGroep(getVakId(lesson.getNaam()));
+    }
+
     public String getstatus(int studentid, int lesid, Date datum) {
         return dbStudent.getstatus(studentid, lesid, datum);
     }

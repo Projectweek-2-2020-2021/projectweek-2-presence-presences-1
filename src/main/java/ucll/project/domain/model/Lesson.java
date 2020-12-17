@@ -88,9 +88,6 @@ public class Lesson implements Comparable<Lesson> {
 	public String getEindTijd(){
 		int uur =  Integer.parseInt(this.getTijd().substring(0, 2));
 		int min =  Integer.parseInt(this.getTijd().substring(3, 5));
-		System.out.println(getLesduur()/60);
-
-		System.out.println(getLesduur()%60);
 		uur += getLesduur()/60;
 		min += getLesduur()%60;
 		return uur + ":" + min;
