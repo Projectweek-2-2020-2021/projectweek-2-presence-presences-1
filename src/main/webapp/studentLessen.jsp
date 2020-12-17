@@ -67,7 +67,12 @@
                                 value="${les.studiepunten}"/> studiepunten
                             in de richting <c:out value="${les.studierichting}"/></td>
                         <td class="col-1"><c:out value="${groeplijstperdag[statusdag.index][status.index]}"/></td>
-                        <td class="col-1"><c:out value="${lokalenlijstperdag[statusdag.index][status.index]}"/></td>
+                        <td class="col-1">
+                            <c:forEach var = "lokaal" items = "${lokalenlijstperdag[statusdag.index][status.index]}">
+                                <c:out value="${lokaal}"/>
+                            </c:forEach>
+
+                        </td>
                         <c:forEach var="lector" items="${lectorlijstperdag[statusdag.index][status.index]}">
                             <td class="col-1"><c:out value="${lector.achternaam}"/></td>
                         </c:forEach>

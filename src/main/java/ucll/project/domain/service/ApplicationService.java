@@ -100,8 +100,8 @@ public class ApplicationService {
         dbLesStudent.zetGewettigdeAfwezigheid(studentId, lesId, date);
     }
 
-    public String getLokaal(Lesson lesson) {
-        return dbLesStudent.getLokaal(getVakId(lesson.getNaam()));
+    public List<String> getLokaal(Lesson lesson, Student student, Date date) {
+        return dbLesStudent.getLokaal(getVakId(lesson.getNaam()), getStudentId(student.getRnummer()), date);
     }
 
     public String getGroep(Lesson lesson){

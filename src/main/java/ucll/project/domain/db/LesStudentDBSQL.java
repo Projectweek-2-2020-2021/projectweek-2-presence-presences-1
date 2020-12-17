@@ -133,20 +133,22 @@ public class LesStudentDBSQL implements LesStudentDB{
     }
 
     @Override
-    public String getLokaal(int lesid){
-        String lokaal = null;
-        String sql = "SELECT lokaal FROM " + this.schema + ".lesstudent WHERE lesstudent.lesid = ?";
+    public List<String> getLokaal(int lesid, int studentid, java.util.Date date){
+        List<String> lokalen = new ArrayList<>();
+        String sql = "SELECT DISTINCT lokaal FROM " + this.schema + ".lesstudent WHERE lesstudent.lesid = ? AND lesstudent.studentid = ? AND datum = ?";
         try {
             PreparedStatement statementsql = connection.prepareStatement(sql);
             statementsql.setInt(1, lesid);
+            statementsql.setInt(2, studentid);
+            statementsql.setDate(3, (Date) date);
             ResultSet result = statementsql.executeQuery();
             while (result.next()) {
-                lokaal = result.getString("lokaal");
+                lokalen.add(result.getString("lokaal"));
             }
         } catch (SQLException e) {
             throw new DbException(e.getMessage());
         }
-        return lokaal;
+        return lokalen;
     }
 
     private void makeStudent(ResultSet result, List<Student> students) throws SQLException, NoSuchAlgorithmException {

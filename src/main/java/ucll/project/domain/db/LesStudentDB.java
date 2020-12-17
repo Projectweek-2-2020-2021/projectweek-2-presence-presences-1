@@ -24,7 +24,7 @@ public interface LesStudentDB {
 
     List<Date> getAllDatumsLector();
 
-    String getLokaal(int lesid);
+    List<String> getLokaal(int lesid, int studentid, Date date);
 
     String getGroep(int lesid);
 
