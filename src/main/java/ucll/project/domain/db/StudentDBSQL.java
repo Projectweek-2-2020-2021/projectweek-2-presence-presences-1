@@ -174,5 +174,22 @@ public class StudentDBSQL implements StudentDB {
         return status;
     }
 
+    @Override
+    public List<Student> getStudentenvoorLector(String nummer) {
+        List<Student> students = new ArrayList<>();
+        String sql = "select * from " + this.schema + ".student where stc = ?;";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, nummer);
+            ResultSet resultset = preparedStatement.executeQuery();
+            while (resultset.next()){
+                makeStudent(resultset, students);
+            }
+        }catch (SQLException | NoSuchAlgorithmException e){
+            throw new DbException(e.getMessage());
+        }
+        return students;
+    }
+
 
 }

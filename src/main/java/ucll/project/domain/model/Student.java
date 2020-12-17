@@ -2,7 +2,7 @@ package ucll.project.domain.model;
 
 import java.security.NoSuchAlgorithmException;
 
-public class Student {
+public class Student implements Comparable<Student> {
     private String rnummer, naam, voornaam, email, adres, telefoonNummer, wachtwoord, status;
 
     public Student() {
@@ -122,5 +122,10 @@ public class Student {
         t += "\nAdres: " + adres;
         t += "\nGsm: " + telefoonNummer;
         return t;
+    }
+
+    @Override
+    public int compareTo(Student o) {
+        return getRnummer().compareTo(o.getRnummer());
     }
 }

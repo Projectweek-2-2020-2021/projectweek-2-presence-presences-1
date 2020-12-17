@@ -1,9 +1,11 @@
 package ucll.project.domain.db;
 
+import ucll.project.domain.model.LesStudent;
 import ucll.project.domain.model.Lesson;
 import ucll.project.domain.model.Student;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 public interface LesStudentDB {
@@ -31,4 +33,6 @@ public interface LesStudentDB {
     void zetGewettigdeAfwezigheid(int studentId, int lesId, Date date);
 
     void setStudentCommentaar(int studentId, int lesId, java.sql.Date date, String opmerking);
+
+    List<LesStudent> getLesStudentVoorStudentenVanStc(java.sql.Date van, java.sql.Date tot, String nummer);
 }

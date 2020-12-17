@@ -29,7 +29,7 @@ public abstract class RequestHandler {
         this.applicationService = applicationService;
     }
 
-    public abstract String handleRequest(HttpServletRequest request, HttpServletResponse response) throws NoSuchAlgorithmException;
+    public abstract String handleRequest(HttpServletRequest request, HttpServletResponse response) throws NoSuchAlgorithmException, Exception;
 
     void forwardRequest(String destination, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         RequestDispatcher view = request.getRequestDispatcher(destination);

@@ -34,4 +34,6 @@ public interface StudentDB {
      int getStudentId(String rnummer);
 
      String getstatus(int studentid, int lesid, Date datum);
+
+     List<Student> getStudentenvoorLector(String nummer);
 }

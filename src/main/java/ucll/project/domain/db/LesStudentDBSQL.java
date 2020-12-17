@@ -1,5 +1,6 @@
 package ucll.project.domain.db;
 
+import ucll.project.domain.model.LesStudent;
 import ucll.project.domain.model.Lesson;
 import ucll.project.domain.model.Student;
 import ucll.project.util.DbConnectionService;
@@ -7,6 +8,7 @@ import ucll.project.util.DbConnectionService;
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class LesStudentDBSQL implements LesStudentDB{
@@ -239,6 +241,40 @@ public class LesStudentDBSQL implements LesStudentDB{
         }
     }
 
+    @Override
+    public List<LesStudent> getLesStudentVoorStudentenVanStc(java.sql.Date van, java.sql.Date tot, String nummer) {
+        List<LesStudent> lesStudentList = new ArrayList<>();
+        String sql = "SELECT " + this.schema + ".les.naam as naam, r_nummer, datum, lokaal, opmerking, aanwezigheid, bevestiging, gewettigdafwezig FROM " + this.schema + ".lesstudent inner join " + this.schema + ".student on lesstudent.studentid = student.id inner join " + this.schema + ".les on les.id = lesstudent.lesid WHERE stc = ? AND datum >= ? AND datum <= ?";
+        try {
+            PreparedStatement statementsql = connection.prepareStatement(sql);
+            statementsql.setString(1, nummer);
+            statementsql.setDate(2, van);
+            statementsql.setDate(3, tot);
+            ResultSet result = statementsql.executeQuery();
+            while (result.next()) {
+                LesStudent lesStudent = maakLesStudent(result);
+                lesStudentList.add(lesStudent);
+            }
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        }
+        return lesStudentList;
+    }
+
+    private LesStudent maakLesStudent(ResultSet result) throws SQLException {
+        String lesnaam = result.getString("naam");
+        String rnummer = result.getString("r_nummer");
+        java.util.Date datum = result.getDate("datum");
+        String klaslokaal = result.getString("lokaal");
+        String opmerking = result.getString("opmerking");
+        boolean aanwezigheid = result.getBoolean("aanwezigheid");
+        boolean bevestiging = result.getBoolean("bevestiging");
+        boolean gewettigdafwezig = result.getBoolean("gewettigdafwezig");
+        String status = bepaalStatus(aanwezigheid, bevestiging, gewettigdafwezig);
+        LesStudent lesStudent = new LesStudent(lesnaam, rnummer, datum, klaslokaal, opmerking, status);
+        return lesStudent;
+    }
+
 
     private String bepaalStatus(boolean aanwezigheid, boolean bevestiging, boolean gewettigdafwezig) {
         String status = "Pending";
@@ -260,5 +296,4 @@ public class LesStudentDBSQL implements LesStudentDB{
         }
         return status;
     }
-
 }
