@@ -62,8 +62,8 @@
                     </c:if>
                     <tr class="table-row ${studentStatus}"
                         data-href="Controller?command=AanwezigheidControle&naam=<c:out value="${les.naam}"/>&datum=<c:out value="${list.key}"/>">
-                        <td class="col-1"><c:out value="${les.tijd}"/> - <c:out value="${les.getEindTijd()}"/></td>
-                        <td class="col-8"><c:out value="${les.naam}"/>, dit vak heeft <c:out
+                        <td class="col-2"><c:out value="${les.tijd}"/> - <c:out value="${les.getEindTijd()}"/></td>
+                        <td class="col-7"><c:out value="${les.naam}"/>, dit vak heeft <c:out
                                 value="${les.studiepunten}"/> studiepunten
                             in de richting <c:out value="${les.studierichting}"/></td>
                         <td class="col-1"><c:out value="${groeplijstperdag[statusdag.index][status.index]}"/></td>
