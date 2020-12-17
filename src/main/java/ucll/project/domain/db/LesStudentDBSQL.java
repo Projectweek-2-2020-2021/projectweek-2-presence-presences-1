@@ -165,6 +165,20 @@ public class LesStudentDBSQL implements LesStudentDB{
         }
     }
 
+    public void setStudentCommentaar(int studentId, int lesId, java.sql.Date date, String opmerking) {
+        String sql = "UPDATE " + this.schema + ".lesstudent" + " SET opmerking = ? WHERE studentid = ? AND lesid = ? AND datum = ?";
+        try {
+            PreparedStatement statementSql = connection.prepareStatement(sql);
+            statementSql.setString(1, opmerking);
+            statementSql.setInt(2, studentId);
+            statementSql.setInt(3, lesId);
+            statementSql.setDate(4, date);
+            statementSql.execute();
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        }
+    }
+
 
     private String bepaalStatus(boolean aanwezigheid, boolean bevestiging, boolean gewettigdafwezig) {
         String status = "Pending";

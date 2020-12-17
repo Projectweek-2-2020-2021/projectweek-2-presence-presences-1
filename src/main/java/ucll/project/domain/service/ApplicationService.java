@@ -96,7 +96,11 @@ public class ApplicationService {
         dbLesStudent.zetGewettigdeAfwezigheid(studentId, lesId, date);
     }
 
-    public String getstatus(int studentid, int lesid, Date datum){
+    public String getstatus(int studentid, int lesid, Date datum) {
         return dbStudent.getstatus(studentid, lesid, datum);
+    }
+
+    public void setStudentCommentaar(int studentId, int lesId, java.sql.Date date, String opmerking) {
+        dbLesStudent.setStudentCommentaar(studentId, lesId, date, opmerking);
     }
 }
