@@ -2,7 +2,6 @@ package ucll.project.ui.controller;
 
 import ucll.project.domain.model.Lector;
 import ucll.project.domain.model.Lesson;
-import ucll.project.domain.model.Rol;
 import ucll.project.domain.model.Student;
 import ucll.project.domain.service.ApplicationService;
 
@@ -19,25 +18,30 @@ public class StudentLessen extends RequestHandler {
 
     @Override
     public String handleRequest(HttpServletRequest request, HttpServletResponse response) {
-        Rol[] roles = new Rol[]{Rol.STUDENT};
         Utility.checkRoles(request, roles);
 
         LinkedHashMap<Date, List<Lesson>> lessenPerDag = new LinkedHashMap<>();
-        List<Lesson> lessenLijst = new ArrayList<>();
-        HttpSession session = request.getSession();
-        Student student = (Student) session.getAttribute("loggedIn");
-        int id = getApplicationService().getStudentId(student.getRnummer());
+        List<Lesson> lessenLijst;
 
+        int id;
+        String zoekOpdracht = request.getParameter("zoekOpdracht");
+        if (zoekOpdracht != null && !zoekOpdracht.isEmpty()) {
+            id = getApplicationService().getStudentId(zoekOpdracht);
+        } else {
+            HttpSession session = request.getSession();
+            Student student = (Student) session.getAttribute("loggedIn");
+            id = getApplicationService().getStudentId(student.getRnummer());
+        }
         List<Date> datums = getApplicationService().getAllDatumsStudent(id);
         Collections.sort(datums);
 
-        for (Date d : datums){
-             lessenLijst = getApplicationService().getLessenVoorStudent(id, d);
-             Collections.sort(lessenLijst);
-             for (Lesson l : lessenLijst){
-                 int lesid = getApplicationService().getVakId(l.getNaam());
-                 String status = getApplicationService().getstatus(id, lesid, d);
-                 l.setStatus(status);
+        for (Date d : datums) {
+            lessenLijst = getApplicationService().getLessenVoorStudent(id, d);
+            Collections.sort(lessenLijst);
+            for (Lesson l : lessenLijst) {
+                int lesid = getApplicationService().getVakId(l.getNaam());
+                String status = getApplicationService().getstatus(id, lesid, d);
+                l.setStatus(status);
              }
              lessenPerDag.put(d,lessenLijst);
         }
