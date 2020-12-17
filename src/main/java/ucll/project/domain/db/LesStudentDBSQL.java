@@ -114,6 +114,22 @@ public class LesStudentDBSQL implements LesStudentDB{
         return lessons;
     }
 
+    public String getLokaal(int lesid){
+        String lokaal = null;
+        String sql = "SELECT lokaal FROM " + this.schema + ".lesstudent WHERE les.id = ?";
+        try {
+            PreparedStatement statementsql = connection.prepareStatement(sql);
+            statementsql.setInt(1, lesid);
+            ResultSet result = statementsql.executeQuery();
+            while (result.next()) {
+                lokaal = result.getString("lokaal");
+            }
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        }
+        return lokaal;
+    }
+
     private void makeStudent(ResultSet result, List<Student> students) throws SQLException, NoSuchAlgorithmException {
         String naam = result.getString("naam");
         String rnummer = result.getString("r_nummer");
@@ -135,7 +151,8 @@ public class LesStudentDBSQL implements LesStudentDB{
         int studiepunten = Integer.parseInt(result.getString("studiepunten"));
         String studierichting = result.getString("studierichting");
         String tijd = result.getString("tijd");
-        Lesson lesson = new Lesson(name, studiepunten, studierichting, tijd);
+        int lesduur = result.getInt("lesduur");
+        Lesson lesson = new Lesson(name, studiepunten, studierichting, tijd, lesduur);
         lessons.add(lesson);
     }
 

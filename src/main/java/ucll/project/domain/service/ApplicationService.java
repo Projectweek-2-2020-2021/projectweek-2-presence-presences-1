@@ -88,6 +88,10 @@ public class ApplicationService {
         return dbLesStudent.getLessenVoorStudent(studentid, datum);
     }
 
+    public String getLokaal(int lesid){
+        return dbLesStudent.getLokaal(lesid);
+    }
+
     public List<Date> getAllDatums() {
         return dbLesStudent.getAllDatums();
     }

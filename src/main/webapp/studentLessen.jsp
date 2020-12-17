@@ -28,7 +28,7 @@
                 <c:forEach var="les" items="${list.value}" varStatus="status">
                     <tr class="table-row"
                         data-href="Controller?command=AanwezigheidControle&naam=<c:out value="${les.naam}"/>&datum=<c:out value="${list.key}"/>">
-                        <td><c:out value="${les.tijd}"/></td>
+                        <td><c:out value="${les.tijd}"/> - <c:out value="${les.getEindTijd()}"/></td>
                         <td><c:out value="${les.naam}"/>, dit vak heeft <c:out value="${les.studiepunten}"/>
                             studiepunten
                             in de richting <c:out value="${les.studierichting}"/></td>

@@ -22,5 +22,7 @@ public interface LesStudentDB {
 
     List<Date> getAllDatums();
 
+    String getLokaal(int lesid);
+
     void zetGewettigdeAfwezigheid(int studentId, int lesId, Date date);
 }
