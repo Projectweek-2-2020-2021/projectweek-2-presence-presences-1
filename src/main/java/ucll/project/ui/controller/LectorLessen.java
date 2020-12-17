@@ -7,7 +7,10 @@ import ucll.project.domain.service.ApplicationService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.*;
+import java.util.Collections;
+import java.util.Date;
+import java.util.LinkedHashMap;
+import java.util.List;
 
 public class LectorLessen extends RequestHandler {
 
@@ -18,7 +21,7 @@ public class LectorLessen extends RequestHandler {
     @Override
     public String handleRequest(HttpServletRequest request, HttpServletResponse response) {
         LinkedHashMap<Date, List<Lesson>> lessenPerDag = new LinkedHashMap<>();
-        List<Lesson> lessenLijst = new ArrayList<>();
+        List<Lesson> lessenLijst;
         Rol[] roles = new Rol[]{Rol.LECTOR};
         Utility.checkRoles(request, roles);
         Lector lector = (Lector) request.getSession().getAttribute("loggedIn");

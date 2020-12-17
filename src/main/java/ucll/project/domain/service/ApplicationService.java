@@ -60,7 +60,9 @@ public class ApplicationService {
         return dbLector.getLectorId(lectorennummer);
     }
 
-    public List<Lector> getLectorPerVak(int vakid){return dbLector.getLectorPerVak(vakid);};
+    public List<Lector> getLectorPerVak(int vakid) {
+        return dbLector.getLectorPerVak(vakid);
+    }
 
     public void zetAanwezigheid(String aanwezigheid, int studentId, int lesId, Date datum) {
         dbLesStudent.zetAanwezigheid(aanwezigheid, studentId, lesId, datum);
@@ -90,8 +92,8 @@ public class ApplicationService {
         return dbLesStudent.getAllDatums();
     }
 
-    public void zetGewettigdeAfwezigheid(int studentId, int lesId) {
-        dbLesStudent.zetGewettigdeAfwezigheid(studentId, lesId);
+    public void zetGewettigdeAfwezigheid(int studentId, int lesId, Date date) {
+        dbLesStudent.zetGewettigdeAfwezigheid(studentId, lesId, date);
     }
 
     public String getstatus(int studentid, int lesid, Date datum){

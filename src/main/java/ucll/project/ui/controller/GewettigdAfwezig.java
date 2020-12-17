@@ -5,6 +5,9 @@ import ucll.project.domain.service.ApplicationService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.security.NoSuchAlgorithmException;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class GewettigdAfwezig extends RequestHandler {
     public GewettigdAfwezig(String command, ApplicationService applicationService) {
@@ -15,8 +18,10 @@ public class GewettigdAfwezig extends RequestHandler {
     public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws NoSuchAlgorithmException {
         int studentId = getApplicationService().getStudentId(request.getParameter("student"));
         int lesId = getApplicationService().getVakId(request.getParameter("les"));
-        getApplicationService().zetGewettigdeAfwezigheid(studentId, lesId);
+        String datum = request.getParameter("datum");
+        LocalDate date = LocalDate.parse(datum, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        getApplicationService().zetGewettigdeAfwezigheid(studentId, lesId, Date.valueOf(date));
 
-        return "Controller?LectorOverzichtStudenten&vaknaam=" + request.getParameter("les");
+        return "Controller?command=LectorOverzichtStudenten&vaknaam=" + request.getParameter("les") + "&datum=" + request.getParameter("datum");
     }
 }

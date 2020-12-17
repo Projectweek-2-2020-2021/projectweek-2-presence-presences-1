@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Presence 1 - Lector lessen</title>
+    <title>Presence 1 - Mijn lessen</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -21,10 +21,10 @@
             <table class="table table-hover">
                 <tr>
                     <th><c:out value="${list.key}"/></th>
-                    <th>vak</th>
-                    <th>studiepunten</th>
-                    <th>studierichting</th>
-                    <th>groep</th>
+                    <th>Vak</th>
+                    <th>Studiepunten</th>
+                    <th>Studierichting</th>
+                    <th>Groep</th>
                 </tr>
                 <c:forEach var="les" items="${list.value}">
                     <tr class="table-row" data-href="Controller?command=LectorOverzichtStudenten&vaknaam=<c:out value="${les.naam}"/>&datum=<c:out value="${list.key}"/>">
@@ -32,7 +32,7 @@
                         <td><c:out value="${les.naam}"/></td>
                         <td><c:out value="${les.studiepunten}"/></td>
                         <td><c:out value="${les.studierichting}"/></td>
-                        <td>groep 1</td>
+                        <td>1</td>
                     </tr>
                 </c:forEach>
             </table>
