@@ -25,11 +25,11 @@
             <label for="nee">Nee</label>
             <input type="radio" value="nee" id="nee" name="aanwezigheid" checked>
         </p>
-                <p>
-                    <button type="submit" class="btn btn-primary" style="background-color: #343a40;">
-                        <strong>Bevestigen</strong></button>
-                </p>
-            </form>
-        </main>
-    </body>
+        <p>
+            <button type="submit" class="btn btn-primary" style="background-color: #343a40;">
+                <strong>Bevestigen</strong></button>
+        </p>
+    </form>
+</main>
+</body>
 </html>

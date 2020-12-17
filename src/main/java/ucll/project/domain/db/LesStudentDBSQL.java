@@ -8,11 +8,10 @@ import ucll.project.util.DbConnectionService;
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class LesStudentDBSQL implements LesStudentDB{
-    private final Connection connection;
+    private Connection connection;
     private final String schema;
 
     public LesStudentDBSQL() {
@@ -22,7 +21,9 @@ public class LesStudentDBSQL implements LesStudentDB{
 
     @Override
     public void reConnect() {
-
+        DbConnectionService.disconnect();   // close connection with db properly
+        DbConnectionService.connect();      // reconnect application to db server
+        this.connection = DbConnectionService.getDbConnection();    // assign connection to DBSQL
     }
 
     @Override
@@ -63,24 +64,6 @@ public class LesStudentDBSQL implements LesStudentDB{
     }
 
     @Override
-    public List<Student> getAllAanwezigheid(int lesId, java.util.Date datum) {
-        String sql = "SELECT * FROM " + this.schema + ".lesstudent" + " INNER JOIN" + this.schema + ".student ON lesstudent.studentid = student.id WHERE aanwezigheid = true AND lesid = ? AND bevestiging is not true AND datum = ?";
-        List<Student> students = new ArrayList<>();
-        try {
-            PreparedStatement statementsql = connection.prepareStatement(sql);
-            statementsql.setInt(1, lesId);
-            statementsql.setDate(2, (Date) datum);
-            ResultSet result = statementsql.executeQuery();
-            while (result.next()) {
-                makeStudent(result, students);
-            }
-        } catch (SQLException | NoSuchAlgorithmException e) {
-            throw new DbException(e.getMessage());
-        }
-        return students;
-    }
-
-    @Override
     public List<Student> getAllNietAanwezigheid(int lesId, java.util.Date datum) {
         String sql = "SELECT * FROM " + this.schema + ".lesstudent" + " INNER JOIN" + this.schema + ".student ON lesstudent.studentid = student.id WHERE lesid = ? AND datum = ?";
         List<Student> students = new ArrayList<>();
@@ -108,13 +91,12 @@ public class LesStudentDBSQL implements LesStudentDB{
             statementsql.setDate(2, (Date) datum);
             ResultSet result = statementsql.executeQuery();
             while (result.next()) {
-                makeLesson(result, lessons);
+                LessonDBSQL.makeLesson(result, lessons);
             }
         } catch (SQLException e) {
             throw new DbException(e.getMessage());
         }
         return lessons;
-
     }
 
     @Override
@@ -167,16 +149,6 @@ public class LesStudentDBSQL implements LesStudentDB{
         String status = bepaalStatus(aanwezigheid, bevestiging, gewettigdafwezig);
         Student student = new Student(rnummer, naam, voornaam, email, adres, telefoonNummer, wachtwoord, status);
         students.add(student);
-    }
-
-    private void makeLesson(ResultSet result, List<Lesson> lessons) throws SQLException {
-        String name = result.getString("naam");
-        int studiepunten = Integer.parseInt(result.getString("studiepunten"));
-        String studierichting = result.getString("studierichting");
-        String tijd = result.getString("tijd");
-        int lesduur = result.getInt("lesduur");
-        Lesson lesson = new Lesson(name, studiepunten, studierichting, tijd, lesduur);
-        lessons.add(lesson);
     }
 
     @Override

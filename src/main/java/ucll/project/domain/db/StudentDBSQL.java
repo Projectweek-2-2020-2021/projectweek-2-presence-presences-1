@@ -3,8 +3,6 @@ package ucll.project.domain.db;
 import ucll.project.domain.model.Student;
 import ucll.project.util.DbConnectionService;
 
-import javax.management.MBeanServer;
-import javax.xml.transform.Result;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -21,22 +19,6 @@ public class StudentDBSQL implements StudentDB {
     public StudentDBSQL() {
         this.connection = DbConnectionService.getDbConnection();
         this.schema = DbConnectionService.getSearchPath();
-    }
-
-    @Override
-    public List<Student> getAll() {
-        List<Student> students = new ArrayList<>();
-        String sql = "SELECT * FROM " + this.schema + ".student";
-        try {
-            PreparedStatement statementSql = connection.prepareStatement(sql);
-            ResultSet result = statementSql.executeQuery();
-            while (result.next()) {
-                makeStudent(result, students);
-            }
-        } catch (SQLException | NoSuchAlgorithmException e) {
-            throw new DbException(e.getMessage(), e);
-        }
-        return students;
     }
 
     /**
@@ -59,6 +41,22 @@ public class StudentDBSQL implements StudentDB {
     }
 
     @Override
+    public List<Student> getAll() {
+        List<Student> students = new ArrayList<>();
+        String sql = "SELECT * FROM " + this.schema + ".student";
+        try {
+            PreparedStatement statementSql = connection.prepareStatement(sql);
+            ResultSet result = statementSql.executeQuery();
+            while (result.next()) {
+                makeStudent(result, students);
+            }
+        } catch (SQLException | NoSuchAlgorithmException e) {
+            throw new DbException(e.getMessage(), e);
+        }
+        return students;
+    }
+
+    @Override
     public List<Student> getStudentenPerVak(int id) {
         List<Student> students = new ArrayList<>();
         String sql = "select * from " + this.schema + ".student inner join " + this.schema + ".lesstudent on student.id = lesstudent.studentid inner join " + this.schema + ".les on les.id = lesstudent.lesid where les.id = ?;";
@@ -66,61 +64,60 @@ public class StudentDBSQL implements StudentDB {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, id);
             ResultSet resultset = preparedStatement.executeQuery();
-            while (resultset.next()){
+            while (resultset.next()) {
                 makeStudent(resultset, students);
             }
-        }catch (SQLException | NoSuchAlgorithmException e){
+        } catch (SQLException | NoSuchAlgorithmException e) {
             throw new DbException(e.getMessage());
         }
         return students;
     }
 
     @Override
+    public int getStudentId(String rnummer) {
+        String sql = "SELECT id FROM " + this.schema + ".student" + " WHERE r_nummer = ?";
+
+        int id;
+        try {
+            PreparedStatement statementsql = connection.prepareStatement(sql);
+            statementsql.setString(1, rnummer);
+            ResultSet result = statementsql.executeQuery();
+            result.next();
+            id = result.getInt("id");
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        }
+
+        return id;
+    }
+
+    @Override
     public Student getStudent(String rnummer) {
         List<Student> students = new ArrayList<>();
-        String sql = "select * from student where r_nummer = ?";
+        String sql = "select * from " + this.schema + ".student where r_nummer = ?";
+        makeStudents(rnummer, students, sql);
+        return students.get(0);
+    }
+
+    @Override
+    public List<Student> getStudentenvoorLector(String nummer) {
+        List<Student> students = new ArrayList<>();
+        String sql = "select * from " + this.schema + ".student where stc = ?;";
+        makeStudents(nummer, students, sql);
+        return students;
+    }
+
+    private void makeStudents(String nummer, List<Student> students, String sql) {
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, rnummer);
+            preparedStatement.setString(1, nummer);
             ResultSet resultset = preparedStatement.executeQuery();
-            while (resultset.next()){
+            while (resultset.next()) {
                 makeStudent(resultset, students);
             }
         } catch (SQLException | NoSuchAlgorithmException e) {
             throw new DbException(e.getMessage());
         }
-        return students.get(0);
-    }
-
-    private void makeStudent(ResultSet result, List<Student> students) throws SQLException, NoSuchAlgorithmException {
-        String naam = result.getString("naam");
-        String rnummer = result.getString("r_nummer");
-        String voornaam = result.getString("voornaam");
-        String email = result.getString("email");
-        String adres = result.getString("adres");
-        String telefoonNummer = result.getString("telefoonnummer");
-        String wachtwoord = result.getString("wachtwoord");
-        Student student = new Student(rnummer, naam, voornaam, email, adres, telefoonNummer, wachtwoord);
-        students.add(student);
-    }
-
-    @Override
-    public int getStudentId(String rnummer) {
-        String sql = "SELECT id FROM " + this.schema + ".student" + " WHERE r_nummer = ?";
-
-        int id = 0;
-        try {
-            PreparedStatement statementsql = connection.prepareStatement(sql);
-            statementsql.setString(1, rnummer);
-            ResultSet result = statementsql.executeQuery();
-            while (result.next()){
-                id = result.getInt("id");
-            }
-        }catch (SQLException e){
-            throw new DbException(e.getMessage());
-        }
-
-        return id;
     }
 
     @Override
@@ -168,28 +165,21 @@ public class StudentDBSQL implements StudentDB {
         if (aanwezig && !bevestiging) {
             status = "afwezig";
         }
-        if  (aanwezig && bevestiging && gewettigdafwezig){
+        if (aanwezig && bevestiging && gewettigdafwezig) {
             status = "gewettigd afwezig";
         }
         return status;
     }
 
-    @Override
-    public List<Student> getStudentenvoorLector(String nummer) {
-        List<Student> students = new ArrayList<>();
-        String sql = "select * from " + this.schema + ".student where stc = ?;";
-        try {
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, nummer);
-            ResultSet resultset = preparedStatement.executeQuery();
-            while (resultset.next()){
-                makeStudent(resultset, students);
-            }
-        }catch (SQLException | NoSuchAlgorithmException e){
-            throw new DbException(e.getMessage());
-        }
-        return students;
+    private void makeStudent(ResultSet result, List<Student> students) throws SQLException, NoSuchAlgorithmException {
+        String naam = result.getString("naam");
+        String rnummer = result.getString("r_nummer");
+        String voornaam = result.getString("voornaam");
+        String email = result.getString("email");
+        String adres = result.getString("adres");
+        String telefoonNummer = result.getString("telefoonnummer");
+        String wachtwoord = result.getString("wachtwoord");
+        Student student = new Student(rnummer, naam, voornaam, email, adres, telefoonNummer, wachtwoord);
+        students.add(student);
     }
-
-
 }

@@ -19,7 +19,7 @@
 <body>
 
 <jsp:include page="header.jsp">
-    <jsp:param name="actual" value="Lesrooster"/>
+    <jsp:param name="actual" value="${titel}"/>
 </jsp:include>
 
 <main class="container">
@@ -86,8 +86,6 @@
         </c:forEach>
     </div>
 </main>
-
-
 <script>
     $(document).ready(function($) {
         $(".table-row").click(function() {
@@ -95,8 +93,5 @@
         });
     });
 </script>
-
-
-<jsp:include page="footer.jsp"/>
 </body>
 </html>

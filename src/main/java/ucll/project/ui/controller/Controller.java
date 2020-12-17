@@ -50,7 +50,7 @@ public class Controller extends HttpServlet {
             String destination = handler.handleRequest(request, response);
             handler.forwardRequest(destination, request, response);
         } catch (NotAuthorizedException e) {
-            request.setAttribute("notAuthorizedError", "Je bent niet geautoriseerd om de gewenste pagina te bezoeken. Gelieve aan te melden.");
+            request.setAttribute("notAuthorizedError", "U bent niet geautoriseerd om de gewenste pagina te bezoeken.");
             request.getRequestDispatcher("index.jsp").forward(request, response);
         } catch (Exception e) {
             request.setAttribute("error", e.getMessage());

@@ -17,15 +17,6 @@
 <main class="container">
     <p class="lead">Welkom bij de demonstratie hoofdpagina! <br>
         Gelieve u aan te melden hieronder. </p>
-    <c:if test="${not empty notAuthorizedError}">
-        <div class="row">
-            <div class="alert alert-danger" role="alert">
-                <ul>
-                    <li><c:out value="${notAuthorizedError}"/></li>
-                </ul>
-            </div>
-        </div>
-    </c:if>
     <c:if test="${not empty errors}">
         <div class="alert alert-danger" role="alert">
             <ul>
@@ -56,6 +47,15 @@
             </form>
         </c:otherwise>
     </c:choose>
+    <c:if test="${not empty notAuthorizedError}">
+        <div class="row">
+            <div class="alert alert-danger" role="alert">
+                <ul>
+                    <li><c:out value="${notAuthorizedError}"/></li>
+                </ul>
+            </div>
+        </div>
+    </c:if>
 </main>
 </body>
 </html>

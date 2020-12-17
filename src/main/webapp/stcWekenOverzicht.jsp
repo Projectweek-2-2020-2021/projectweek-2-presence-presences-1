@@ -18,7 +18,7 @@
 </head>
 <body>
 <jsp:include page="header.jsp">
-    <jsp:param name="actual" value="index"/>
+    <jsp:param name="actual" value="STC overzicht"/>
 </jsp:include>
 <main class="container">
     <p class="lead">Hier hebt u een overzicht van de studenten waar u STC'er van bent per week.</p>
@@ -57,7 +57,6 @@
         </tr>
     </table>
 </main>
-
 <script>
     $(document).ready(function($) {
         $(".table-row").click(function() {

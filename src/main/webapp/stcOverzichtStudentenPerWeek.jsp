@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Presence 1 - Stc studenten overzicht per week</title>
+    <title>Presence 1 - STC studenten overzicht per week</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -53,7 +53,6 @@
         </c:forEach>
     </div>
 </main>
-
 <script>
     $(document).ready(function($) {
         $(".table-row").click(function() {

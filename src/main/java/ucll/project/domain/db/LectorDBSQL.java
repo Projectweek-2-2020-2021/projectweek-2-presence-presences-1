@@ -1,8 +1,6 @@
 package ucll.project.domain.db;
 
 import ucll.project.domain.model.Lector;
-import ucll.project.domain.model.Lesson;
-import ucll.project.domain.model.Student;
 import ucll.project.util.DbConnectionService;
 
 import java.sql.Connection;
@@ -24,7 +22,7 @@ public class LectorDBSQL implements LectorDB {
     @Override
     public List<Lector> getAllLectors() {
         List<Lector> lectors = new ArrayList<>();
-        String sql = "SELECT * FROM lector";
+        String sql = "SELECT * FROM " + this.schema + ".lector";
         try {
             PreparedStatement statementSql = connection.prepareStatement(sql);
             ResultSet result = statementSql.executeQuery();
@@ -40,7 +38,7 @@ public class LectorDBSQL implements LectorDB {
 
     @Override
     public Lector getLector(String unummer) {
-        String sql = "select * from lector where nummer = ?";
+        String sql = "select * from " + this.schema + ".lector where nummer = ?";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, unummer);
@@ -55,7 +53,7 @@ public class LectorDBSQL implements LectorDB {
     @Override
     public List<Lector> getLectorPerVak(int vakid) {
         List<Lector> lectors = new ArrayList<>();
-        String sql = "select * from lector inner join leslector on lector.id = leslector.lectorid inner join les on les.id = leslector.lesid where les.id = ?;";
+        String sql = "select * from " + this.schema + ".lector AS L inner join " + this.schema + ".leslector AS LL on L.id = LL.lectorid inner join " + this.schema + ".les AS LE on LE.id = LL.lesid where LE.id = ?";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, vakid);
@@ -72,14 +70,13 @@ public class LectorDBSQL implements LectorDB {
     @Override
     public int getLectorId(String nummer) {
         String sql = "SELECT id FROM " + this.schema + ".lector" + " WHERE nummer = ?";
-        int id = 0;
+        int id;
         try {
             PreparedStatement statementsql = connection.prepareStatement(sql);
             statementsql.setString(1, nummer);
             ResultSet result = statementsql.executeQuery();
-            while (result.next()){
-                id = result.getInt("id");
-            }
+            result.next();
+            id = result.getInt("id");
         }catch (SQLException e){
             throw new DbException(e.getMessage());
         }
@@ -97,5 +94,4 @@ public class LectorDBSQL implements LectorDB {
         lectors.add(lector);
         return lector;
     }
-
 }

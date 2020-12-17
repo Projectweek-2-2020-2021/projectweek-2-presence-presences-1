@@ -69,10 +69,6 @@ public class ApplicationService {
         dbLesStudent.zetAanwezigheid(aanwezigheid, studentId, lesId, datum);
     }
 
-    public List<Student> getAllAanwezigheid(int lesId, Date datum) {
-        return dbLesStudent.getAllAanwezigheid(lesId, datum);
-    }
-
     public List<Student> getAllNietAanwezigheid(int lesId, Date datum) {
         return dbLesStudent.getAllNietAanwezigheid(lesId, datum);
     }

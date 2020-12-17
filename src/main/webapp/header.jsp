@@ -16,7 +16,7 @@
                     <a class="nav-link" href="Controller?command=Index">Home</a>
                 </li>
                 <c:if test="${rol == 'student'}">
-                    <li ${param.actual eq 'Lesrooster' || param.actual eq 'Bevestig'? 'class="nav-item active"':'class="nav-item"'}>
+                    <li ${param.actual eq 'Lesrooster' || param.actual eq 'Resultaat' || param.actual eq 'Bevestig'? 'class="nav-item active"':'class="nav-item"'}>
                         <a class="nav-link" href="Controller?command=StudentLessen">Mijn lesrooster</a>
                     </li>
                 </c:if>
@@ -26,7 +26,7 @@
                     </li>
                     <c:if test="${loggedIn.stc == true}">
                         <li ${param.actual eq 'STC overzicht'? 'class="nav-item active"':'class="nav-item"'}>
-                            <a class="nav-link" href="Controller?command=StcWekenOverzicht">Stc studenten</a>
+                            <a class="nav-link" href="Controller?command=StcWekenOverzicht">Mijn studenten</a>
                         </li>
                     </c:if>
 
@@ -46,5 +46,4 @@
         </div>
     </div>
 </nav>
-
 <h1 class="container" style="margin-bottom: 15px;">Presence 1 - <c:out value="${param.actual}"/></h1>

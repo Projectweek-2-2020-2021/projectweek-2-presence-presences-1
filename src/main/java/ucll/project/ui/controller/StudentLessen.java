@@ -32,9 +32,11 @@ public class StudentLessen extends RequestHandler {
             student = getApplicationService().getStudent(zoekOpdracht);
             id = getApplicationService().getStudentId(zoekOpdracht);
             request.setAttribute("student", student.getNaam() + " " + student.getVoornaam());
+            request.setAttribute("titel", "Resultaat");
         } else {
             student = (Student) session.getAttribute("loggedIn");
             id = getApplicationService().getStudentId(student.getRnummer());
+            request.setAttribute("titel", "Lesrooster");
         }
 
         List<Date> datums = getApplicationService().getAllDatumsStudent(id);

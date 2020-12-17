@@ -5,7 +5,6 @@ import ucll.project.domain.model.Lesson;
 import ucll.project.domain.model.Student;
 
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 
 public interface LesStudentDB {
@@ -15,8 +14,6 @@ public interface LesStudentDB {
     void zetAanwezigheid(String aanwezigheid, int studentId, int lesId, Date datum);
 
     void zetBevestiging(String bevestiging, int studentId, int lesId, Date datum);
-
-    List<Student> getAllAanwezigheid(int lesId, Date datum);
 
     List<Student> getAllNietAanwezigheid(int lesId, Date datum);
 

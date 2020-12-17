@@ -36,7 +36,6 @@ public class Aanmelden extends RequestHandler {
 
     private void studentAanmelding(String gebruikersnaam, String wachtwoord, HttpServletRequest request) {
         Student student;
-
         try {
             student = getApplicationService().getStudent(gebruikersnaam);
             if (student != null && student.isCorrectWachtwoord(wachtwoord)) {
@@ -45,7 +44,7 @@ public class Aanmelden extends RequestHandler {
                 session.setAttribute("rol", "student");
             } else errors.add("Ongeldige gebruikersnaam of wachtwoord");
         } catch (Exception e) {
-            errors.add(e.getMessage());
+            errors.add("Student bestaat niet!");
         }
     }
 
