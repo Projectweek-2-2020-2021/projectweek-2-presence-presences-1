@@ -88,15 +88,19 @@ public class ApplicationService {
         return dbLesStudent.getLessenVoorStudent(studentid, datum);
     }
 
-    public String getLokaal(int lesid){
-        return dbLesStudent.getLokaal(lesid);
-    }
-
     public List<Date> getAllDatums() {
         return dbLesStudent.getAllDatums();
     }
 
     public void zetGewettigdeAfwezigheid(int studentId, int lesId, Date date) {
         dbLesStudent.zetGewettigdeAfwezigheid(studentId, lesId, date);
+    }
+
+    public String getstatus(int studentid, int lesid, Date datum) {
+        return dbStudent.getstatus(studentid, lesid, datum);
+    }
+
+    public void setStudentCommentaar(int studentId, int lesId, java.sql.Date date, String opmerking) {
+        dbLesStudent.setStudentCommentaar(studentId, lesId, date, opmerking);
     }
 }

@@ -2,6 +2,7 @@ package ucll.project.domain.model;
 
 public class Lector {
     private String voornaam, achternaam, lectorennummer, wachtwoord;
+    private boolean stc;
 
     public Lector() {
     }
@@ -11,6 +12,22 @@ public class Lector {
         setAchternaam(achternaam);
         setLectorennummer(lectorennummer);
         setWachtwoord(wachtwoord);
+    }
+
+    public Lector(String voornaam, String achternaam, String lectorennummer, String wachtwoord, boolean stc) {
+        setVoornaam(voornaam);
+        setAchternaam(achternaam);
+        setLectorennummer(lectorennummer);
+        setWachtwoord(wachtwoord);
+        setStc(stc);
+    }
+
+    public boolean isStc() {
+        return stc;
+    }
+
+    public void setStc(boolean stc) {
+        this.stc = stc;
     }
 
     public String getVoornaam() {

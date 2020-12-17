@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Presence 1 - Studenten overzicht</title>
+    <title>Presence 1 - Student Overview</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -59,7 +59,8 @@
                 <th>Gewettigd afwezig</th>
             </tr>
             <c:forEach items="${afwezig}" var="student">
-                <tr>
+                <tr class="table-row"
+                    data-href="Controller?command=VoegCommentToe&student=${student.rnummer}&les=${les}&datum=${datum}">
                     <td><c:out value='${student.rnummer}'/></td>
                     <td><c:out value='${student.voornaam}'/></td>
                     <td><c:out value='${student.naam}'/></td>

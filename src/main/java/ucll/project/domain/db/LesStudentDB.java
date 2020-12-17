@@ -25,4 +25,6 @@ public interface LesStudentDB {
     String getLokaal(int lesid);
 
     void zetGewettigdeAfwezigheid(int studentId, int lesId, Date date);
+
+    void setStudentCommentaar(int studentId, int lesId, java.sql.Date date, String opmerking);
 }
