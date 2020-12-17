@@ -7,10 +7,7 @@ import ucll.project.domain.service.ApplicationService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Collections;
-import java.util.Date;
-import java.util.LinkedHashMap;
-import java.util.List;
+import java.util.*;
 
 public class LectorLessen extends RequestHandler {
 
@@ -36,6 +33,21 @@ public class LectorLessen extends RequestHandler {
             lessenPerDag.put(d, lessenLijst);
         }
         request.setAttribute("lessenPerDag", lessenPerDag);
+
+
+
+        List<List<String>> groeplijstperdag = new ArrayList<>();
+        for (Date d: datums){
+            List<Lesson> lessen = lessenPerDag.get(d);
+            List<String> groepen = new ArrayList<>();
+            for (Lesson les: lessen) {
+                groepen.add(getApplicationService().getGroep(les));
+            }
+            groeplijstperdag.add(groepen);
+        }
+
+        request.setAttribute("groeplijstperdag", groeplijstperdag);
+
 
         return "lectorLessen.jsp";
     }

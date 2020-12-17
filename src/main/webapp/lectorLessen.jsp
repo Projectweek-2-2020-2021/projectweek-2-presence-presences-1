@@ -17,18 +17,18 @@
 </header>
 <main class="container">
     <div class="table-responsive">
-        <c:forEach var="list" items="${lessenPerDag}">
+        <c:forEach var="list" items="${lessenPerDag}" varStatus="statusdag">
             <table class="table table-hover">
                 <tr>
                     <th><c:out value="${list.key}"/></th>
                     <th>Vak</th>
                     <th>Groep</th>
                 </tr>
-                <c:forEach var="les" items="${list.value}">
+                <c:forEach var="les" items="${list.value}" varStatus="status">
                     <tr class="table-row" data-href="Controller?command=LectorOverzichtStudenten&vaknaam=<c:out value="${les.naam}"/>&datum=<c:out value="${list.key}"/>">
                         <td><c:out value="${les.tijd}"/> - <c:out value="${les.getEindTijd()}"/></td>
                         <td><c:out value="${les.naam}"/></td>
-                        <td>1</td>
+                        <td><c:out value="${groeplijstperdag[statusdag.index][status.index]}"/></td>
                     </tr>
                 </c:forEach>
             </table>
