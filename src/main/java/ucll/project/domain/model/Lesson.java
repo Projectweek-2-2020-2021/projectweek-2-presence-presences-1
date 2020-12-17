@@ -115,6 +115,9 @@ public class Lesson implements Comparable<Lesson> {
 
 	@Override
 	public int compareTo(Lesson o) {
-		return this.naam.compareTo(o.getNaam());
+		if(this.getTijd().equals(o.getTijd())){
+			return this.getNaam().compareTo((o.getNaam()));
+		}
+		return this.getTijd().compareTo(o.getTijd());
 	}
 }
