@@ -150,7 +150,7 @@ public class StudentDBSQL implements StudentDB {
         if (!aanwezig && bevestiging == null && !gewettigdafwezig){
             return "onbekend";
         }
-        if (aanwezig && bevestiging == null /*|| !aanwezig && bevestiging == null*/){
+        if (aanwezig && bevestiging == null){
             return "pending";
         }
         if (!aanwezig && bevestiging == null && gewettigdafwezig){
