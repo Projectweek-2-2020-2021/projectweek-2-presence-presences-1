@@ -157,7 +157,24 @@ public class LesStudentDBSQL implements LesStudentDB{
     }
 
     @Override
-    public List<java.util.Date> getAllDatums() {
+    public List<java.util.Date> getAllDatumsStudent(int studentId) {
+        String sql = "SELECT distinct datum FROM " + this.schema + ".lesstudent WHERE studentid = ?";
+        List<java.util.Date> datums = new ArrayList<>();
+        try {
+            PreparedStatement statementsql = connection.prepareStatement(sql);
+            statementsql.setInt(1, studentId);
+            ResultSet result = statementsql.executeQuery();
+            while (result.next()) {
+                datums.add(result.getDate("datum"));
+            }
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        }
+        return datums;
+    }
+
+    @Override
+    public List<java.util.Date> getAllDatumsLector() {
         String sql = "SELECT distinct datum FROM " + this.schema + ".lesstudent";
         List<java.util.Date> datums = new ArrayList<>();
         try {

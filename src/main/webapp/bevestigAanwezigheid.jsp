@@ -11,7 +11,7 @@
 </head>
 <body>
 <jsp:include page="header.jsp">
-    <jsp:param name="actual" value="studentLessen"/>
+    <jsp:param name="actual" value="Bevestig"/>
 </jsp:include>
 <main class="container">
     <p class="lead">Zet hier uw aanwezigheid voor het vak <c:out value="${naam}"/></p>

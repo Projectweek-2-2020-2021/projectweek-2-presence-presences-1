@@ -11,8 +11,9 @@
 </head>
 <body>
 <jsp:include page="header.jsp">
-    <jsp:param name="actual" value="index"/>
+    <jsp:param name="actual" value="Aanmelden"/>
 </jsp:include>
+
 <main class="container">
     <p class="lead">Welkom bij de demonstratie hoofdpagina! <br>
         Gelieve u aan te melden hieronder. </p>

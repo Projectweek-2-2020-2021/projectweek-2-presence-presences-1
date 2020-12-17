@@ -10,20 +10,37 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
+<style>
+    main span {
+        padding: 10px 40px 10px 40px;
+        text-align: center;
+    }
+</style>
 <body>
 
 <jsp:include page="header.jsp">
-    <jsp:param name="actual" value="studentLessen"/>
+    <jsp:param name="actual" value="Lesrooster"/>
 </jsp:include>
 
 <main class="container">
+    <div class="row justify-content-around mb-3">
+        <span class="border border-success rounded col-2"
+              style="background-color: #c3e6cb"><strong>Aanwezig</strong></span>
+        <span class="border border-danger rounded col-2"
+              style="background-color: #f5c6cb"><strong>Afwezig</strong></span>
+        <span class="border border-warning rounded col-2"
+              style="background-color: #ffeeba"><strong>Pending</strong></span>
+        <span class="border border-info rounded col-2"
+              style="background-color: #bee5eb"><strong>Gewettigd afwezig</strong></span>
+        <span class="border border-secondary rounded col-2" style="background-color: #fdfdfe"><strong>Onbekend</strong></span>
+    </div>
     <div class="table-responsive">
         <c:forEach var="list" items="${lessenPerDag}">
             <table class="table table-hover">
                 <tr>
                     <th><c:out value="${list.key}"/></th>
-                    <th>info</th>
-                    <th>lokaal</th>
+                    <th>Informatie</th>
+                    <th>Lokaal</th>
                     <th>Leerkracht</th>
                 </tr>
                 <c:forEach var="les" items="${list.value}" varStatus="status">
@@ -42,15 +59,16 @@
                     <c:if test="${les.status == 'onbekend'}">
                         <c:set var="studentStatus" value="table-light"/>
                     </c:if>
-                    <tr class="table-row ${studentStatus}"  data-href="Controller?command=AanwezigheidControle&naam=<c:out value="${les.naam}"/>&datum=<c:out value="${list.key}"/>">
-                        <td><c:out value="${les.tijd}"/> - <c:out value="${les.getEindTijd()}"/></td>
-                        <td><c:out value="${les.naam}"/>, dit vak heeft <c:out value="${les.studiepunten}"/> studiepunten
+                    <tr class="table-row ${studentStatus}"
+                        data-href="Controller?command=AanwezigheidControle&naam=<c:out value="${les.naam}"/>&datum=<c:out value="${list.key}"/>">
+                        <td class="col-2"><c:out value="${les.tijd}"/> - <c:out value="${les.getEindTijd()}"/></td>
+                        <td class="col-8"><c:out value="${les.naam}"/>, dit vak heeft <c:out
+                                value="${les.studiepunten}"/> studiepunten
                             in de richting <c:out value="${les.studierichting}"/></td>
-                        <td><c:out value="${lokalenlijst[status.index]}"/></td>
+                        <td class="col-2"><c:out value="${lokalenlijst[status.index]}"/></td>
                         <c:forEach var="lector" items="${lectorenlijst[status.index]}">
-                            <td><c:out value="${lector.achternaam}"/></td>
+                            <td class="col-2"><c:out value="${lector.achternaam}"/></td>
                         </c:forEach>
-
                     </tr>
                 </c:forEach>
             </table>

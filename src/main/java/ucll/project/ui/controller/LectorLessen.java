@@ -28,7 +28,7 @@ public class LectorLessen extends RequestHandler {
         String nummer = lector.getLectorennummer();
         int id = getApplicationService().getLectorId(nummer);
 
-        List<Date> datums = getApplicationService().getAllDatums();
+        List<Date> datums = getApplicationService().getAllDatumsLector();
         Collections.sort(datums);
 
         for (Date d : datums){

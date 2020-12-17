@@ -28,7 +28,7 @@ public class StudentLessen extends RequestHandler {
         Student student = (Student) session.getAttribute("loggedIn");
         int id = getApplicationService().getStudentId(student.getRnummer());
 
-        List<Date> datums = getApplicationService().getAllDatums();
+        List<Date> datums = getApplicationService().getAllDatumsStudent(id);
         Collections.sort(datums);
 
         for (Date d : datums){

@@ -12,9 +12,10 @@
 <body>
 <header>
     <jsp:include page="header.jsp">
-        <jsp:param name="actual" value="lectorLessen"/>
+        <jsp:param name="actual" value="Mijn lessen"/>
     </jsp:include>
 </header>
+
 <main class="container">
     <div class="table-responsive">
         <c:forEach var="list" items="${lessenPerDag}">
@@ -25,10 +26,11 @@
                     <th>Groep</th>
                 </tr>
                 <c:forEach var="les" items="${list.value}">
-                    <tr class="table-row" data-href="Controller?command=LectorOverzichtStudenten&vaknaam=<c:out value="${les.naam}"/>&datum=<c:out value="${list.key}"/>">
-                        <td><c:out value="${les.tijd}"/> - <c:out value="${les.getEindTijd()}"/></td>
-                        <td><c:out value="${les.naam}"/></td>
-                        <td>1</td>
+                    <tr class="table-row"
+                        data-href="Controller?command=LectorOverzichtStudenten&vaknaam=<c:out value="${les.naam}"/>&datum=<c:out value="${list.key}"/>">
+                        <td class="col-2"><c:out value="${les.tijd}"/> - <c:out value="${les.getEindTijd()}"/></td>
+                        <td class="col-10"><c:out value="${les.naam}"/></td>
+                        <td class="col-2">1</td>
                     </tr>
                 </c:forEach>
             </table>

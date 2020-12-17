@@ -18,7 +18,7 @@
 </head>
 <body>
 <jsp:include page="header.jsp">
-    <jsp:param name="actual" value="studentLessen"/>
+    <jsp:param name="actual" value="Afmelden"/>
 </jsp:include>
 <main class="container">
     <p class="lead">Bent u zeker om u af te melden?</p>

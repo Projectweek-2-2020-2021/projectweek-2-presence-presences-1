@@ -11,7 +11,7 @@
 </head>
 <body>
 <jsp:include page="header.jsp">
-    <jsp:param name="actual" value="studentLessen"/>
+    <jsp:param name="actual" value="Opmerking"/>
 </jsp:include>
 <main class="container">
     <p class="lead">Gelieve een opmerking toe te voegen.</p>
