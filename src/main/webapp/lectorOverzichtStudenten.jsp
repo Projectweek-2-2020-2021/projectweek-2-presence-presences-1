@@ -16,68 +16,74 @@
 <main class="container">
     <h1><c:out value="${les}"/></h1>
     <div class="table-responsive">
-        <h2>Aanwezigheden Studentenoverzicht</h2>
-        <table class="table">
-            <tr>
-                <th>r-Nummer</th>
-                <th>Voornaam</th>
-                <th>Achternaam</th>
-                <th>Bevestig</th>
-                <th>Wijs af</th>
+        <h2 style="margin-top: 35px"><strong>Aanwezigheden</strong></h2>
+        <table class="table table-hover">
+            <tr class="table-row">
+                <th class="col-2">r-Nummer</th>
+                <th class="col-2">Voornaam</th>
+                <th class="col-2">Achternaam</th>
+                <th class="col-2">Status</th>
+                <th class="col-2">Bevestig</th>
+                <th class="col-2">Wijs af</th>
             </tr>
-            <c:forEach items="${aanwezig}" var="student">
-                <tr>
-                    <td><c:out value='${student.rnummer}'/></td>
-                    <td><c:out value='${student.voornaam}'/></td>
-                    <td><c:out value='${student.naam}'/></td>
-                    <td>
-                        <form method="post" action="Controller?command=Bevestig&bevestiging=ja&student=${student.rnummer}&les=${les}&datum=${datum}" >
-                            <input type="submit" value="Bevestigen">
-                        </form>
-                    </td>
-                    <td>
-                        <form method="post" action="Controller?command=Bevestig&bevestiging=nee&student=${student.rnummer}&les=${les}&datum=${datum}">
-                            <input type="submit" value="Afwijzen">
-                        </form>
-                    </td>
-                    <td>
-
-                    </td>
-                </tr>
+            <c:forEach items="${studenten}" var="student">
+                <c:if test="${student.status == 'Aanwezig' || student.status == 'Pending'}">
+                    <tr class="table-row"
+                        data-href="Controller?command=VoegCommentToe&student=${student.rnummer}&les=${les}&datum=${datum}">
+                        <td><c:out value='${student.rnummer}'/></td>
+                        <td><c:out value='${student.voornaam}'/></td>
+                        <td><c:out value='${student.naam}'/></td>
+                        <td><c:out value='${student.status}'/></td>
+                        <td>
+                            <form method="post"
+                                  action="Controller?command=Bevestig&bevestiging=ja&student=${student.rnummer}&les=${les}&datum=${datum}">
+                                <input type="submit" value="Bevestigen">
+                            </form>
+                        </td>
+                        <td>
+                            <form method="post"
+                                  action="Controller?command=Bevestig&bevestiging=nee&student=${student.rnummer}&les=${les}&datum=${datum}">
+                                <input type="submit" value="Afwijzen">
+                            </form>
+                        </td>
+                    </tr>
+                </c:if>
             </c:forEach>
         </table>
     </div>
     <div class="table-responsive">
-        <h2>Studentenoverzicht</h2>
+        <h2><strong>Afwezigheden</strong></h2>
         <table class="table table-hover">
-            <tr>
-                <th>r-Nummer</th>
-                <th>Voornaam</th>
-                <th>Achternaam</th>
-                <th>Status</th>
-                <th>Bevestig</th>
-                <th>Gewettigd afwezig</th>
+            <tr class="table-row">
+                <th class="col-2">r-Nummer</th>
+                <th class="col-2">Voornaam</th>
+                <th class="col-2">Achternaam</th>
+                <th class="col-2">Status</th>
+                <th class="col-2">Bevestig</th>
+                <th class="col-2">Gewettigd afwezig</th>
             </tr>
-            <c:forEach items="${afwezig}" var="student">
-                <tr class="table-row"
-                    data-href="Controller?command=VoegCommentToe&student=${student.rnummer}&les=${les}&datum=${datum}">
-                    <td><c:out value='${student.rnummer}'/></td>
-                    <td><c:out value='${student.voornaam}'/></td>
-                    <td><c:out value='${student.naam}'/></td>
-                    <td><c:out value='${student.status}'/></td>
-                    <td>
-                        <form action="Controller?command=Bevestig&bevestiging=ja&student=${student.rnummer}&les=${les}&datum=${datum}"
-                              method="post">
-                            <input type="submit" value="Aanwezig">
-                        </form>
-                    </td>
-                    <td>
-                        <form action="Controller?command=GewettigdAfwezig&student=${student.rnummer}&les=${les}&datum=${datum}"
-                              method="post">
-                            <input type="submit" value="Gewettigd afwezig">
-                        </form>
-                    </td>
-                </tr>
+            <c:forEach items="${studenten}" var="student">
+                <c:if test="${student.status == 'Afwezig' || student.status == 'Gewettigd afwezig'}">
+                    <tr class="table-row"
+                        data-href="Controller?command=VoegCommentToe&student=${student.rnummer}&les=${les}&datum=${datum}">
+                        <td><c:out value='${student.rnummer}'/></td>
+                        <td><c:out value='${student.voornaam}'/></td>
+                        <td><c:out value='${student.naam}'/></td>
+                        <td><c:out value='${student.status}'/></td>
+                        <td>
+                            <form action="Controller?command=Bevestig&bevestiging=ja&student=${student.rnummer}&les=${les}&datum=${datum}"
+                                  method="post">
+                                <input type="submit" value="Aanwezig">
+                            </form>
+                        </td>
+                        <td>
+                            <form action="Controller?command=GewettigdAfwezig&student=${student.rnummer}&les=${les}&datum=${datum}"
+                                  method="post">
+                                <input type="submit" value="Gewettigd afwezig">
+                            </form>
+                        </td>
+                    </tr>
+                </c:if>
             </c:forEach>
         </table>
     </div>
