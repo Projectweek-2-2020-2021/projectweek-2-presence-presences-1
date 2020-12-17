@@ -96,6 +96,10 @@ public class ApplicationService {
         dbLesStudent.zetGewettigdeAfwezigheid(studentId, lesId, date);
     }
 
+    public String getLokaal(Lesson lesson){
+        return dbLesStudent.getLokaal(getVakId(lesson.getNaam()));
+    }
+
     public String getstatus(int studentid, int lesid, Date datum) {
         return dbStudent.getstatus(studentid, lesid, datum);
     }

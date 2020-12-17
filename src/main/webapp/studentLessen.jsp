@@ -23,6 +23,7 @@
                 <tr>
                     <th><c:out value="${list.key}"/></th>
                     <th>info</th>
+                    <th>lokaal</th>
                     <th>Leerkracht</th>
                 </tr>
                 <c:forEach var="les" items="${list.value}" varStatus="status">
@@ -45,7 +46,7 @@
                         <td><c:out value="${les.tijd}"/> - <c:out value="${les.getEindTijd()}"/></td>
                         <td><c:out value="${les.naam}"/>, dit vak heeft <c:out value="${les.studiepunten}"/> studiepunten
                             in de richting <c:out value="${les.studierichting}"/></td>
-                        <!--<td><a href="Controller?command=AanwezigheidControle&naam=${les.naam}">Aanwezig</a></td> !-->
+                        <td><c:out value="${lokalenlijst[status.index]}"/></td>
                         <c:forEach var="lector" items="${lectorenlijst[status.index]}">
                             <td><c:out value="${lector.achternaam}"/></td>
                         </c:forEach>

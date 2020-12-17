@@ -111,7 +111,7 @@ public class LesStudentDBSQL implements LesStudentDB{
 
     public String getLokaal(int lesid){
         String lokaal = null;
-        String sql = "SELECT lokaal FROM " + this.schema + ".lesstudent WHERE les.id = ?";
+        String sql = "SELECT lokaal FROM " + this.schema + ".lesstudent WHERE lesstudent.lesid = ?";
         try {
             PreparedStatement statementsql = connection.prepareStatement(sql);
             statementsql.setInt(1, lesid);

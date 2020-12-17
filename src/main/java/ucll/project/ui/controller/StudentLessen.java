@@ -44,6 +44,14 @@ public class StudentLessen extends RequestHandler {
 
         request.setAttribute("lessenPerDag", lessenPerDag);
 
+        List<String> lokalenlijst = new ArrayList<>();
+        for (Lesson les: lessenLijst
+        ) {
+            String lokalen = getApplicationService().getLokaal(les);
+            lokalenlijst.add(lokalen);
+        }
+
+        request.setAttribute("lokalenlijst", lokalenlijst);
 
         List<List<Lector>> lectorlijst = new ArrayList<>();
         for (Lesson les: lessenLijst
