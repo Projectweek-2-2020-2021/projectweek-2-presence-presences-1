@@ -26,7 +26,7 @@
                     </li>
                 <c:if test="${loggedIn.stc == true}">
                     <li>
-                        <a class="nav-link" href="Controller?command=StcStudentenOverzicht">Stc studenten</a>
+                        <a class="nav-link" href="Controller?command=StcWekenOverzicht">Stc studenten</a>
                     </li>
                 </c:if>
 

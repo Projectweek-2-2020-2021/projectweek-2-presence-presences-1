@@ -2,6 +2,7 @@ package ucll.project.domain.service;
 
 import ucll.project.domain.db.*;
 import ucll.project.domain.model.Lector;
+import ucll.project.domain.model.LesStudent;
 import ucll.project.domain.model.Lesson;
 import ucll.project.domain.model.Student;
 
@@ -102,5 +103,13 @@ public class ApplicationService {
 
     public void setStudentCommentaar(int studentId, int lesId, java.sql.Date date, String opmerking) {
         dbLesStudent.setStudentCommentaar(studentId, lesId, date, opmerking);
+    }
+
+    public List<LesStudent> getLesStudentVoorStudentenVanStc(java.sql.Date van, java.sql.Date tot, String nummer) {
+        return dbLesStudent.getLesStudentVoorStudentenVanStc(van, tot, nummer);
+    }
+
+    public List<Student> getStudentenvoorLector(String nummer) {
+        return dbStudent.getStudentenvoorLector(nummer);
     }
 }
