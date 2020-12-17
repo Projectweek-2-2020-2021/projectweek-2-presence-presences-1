@@ -43,13 +43,18 @@ public class LesStudentDBSQL implements LesStudentDB{
 
     @Override
     public void zetBevestiging(String bevestiging, int studentId, int lesId, java.util.Date datum) {
-        String sql = "UPDATE " + this.schema + ".lesstudent" + " SET bevestiging = ?, gewettigdafwezig = false WHERE studentid = ? AND lesid = ? AND datum = ?";
+        String sql = "UPDATE " + this.schema + ".lesstudent" + " SET aanwezigheid = ?, bevestiging = ?, gewettigdafwezig = false WHERE studentid = ? AND lesid = ? AND datum = ?";
         try {
             PreparedStatement statementsql = connection.prepareStatement(sql);
             statementsql.setBoolean(1, bevestiging.equals("ja"));
-            statementsql.setInt(2, studentId);
-            statementsql.setInt(3, lesId);
-            statementsql.setDate(4, (Date) datum);
+            if (bevestiging.equals("ja")) {
+                statementsql.setBoolean(2, true);
+            } else {
+                statementsql.setNull(2, Types.BOOLEAN);
+            }
+            statementsql.setInt(3, studentId);
+            statementsql.setInt(4, lesId);
+            statementsql.setDate(5, (Date) datum);
             statementsql.execute();
 
         } catch (SQLException e){
@@ -109,6 +114,41 @@ public class LesStudentDBSQL implements LesStudentDB{
             throw new DbException(e.getMessage());
         }
         return lessons;
+
+    }
+
+    @Override
+    public String getGroep(int lesid){
+        String groep = null;
+        String sql = "SELECT groep FROM " + this.schema + ".lesstudent WHERE lesstudent.lesid = ?";
+        try {
+            PreparedStatement statementsql = connection.prepareStatement(sql);
+            statementsql.setInt(1, lesid);
+            ResultSet result = statementsql.executeQuery();
+            while (result.next()) {
+                groep = result.getString("groep");
+            }
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        }
+        return groep;
+    }
+
+    @Override
+    public String getLokaal(int lesid){
+        String lokaal = null;
+        String sql = "SELECT lokaal FROM " + this.schema + ".lesstudent WHERE lesstudent.lesid = ?";
+        try {
+            PreparedStatement statementsql = connection.prepareStatement(sql);
+            statementsql.setInt(1, lesid);
+            ResultSet result = statementsql.executeQuery();
+            while (result.next()) {
+                lokaal = result.getString("lokaal");
+            }
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        }
+        return lokaal;
     }
 
     private void makeStudent(ResultSet result, List<Student> students) throws SQLException, NoSuchAlgorithmException {
@@ -132,12 +172,30 @@ public class LesStudentDBSQL implements LesStudentDB{
         int studiepunten = Integer.parseInt(result.getString("studiepunten"));
         String studierichting = result.getString("studierichting");
         String tijd = result.getString("tijd");
-        Lesson lesson = new Lesson(name, studiepunten, studierichting, tijd);
+        int lesduur = result.getInt("lesduur");
+        Lesson lesson = new Lesson(name, studiepunten, studierichting, tijd, lesduur);
         lessons.add(lesson);
     }
 
     @Override
-    public List<java.util.Date> getAllDatums() {
+    public List<java.util.Date> getAllDatumsStudent(int studentId) {
+        String sql = "SELECT distinct datum FROM " + this.schema + ".lesstudent WHERE studentid = ?";
+        List<java.util.Date> datums = new ArrayList<>();
+        try {
+            PreparedStatement statementsql = connection.prepareStatement(sql);
+            statementsql.setInt(1, studentId);
+            ResultSet result = statementsql.executeQuery();
+            while (result.next()) {
+                datums.add(result.getDate("datum"));
+            }
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        }
+        return datums;
+    }
+
+    @Override
+    public List<java.util.Date> getAllDatumsLector() {
         String sql = "SELECT distinct datum FROM " + this.schema + ".lesstudent";
         List<java.util.Date> datums = new ArrayList<>();
         try {
@@ -218,16 +276,16 @@ public class LesStudentDBSQL implements LesStudentDB{
 
     private String bepaalStatus(boolean aanwezigheid, boolean bevestiging, boolean gewettigdafwezig) {
         String status = "Pending";
-        if (aanwezigheid) {
+        if (aanwezigheid) { // TRUE TRUE
             if (bevestiging) {
                 status = "Aanwezig";
             }
         }
-        if (!aanwezigheid) {
+        if (!aanwezigheid) { // FALSE TRUE
             if (bevestiging) {
                 status = "Aanwezig";
             }
-            if (!bevestiging) {
+            if (!bevestiging) { // FALSE FALSE
                 status = "Afwezig";
             }
         }

@@ -28,7 +28,7 @@ public class StudentLessen extends RequestHandler {
         Student student = (Student) session.getAttribute("loggedIn");
         int id = getApplicationService().getStudentId(student.getRnummer());
 
-        List<Date> datums = getApplicationService().getAllDatums();
+        List<Date> datums = getApplicationService().getAllDatumsStudent(id);
         Collections.sort(datums);
 
         for (Date d : datums){
@@ -41,18 +41,49 @@ public class StudentLessen extends RequestHandler {
              }
              lessenPerDag.put(d,lessenLijst);
         }
-
         request.setAttribute("lessenPerDag", lessenPerDag);
 
 
-        List<List<Lector>> lectorlijst = new ArrayList<>();
-        for (Lesson les: lessenLijst
-             ) {
-            List<Lector> l = getApplicationService().getLectorPerVak(getApplicationService().getVakId(les.getNaam()));
-            lectorlijst.add(l);
+
+        List<List<String>> lokalenlijstperdag = new ArrayList<>();
+        for (Date d: datums){
+            List<Lesson> lessen = lessenPerDag.get(d);
+            List<String> lokalen = new ArrayList<>();
+            for (Lesson les: lessen) {
+                lokalen.add(getApplicationService().getLokaal(les));
+            }
+            lokalenlijstperdag.add(lokalen);
         }
 
-        request.setAttribute("lectorenlijst", lectorlijst);
+        request.setAttribute("lokalenlijstperdag", lokalenlijstperdag);
+
+
+        List<List<String>> groeplijstperdag = new ArrayList<>();
+        for (Date d: datums){
+            List<Lesson> lessen = lessenPerDag.get(d);
+            List<String> groepen = new ArrayList<>();
+            for (Lesson les: lessen) {
+                groepen.add(getApplicationService().getGroep(les));
+            }
+            groeplijstperdag.add(groepen);
+        }
+
+        request.setAttribute("groeplijstperdag", groeplijstperdag);
+
+
+        List<List<List<Lector>>> lectorlijstperdag = new ArrayList<>();
+        for (Date d: datums){
+            List<Lesson> lessen = lessenPerDag.get(d);
+            List<List<Lector>> lectorlijst = new ArrayList<>();
+            for (Lesson les: lessen
+            ) {
+                List<Lector> l = getApplicationService().getLectorPerVak(getApplicationService().getVakId(les.getNaam()));
+                lectorlijst.add(l);
+            }
+            lectorlijstperdag.add(lectorlijst);
+        }
+
+        request.setAttribute("lectorlijstperdag", lectorlijstperdag);
 
 
         return "studentLessen.jsp";

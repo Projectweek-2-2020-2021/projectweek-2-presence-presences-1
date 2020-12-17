@@ -6,12 +6,12 @@ public class Lesson implements Comparable<Lesson> {
 
 	ArrayList<String> richtingen = new ArrayList<>();
 	private String naam, studierichting, tijd, status;
-	private int studiepunten;
+	private int studiepunten, lesduur;
 
 	public Lesson() {
 	}
 
-	public Lesson(String naam, int studiepunten, String studierichting, String tijd) {
+	public Lesson(String naam, int studiepunten, String studierichting, String tijd, int lesduur) {
 		setNaam(naam);
 		setStudiepunten(studiepunten);
 
@@ -20,31 +20,12 @@ public class Lesson implements Comparable<Lesson> {
 		richtingen.add("BM");
 		setStudierichting(studierichting);
 		setTijd(tijd);
-	}
+		setLesduur(lesduur);
 
-	public Lesson(String naam, int studiepunten, String studierichting, String tijd, String status){
-		setNaam(naam);
-		setStudiepunten(studiepunten);
-
-		richtingen.add("TI");
-		richtingen.add("OM");
-		richtingen.add("BM");
-		setStudierichting(studierichting);
-		setTijd(tijd);
-
-		this.status = status;
 	}
 
 	public String getStudierichting() {
 		return studierichting;
-	}
-
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
 	}
 
 	public void setStudierichting(String studierichting) {
@@ -88,6 +69,30 @@ public class Lesson implements Comparable<Lesson> {
 		return tijd;
 	}
 
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public int getLesduur() {
+		return lesduur;
+	}
+
+	public void setLesduur(int lesduur) {
+		this.lesduur = lesduur;
+	}
+
+	public String getEindTijd(){
+		int uur =  Integer.parseInt(this.getTijd().substring(0, 2));
+		int min =  Integer.parseInt(this.getTijd().substring(3, 5));
+		uur += getLesduur()/60;
+		min += getLesduur()%60;
+		return uur + ":" + min;
+	}
+
 	@Override
 	public int hashCode() {
 		return getNaam().hashCode();
@@ -110,6 +115,9 @@ public class Lesson implements Comparable<Lesson> {
 
 	@Override
 	public int compareTo(Lesson o) {
-		return this.naam.compareTo(o.getNaam());
+		if(this.getTijd().equals(o.getTijd())){
+			return this.getNaam().compareTo((o.getNaam()));
+		}
+		return this.getTijd().compareTo(o.getTijd());
 	}
 }

@@ -22,7 +22,13 @@ public interface LesStudentDB {
 
     List<Lesson> getLessenVoorStudent(int studentid, Date datum);
 
-    List<Date> getAllDatums();
+    List<Date> getAllDatumsStudent(int studentId);
+
+    List<Date> getAllDatumsLector();
+
+    String getLokaal(int lesid);
+
+    String getGroep(int lesid);
 
     void zetGewettigdeAfwezigheid(int studentId, int lesId, Date date);
 

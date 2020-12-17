@@ -48,7 +48,7 @@ public class LessonDBSQL implements LessonDB {
 
     public List<Lesson> getLessenVoorLector(int id, Date datum) {
         List<Lesson> lessons = new ArrayList<>();
-        String sql = "SELECT DISTINCT id, tijd, naam, studiepunten, studierichting, datum FROM " + this.schema + ".les INNER JOIN " + this.schema + ".leslector on les.id = leslector.lesid INNER JOIN " + this.schema + ".lesstudent ON leslector.lesid = lesstudent.lesid WHERE leslector.lectorid = ? AND datum = ? ";
+        String sql = "SELECT DISTINCT id, tijd, naam, studiepunten, studierichting, datum, lesduur FROM " + this.schema + ".les INNER JOIN " + this.schema + ".leslector on les.id = leslector.lesid INNER JOIN " + this.schema + ".lesstudent ON leslector.lesid = lesstudent.lesid WHERE leslector.lectorid = ? AND datum = ? ";
         try{
             PreparedStatement statementsql = connection.prepareStatement(sql);
             statementsql.setInt(1, id);
@@ -108,7 +108,8 @@ public class LessonDBSQL implements LessonDB {
         int studiepunten = Integer.parseInt(result.getString("studiepunten"));
         String studierichting = result.getString("studierichting");
         String tijd = result.getString("tijd");
-        Lesson lesson = new Lesson(name, studiepunten, studierichting, tijd);
+        int lesduur = result.getInt("lesduur");
+        Lesson lesson = new Lesson(name, studiepunten, studierichting, tijd, lesduur);
         lessons.add(lesson);
     }
 }

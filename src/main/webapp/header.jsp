@@ -12,23 +12,23 @@
         <%--        toggle button--%>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
-                <li ${param.actual eq 'index'? 'class="nav-item active"':'class="nav-item"'}>
+                <li ${param.actual eq 'Aanmelden'? 'class="nav-item active"':'class="nav-item"'}>
                     <a class="nav-link" href="Controller?command=Index">Home</a>
                 </li>
                 <c:if test="${rol == 'student'}">
-                    <li ${param.actual eq 'studentLessen'? 'class="nav-item active"':'class="nav-item"'}>
+                    <li ${param.actual eq 'Lesrooster' || param.actual eq 'Bevestig'? 'class="nav-item active"':'class="nav-item"'}>
                         <a class="nav-link" href="Controller?command=StudentLessen">Lesrooster</a>
                     </li>
                 </c:if>
                 <c:if test="${rol == 'lector'}">
-                    <li ${param.actual eq 'lectorLessen'? 'class="nav-item active"':'class="nav-item"'}>
+                    <li ${param.actual eq 'Mijn lessen' || param.current eq 'studentOverzicht' || param.actual eq 'Opmerking'? 'class="nav-item active"':'class="nav-item"'}>
                         <a class="nav-link" href="Controller?command=LectorLessen">Mijn lessen</a>
                     </li>
-                <c:if test="${loggedIn.stc == true}">
-                    <li>
-                        <a class="nav-link" href="Controller?command=StcWekenOverzicht">Stc studenten</a>
-                    </li>
-                </c:if>
+                    <c:if test="${loggedIn.stc == true}">
+                        <li>
+                            <a class="nav-link" href="Controller?command=StcStudentenOverzicht">Stc studenten</a>
+                        </li>
+                    </c:if>
 
                 </c:if>
                 <c:if test="${not empty loggedIn}">
@@ -43,4 +43,5 @@
         </div>
     </div>
 </nav>
-<h1 class="container" style="margin-bottom: 15px;">Presences 1 - Demonstratie</h1>
+
+<h1 class="container" style="margin-bottom: 15px;">Presence 1 - <c:out value="${param.actual}"/></h1>

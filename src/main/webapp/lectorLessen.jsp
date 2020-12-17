@@ -7,32 +7,28 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 </head>
 <body>
 <header>
     <jsp:include page="header.jsp">
-        <jsp:param name="actual" value="lectorLessen"/>
+        <jsp:param name="actual" value="Mijn lessen"/>
     </jsp:include>
 </header>
 <main class="container">
     <div class="table-responsive">
-        <c:forEach var="list" items="${lessenPerDag}">
+        <c:forEach var="list" items="${lessenPerDag}" varStatus="statusdag">
             <table class="table table-hover">
                 <tr>
                     <th><c:out value="${list.key}"/></th>
                     <th>Vak</th>
-                    <th>Studiepunten</th>
-                    <th>Studierichting</th>
                     <th>Groep</th>
                 </tr>
-                <c:forEach var="les" items="${list.value}">
+                <c:forEach var="les" items="${list.value}" varStatus="status">
                     <tr class="table-row" data-href="Controller?command=LectorOverzichtStudenten&vaknaam=<c:out value="${les.naam}"/>&datum=<c:out value="${list.key}"/>">
-                        <td><c:out value="${les.tijd}"/></td>
-                        <td><c:out value="${les.naam}"/></td>
-                        <td><c:out value="${les.studiepunten}"/></td>
-                        <td><c:out value="${les.studierichting}"/></td>
-                        <td>1</td>
+                        <td class="col-2"><c:out value="${les.tijd}"/> - <c:out value="${les.getEindTijd()}"/></td>
+                        <td class="col-10"><c:out value="${les.naam}"/></td>
+                        <td class="col-2"><c:out value="${groeplijstperdag[statusdag.index][status.index]}"/></td>
                     </tr>
                 </c:forEach>
             </table>
