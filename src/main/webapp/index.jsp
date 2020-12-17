@@ -18,7 +18,7 @@
         Gelieve u aan te melden hieronder. </p>
     <c:if test="${not empty notAuthorizedError}">
         <div class="row">
-            <div class="alert alert-danger col-6" role="alert">
+            <div class="alert alert-danger" role="alert">
                 <ul>
                     <li><c:out value="${notAuthorizedError}"/></li>
                 </ul>
@@ -36,16 +36,15 @@
     </c:if>
     <c:choose>
         <c:when test="${not empty loggedIn}">
-            <p>Welkom <c:out value="${loggedIn.voornaam}"/></p>
+            <p>Welkom, <c:out value="${loggedIn.voornaam}"/>!</p>
         </c:when>
         <c:otherwise>
             <form action="Controller?command=Aanmelden" method="POST" novalidate>
                 <div class="form-group">
                     <label for="gebruikersnaam">ID:</label>
                     <input type="text" class="form-control" style="width: auto" id="gebruikersnaam"
-                           name="gebruikersnaam" placeholder="rXXXXXXX" required>
-                    <small id="gebruikersnaamHulp" class="form-text text-muted">Gelieve uw R of U nummer te
-                        geven.</small>
+                           name="gebruikersnaam" placeholder="rxxxxxxx" required>
+                    <small id="gebruikersnaamHulp" class="form-text text-muted">r- of u-nummer</small>
                 </div>
                 <div class="form-group">
                     <label for="wachtwoord">Wachtwoord:</label>

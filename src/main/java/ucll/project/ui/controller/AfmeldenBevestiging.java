@@ -13,8 +13,8 @@ public class AfmeldenBevestiging extends RequestHandler {
 
     @Override
     public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws NoSuchAlgorithmException {
-        String beslissing = request.getParameter("beslissing");
-        if (beslissing.equals("ja")) {
+        Utility.checkRoles(request, roles);
+        if (request.getParameter("beslissing").equals("ja")) {
             request.getSession().invalidate();
         }
         return "Controller?command=Index";

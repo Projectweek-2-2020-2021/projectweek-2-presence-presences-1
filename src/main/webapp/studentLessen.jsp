@@ -3,7 +3,7 @@
 
 <html>
 <head>
-    <title>Presence 1 - Lesson overview</title>
+    <title>Presence 1 - Lesrooster</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -21,27 +21,27 @@
         <c:forEach var="list" items="${lessenPerDag}">
             <table class="table table-hover">
                 <tr>
-                    <th><c:out value="${list.key}"/></th>
-                    <th>info</th>
-                    <th>Leerkracht</th>
+                    <th>Datum: <c:out value="${list.key}"/></th>
+                    <th>Informatie</th>
+                    <th>Lector</th>
                 </tr>
                 <c:forEach var="les" items="${list.value}" varStatus="status">
-                    <tr class="table-row" data-href="Controller?command=AanwezigheidControle&naam=<c:out value="${les.naam}"/>&datum=<c:out value="${list.key}"/>">
+                    <tr class="table-row"
+                        data-href="Controller?command=AanwezigheidControle&naam=<c:out value="${les.naam}"/>&datum=<c:out value="${list.key}"/>">
                         <td><c:out value="${les.tijd}"/></td>
-                        <td><c:out value="${les.naam}"/>, dit vak heeft <c:out value="${les.studiepunten}"/> studiepunten
+                        <td><c:out value="${les.naam}"/>, dit vak heeft <c:out value="${les.studiepunten}"/>
+                            studiepunten
                             in de richting <c:out value="${les.studierichting}"/></td>
                         <!--<td><a href="Controller?command=AanwezigheidControle&naam=${les.naam}">Aanwezig</a></td> !-->
                         <c:forEach var="lector" items="${lectorenlijst[status.index]}">
                             <td><c:out value="${lector.achternaam}"/></td>
                         </c:forEach>
-
                     </tr>
                 </c:forEach>
             </table>
         </c:forEach>
     </div>
 </main>
-
 
 <script>
     $(document).ready(function($) {
@@ -50,7 +50,6 @@
         });
     });
 </script>
-
 
 <jsp:include page="footer.jsp"/>
 </body>

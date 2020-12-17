@@ -25,7 +25,7 @@ public class LesStudentDBSQL implements LesStudentDB{
 
     @Override
     public void zetAanwezigheid(String aanwezigheid, int studentId, int lesId, java.util.Date datum) {
-        String sql = "UPDATE " + this.schema + ".lesstudent" + " SET aanwezigheid = ? WHERE studentid = ? AND lesid = ? AND datum = ? AND gewettigdafwezig = ?";
+        String sql = "UPDATE " + this.schema + ".lesstudent" + " SET aanwezigheid = ? WHERE studentid = ? AND lesid = ? AND datum = ?";
         //LocalDate date = LocalDate.parse(datum, DateTimeFormatter.ofPattern("YYYY-MM-dd"));
         try {
             PreparedStatement statementsql = connection.prepareStatement(sql);
@@ -156,13 +156,14 @@ public class LesStudentDBSQL implements LesStudentDB{
     }
 
     @Override
-    public void zetGewettigdeAfwezigheid(int studentId, int lesId) {
-        String sql = "UPDATE " + this.schema + ".lesstudent" + " SET gewettigdafwezig = true WHERE studentid = ? AND lesid = ?";
+    public void zetGewettigdeAfwezigheid(int studentId, int lesId, java.util.Date datum) {
+        String sql = "UPDATE " + this.schema + ".lesstudent" + " SET gewettigdafwezig = true WHERE studentid = ? AND lesid = ? AND datum = ?";
 
         try {
             PreparedStatement statementsql = connection.prepareStatement(sql);
             statementsql.setInt(1, studentId);
             statementsql.setInt(2, lesId);
+            statementsql.setDate(3, (Date) datum);
             statementsql.execute();
 
         } catch (SQLException e) {

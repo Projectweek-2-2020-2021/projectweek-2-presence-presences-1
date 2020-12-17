@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Presence 1 - Student Overview</title>
+    <title>Presence 1 - Studenten overzicht</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -40,13 +40,16 @@
                             <input type="submit" value="Afwijzen">
                         </form>
                     </td>
-                    </tr>
+                    <td>
+
+                    </td>
+                </tr>
             </c:forEach>
         </table>
     </div>
     <div class="table-responsive">
-        <h2>Afwezigheden Studentenoverzicht</h2>
-        <table class="table">
+        <h2>Studentenoverzicht</h2>
+        <table class="table table-hover">
             <tr>
                 <th>r-Nummer</th>
                 <th>Voornaam</th>
@@ -79,7 +82,13 @@
     </div>
     <jsp:include page="footer.jsp"/>
 </main>
-<script src="vendor/jquery/jquery.slim.min.js"></script>
-<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    $(document).ready(function ($) {
+        $(".table-row").click(function () {
+            window.document.location = $(this).data("href");
+        });
+    });
+</script>
 </body>
 </html>

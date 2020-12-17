@@ -22,5 +22,5 @@ public interface LesStudentDB {
 
     List<Date> getAllDatums();
 
-    void zetGewettigdeAfwezigheid(int studentId, int lesId);
+    void zetGewettigdeAfwezigheid(int studentId, int lesId, Date date);
 }

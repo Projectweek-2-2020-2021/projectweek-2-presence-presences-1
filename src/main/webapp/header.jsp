@@ -3,7 +3,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
     <div class="container">
-        <a class="navbar-brand" href="Controller?command=Index">Projectweek</a>
+        <a class="navbar-brand" href="Controller?command=Index">Projectweek hakkaton</a>
         <%--        toggle button--%>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
                 aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -17,12 +17,12 @@
                 </li>
                 <c:if test="${rol == 'student'}">
                     <li ${param.actual eq 'studentLessen'? 'class="nav-item active"':'class="nav-item"'}>
-                        <a class="nav-link" href="Controller?command=StudentLessen">Student lessen</a>
+                        <a class="nav-link" href="Controller?command=StudentLessen">Lesrooster</a>
                     </li>
                 </c:if>
                 <c:if test="${rol == 'lector'}">
                     <li ${param.actual eq 'lectorLessen'? 'class="nav-item active"':'class="nav-item"'}>
-                        <a class="nav-link" href="Controller?command=LectorLessen">Lector lessen</a>
+                        <a class="nav-link" href="Controller?command=LectorLessen">Mijn lessen</a>
                     </li>
                 </c:if>
                 <c:if test="${not empty loggedIn}">
