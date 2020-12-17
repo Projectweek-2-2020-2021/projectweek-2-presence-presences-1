@@ -22,14 +22,14 @@ public class StudentLessen extends RequestHandler {
 
         LinkedHashMap<Date, List<Lesson>> lessenPerDag = new LinkedHashMap<>();
         List<Lesson> lessenLijst;
+        HttpSession session = request.getSession();
+        Student student = (Student) session.getAttribute("loggedIn");
 
         int id;
         String zoekOpdracht = request.getParameter("zoekOpdracht");
         if (zoekOpdracht != null && !zoekOpdracht.isEmpty()) {
             id = getApplicationService().getStudentId(zoekOpdracht);
         } else {
-            HttpSession session = request.getSession();
-            Student student = (Student) session.getAttribute("loggedIn");
             id = getApplicationService().getStudentId(student.getRnummer());
         }
         List<Date> datums = getApplicationService().getAllDatumsStudent(id);
