@@ -24,15 +24,19 @@ public class StudentLessen extends RequestHandler {
         List<Lesson> lessenLijst;
         HttpSession session = request.getSession();
 
-        Student student = (Student) session.getAttribute("loggedIn");
+        Student student;
         int id;
         String zoekOpdracht = request.getParameter("zoekOpdracht");
+
         if (zoekOpdracht != null && !zoekOpdracht.isEmpty()) {
+            student = getApplicationService().getStudent(zoekOpdracht);
             id = getApplicationService().getStudentId(zoekOpdracht);
             request.setAttribute("student", student.getNaam() + " " + student.getVoornaam());
         } else {
+            student = (Student) session.getAttribute("loggedIn");
             id = getApplicationService().getStudentId(student.getRnummer());
         }
+
         List<Date> datums = getApplicationService().getAllDatumsStudent(id);
         Collections.sort(datums);
 
