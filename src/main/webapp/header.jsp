@@ -25,7 +25,7 @@
                         <a class="nav-link" href="Controller?command=LectorLessen">Mijn lessen</a>
                     </li>
                     <c:if test="${loggedIn.stc == true}">
-                        <li>
+                        <li ${param.actual eq 'STC overzicht'? 'class="nav-item active"':'class="nav-item"'}>
                             <a class="nav-link" href="Controller?command=StcWekenOverzicht">Stc studenten</a>
                         </li>
                     </c:if>

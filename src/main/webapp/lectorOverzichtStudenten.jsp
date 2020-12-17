@@ -24,15 +24,16 @@
 </jsp:include>
 <main class="container">
     <div class="row justify-content-around mb-3">
-        <span class="border border-success rounded col-2"
+        <span class="border border-success rounded col-sm-2"
               style="background-color: #c3e6cb"><strong>Aanwezig</strong></span>
-        <span class="border border-danger rounded col-2"
+        <span class="border border-danger rounded col-sm-2"
               style="background-color: #f5c6cb"><strong>Afwezig</strong></span>
-        <span class="border border-warning rounded col-2"
+        <span class="border border-warning rounded col-sm-2"
               style="background-color: #ffeeba"><strong>Pending</strong></span>
-        <span class="border border-info rounded col-2"
+        <span class="border border-info rounded col-sm-2"
               style="background-color: #bee5eb"><strong>Gewettigd afwezig</strong></span>
-        <span class="border border-secondary rounded col-2" style="background-color: #fdfdfe"><strong>Onbekend</strong></span>
+        <span class="border border-secondary rounded col-sm-2"
+              style="background-color: #fdfdfe"><strong>Onbekend</strong></span>
     </div>
     <div class="table-responsive">
         <h2 style="margin-top: 35px"><strong>Aanwezigheden</strong></h2>

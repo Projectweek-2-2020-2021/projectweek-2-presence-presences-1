@@ -11,7 +11,7 @@
 </head>
 <body>
 <jsp:include page="header.jsp">
-    <jsp:param name="actual" value="index"/>
+    <jsp:param name="actual" value="STC overzicht"/>
 </jsp:include>
 <main class="container">
     <p class="lead">Hier hebt u een overzicht van de studenten waar u STC'er van bent.</p>
@@ -24,10 +24,10 @@
 
                 </tr>
                 <tr>
-                    <th class="col-3">datum</th>
-                    <th class="col-3">naam van vak</th>
-                    <th class="col-3">klaslokaal</th>
-                    <th class="col-3">status</th>
+                    <th class="col-3">Datum</th>
+                    <th class="col-3">Naam van vak</th>
+                    <th class="col-3">Klaslokaal</th>
+                    <th class="col-3">Status</th>
                 </tr>
                 <c:forEach var="les" items="${list.value}" varStatus="status">
                     <c:if test="${les.status == 'Aanwezig'}">
