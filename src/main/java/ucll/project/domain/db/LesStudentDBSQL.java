@@ -41,13 +41,18 @@ public class LesStudentDBSQL implements LesStudentDB{
 
     @Override
     public void zetBevestiging(String bevestiging, int studentId, int lesId, java.util.Date datum) {
-        String sql = "UPDATE " + this.schema + ".lesstudent" + " SET bevestiging = ?, gewettigdafwezig = false WHERE studentid = ? AND lesid = ? AND datum = ?";
+        String sql = "UPDATE " + this.schema + ".lesstudent" + " SET aanwezigheid = ?, bevestiging = ?, gewettigdafwezig = false WHERE studentid = ? AND lesid = ? AND datum = ?";
         try {
             PreparedStatement statementsql = connection.prepareStatement(sql);
             statementsql.setBoolean(1, bevestiging.equals("ja"));
-            statementsql.setInt(2, studentId);
-            statementsql.setInt(3, lesId);
-            statementsql.setDate(4, (Date) datum);
+            if (bevestiging.equals("ja")) {
+                statementsql.setBoolean(2, true);
+            } else {
+                statementsql.setNull(2, Types.BOOLEAN);
+            }
+            statementsql.setInt(3, studentId);
+            statementsql.setInt(4, lesId);
+            statementsql.setDate(5, (Date) datum);
             statementsql.execute();
 
         } catch (SQLException e){
@@ -199,16 +204,16 @@ public class LesStudentDBSQL implements LesStudentDB{
 
     private String bepaalStatus(boolean aanwezigheid, boolean bevestiging, boolean gewettigdafwezig) {
         String status = "Pending";
-        if (aanwezigheid) {
+        if (aanwezigheid) { // TRUE TRUE
             if (bevestiging) {
                 status = "Aanwezig";
             }
         }
-        if (!aanwezigheid) {
+        if (!aanwezigheid) { // FALSE TRUE
             if (bevestiging) {
                 status = "Aanwezig";
             }
-            if (!bevestiging) {
+            if (!bevestiging) { // FALSE FALSE
                 status = "Afwezig";
             }
         }

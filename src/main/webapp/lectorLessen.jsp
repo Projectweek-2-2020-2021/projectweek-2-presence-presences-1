@@ -22,16 +22,12 @@
                 <tr>
                     <th><c:out value="${list.key}"/></th>
                     <th>Vak</th>
-                    <th>Studiepunten</th>
-                    <th>Studierichting</th>
                     <th>Groep</th>
                 </tr>
                 <c:forEach var="les" items="${list.value}">
                     <tr class="table-row" data-href="Controller?command=LectorOverzichtStudenten&vaknaam=<c:out value="${les.naam}"/>&datum=<c:out value="${list.key}"/>">
                         <td><c:out value="${les.tijd}"/> - <c:out value="${les.getEindTijd()}"/></td>
                         <td><c:out value="${les.naam}"/></td>
-                        <td><c:out value="${les.studiepunten}"/></td>
-                        <td><c:out value="${les.studierichting}"/></td>
                         <td>1</td>
                     </tr>
                 </c:forEach>

@@ -27,11 +27,10 @@ class LectorOverzichtStudenten extends RequestHandler {
         int id = getApplicationService().getVakId(vak);
         String datum = request.getParameter("datum");
         LocalDate date = LocalDate.parse(datum, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        List<Student> aanwezig = getApplicationService().getAllAanwezigheid(id, Date.valueOf(date));
-        List<Student> afwezig = getApplicationService().getAllNietAanwezigheid(id, Date.valueOf(date));
+        List<Student> studenten = getApplicationService().getAllNietAanwezigheid(id, Date.valueOf(date));
         request.setAttribute("les", vak);
-        request.setAttribute("aanwezig", aanwezig);
-        request.setAttribute("afwezig", afwezig);
+//        request.setAttribute("aanwezig", aanwezig);
+        request.setAttribute("studenten", studenten);
         request.setAttribute("datum", datum);
 
         return "lectorOverzichtStudenten.jsp";
