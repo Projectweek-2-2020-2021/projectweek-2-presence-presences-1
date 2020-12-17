@@ -23,8 +23,9 @@ public class StudentLessen extends RequestHandler {
         LinkedHashMap<Date, List<Lesson>> lessenPerDag = new LinkedHashMap<>();
         List<Lesson> lessenLijst;
         HttpSession session = request.getSession();
-        Student student = (Student) session.getAttribute("loggedIn");
 
+        Student student = (Student) session.getAttribute("loggedIn");
+        request.setAttribute("student", student.getNaam() + " " + student.getVoornaam());
         int id;
         String zoekOpdracht = request.getParameter("zoekOpdracht");
         if (zoekOpdracht != null && !zoekOpdracht.isEmpty()) {
