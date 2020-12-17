@@ -5,13 +5,13 @@ import java.util.ArrayList;
 public class Lesson implements Comparable<Lesson> {
 
 	ArrayList<String> richtingen = new ArrayList<>();
-	private String naam, studierichting, tijd;
-	private int studiepunten, lesduur;
+	private String naam, studierichting, tijd, status;
+	private int studiepunten;
 
 	public Lesson() {
 	}
 
-	public Lesson(String naam, int studiepunten, String studierichting, String tijd, int lesduur) {
+	public Lesson(String naam, int studiepunten, String studierichting, String tijd) {
 		setNaam(naam);
 		setStudiepunten(studiepunten);
 
@@ -20,7 +20,6 @@ public class Lesson implements Comparable<Lesson> {
 		richtingen.add("BM");
 		setStudierichting(studierichting);
 		setTijd(tijd);
-		setLesduur(lesduur);
 	}
 
 	public String getStudierichting() {
@@ -66,25 +65,6 @@ public class Lesson implements Comparable<Lesson> {
 
 	public String getTijd() {
 		return tijd;
-	}
-
-	public int getLesduur() {
-		return lesduur;
-	}
-
-	public void setLesduur(int lesduur) {
-		this.lesduur = lesduur;
-	}
-
-	public String getEindTijd(){
-		int uur =  Integer.parseInt(this.getTijd().substring(0, 2));
-		int min =  Integer.parseInt(this.getTijd().substring(3, 5));
-		System.out.println(getLesduur()/60);
-
-		System.out.println(getLesduur()%60);
-		uur += getLesduur()/60;
-		min += getLesduur()%60;
-		return uur + ":" + min;
 	}
 
 	@Override

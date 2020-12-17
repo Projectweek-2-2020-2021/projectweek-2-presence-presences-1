@@ -3,7 +3,7 @@
 
 <html>
 <head>
-    <title>Presence 1 - Lesrooster</title>
+    <title>Presence 1 - Lesson overview</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -21,27 +21,42 @@
         <c:forEach var="list" items="${lessenPerDag}">
             <table class="table table-hover">
                 <tr>
-                    <th>Datum: <c:out value="${list.key}"/></th>
-                    <th>Informatie</th>
-                    <th>Lector</th>
+                    <th><c:out value="${list.key}"/></th>
+                    <th>info</th>
+                    <th>Leerkracht</th>
                 </tr>
                 <c:forEach var="les" items="${list.value}" varStatus="status">
-                    <tr class="table-row"
-                        data-href="Controller?command=AanwezigheidControle&naam=<c:out value="${les.naam}"/>&datum=<c:out value="${list.key}"/>">
-                        <td><c:out value="${les.tijd}"/> - <c:out value="${les.getEindTijd()}"/></td>
-                        <td><c:out value="${les.naam}"/>, dit vak heeft <c:out value="${les.studiepunten}"/>
-                            studiepunten
+                    <c:if test="${les.status == 'aanwezig'}">
+                        <c:set var="studentStatus" value="table-success"/>
+                    </c:if>
+                    <c:if test="${les.status == 'afwezig'}">
+                        <c:set var="studentStatus" value="table-danger"/>
+                    </c:if>
+                    <c:if test="${les.status == 'pending'}">
+                        <c:set var="studentStatus" value="table-warning"/>
+                    </c:if>
+                    <c:if test="${les.status == 'gewettigd afwezig'}">
+                        <c:set var="studentStatus" value="table-info"/>
+                    </c:if>
+                    <c:if test="${les.status == 'onbekend'}">
+                        <c:set var="studentStatus" value="table-light"/>
+                    </c:if>
+                    <tr class="table-row ${studentStatus}"  data-href="Controller?command=AanwezigheidControle&naam=<c:out value="${les.naam}"/>&datum=<c:out value="${list.key}"/>">
+                        <td><c:out value="${les.tijd}"/></td>
+                        <td><c:out value="${les.naam}"/>, dit vak heeft <c:out value="${les.studiepunten}"/> studiepunten
                             in de richting <c:out value="${les.studierichting}"/></td>
                         <!--<td><a href="Controller?command=AanwezigheidControle&naam=${les.naam}">Aanwezig</a></td> !-->
                         <c:forEach var="lector" items="${lectorenlijst[status.index]}">
                             <td><c:out value="${lector.achternaam}"/></td>
                         </c:forEach>
+
                     </tr>
                 </c:forEach>
             </table>
         </c:forEach>
     </div>
 </main>
+
 
 <script>
     $(document).ready(function($) {
@@ -50,6 +65,7 @@
         });
     });
 </script>
+
 
 <jsp:include page="footer.jsp"/>
 </body>

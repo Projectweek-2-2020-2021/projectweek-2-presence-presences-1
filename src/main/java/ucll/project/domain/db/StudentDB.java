@@ -3,6 +3,7 @@ package ucll.project.domain.db;
 import ucll.project.domain.model.Student;
 
 import java.sql.Connection;
+import java.util.Date;
 import java.util.List;
 
 public interface StudentDB {
@@ -31,4 +32,6 @@ public interface StudentDB {
     Student getStudent(String rnummer);
 
      int getStudentId(String rnummer);
+
+     String getstatus(int studentid, int lesid, Date datum);
 }

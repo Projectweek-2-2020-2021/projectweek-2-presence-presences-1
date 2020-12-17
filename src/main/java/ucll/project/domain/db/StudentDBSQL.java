@@ -3,12 +3,15 @@ package ucll.project.domain.db;
 import ucll.project.domain.model.Student;
 import ucll.project.util.DbConnectionService;
 
+import javax.management.MBeanServer;
+import javax.xml.transform.Result;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class StudentDBSQL implements StudentDB {
@@ -118,6 +121,54 @@ public class StudentDBSQL implements StudentDB {
         }
 
         return id;
+    }
+
+    @Override
+    public String getstatus(int studentid, int lesid, Date datum) {
+        String sql = "SELECT aanwezigheid, bevestiging, gewettigdafwezig FROM " + this.schema + ".lesstudent WHERE studentid = ? AND lesid = ? AND datum = ?";
+
+        String status = "";
+        boolean aanwezig = false;
+        Boolean bevestiging = null;
+        boolean gewettigdafwezig = false;
+
+        try{
+            PreparedStatement statementsql = connection.prepareStatement(sql);
+            statementsql.setInt(1, studentid);
+            statementsql.setInt(2, lesid);
+            statementsql.setDate(3, (java.sql.Date) datum);
+            ResultSet result = statementsql.executeQuery();
+            while (result.next()){
+                aanwezig = result.getBoolean("aanwezigheid");
+                bevestiging = result.getBoolean("bevestiging");
+                if (result.wasNull()) bevestiging = null;
+                gewettigdafwezig = result.getBoolean("gewettigdafwezig");
+            }
+        } catch (SQLException e){
+            throw new DbException(e.getMessage());
+        }
+        if (!aanwezig && bevestiging == null && !gewettigdafwezig){
+            return "onbekend";
+        }
+        if (aanwezig && bevestiging == null){
+            return "pending";
+        }
+        if (!aanwezig && bevestiging == null && gewettigdafwezig){
+            return "gewettigd afwezig";
+        }
+        if (!aanwezig && !bevestiging && !gewettigdafwezig){
+            status = "onbekend";
+        }
+        if (aanwezig && bevestiging) {
+            status = "aanwezig";
+        }
+        if (!aanwezig && bevestiging) {
+            status = "aanwezig";
+        }
+        if (aanwezig && !bevestiging) {
+            status = "afwezig";
+        }
+        return status;
     }
 
 
