@@ -25,11 +25,11 @@ public class StudentLessen extends RequestHandler {
         HttpSession session = request.getSession();
 
         Student student = (Student) session.getAttribute("loggedIn");
-        request.setAttribute("student", student.getNaam() + " " + student.getVoornaam());
         int id;
         String zoekOpdracht = request.getParameter("zoekOpdracht");
         if (zoekOpdracht != null && !zoekOpdracht.isEmpty()) {
             id = getApplicationService().getStudentId(zoekOpdracht);
+            request.setAttribute("student", student.getNaam() + " " + student.getVoornaam());
         } else {
             id = getApplicationService().getStudentId(student.getRnummer());
         }

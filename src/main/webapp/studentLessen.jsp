@@ -23,7 +23,9 @@
 </jsp:include>
 
 <main class="container">
-    <p>Student: ${student}</p>
+    <c:if test="${not empty student}">
+        <p>Student: ${student}</p>
+    </c:if>
     <div class="row justify-content-around mb-3">
         <span class="border border-success rounded col-2"
               style="background-color: #c3e6cb"><strong>Aanwezig</strong></span>

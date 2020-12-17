@@ -17,7 +17,7 @@
                 </li>
                 <c:if test="${rol == 'student'}">
                     <li ${param.actual eq 'Lesrooster' || param.actual eq 'Bevestig'? 'class="nav-item active"':'class="nav-item"'}>
-                        <a class="nav-link" href="Controller?command=StudentLessen">Mijn Lesrooster</a>
+                        <a class="nav-link" href="Controller?command=StudentLessen">Mijn lesrooster</a>
                     </li>
                 </c:if>
                 <c:if test="${rol == 'lector'}">

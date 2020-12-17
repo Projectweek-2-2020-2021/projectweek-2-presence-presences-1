@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Maarten
-  Date: 17/12/2020
-  Time: 14:33
-  To change this template use File | Settings | File Templates.
---%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -31,10 +24,10 @@
 
                 </tr>
                 <tr>
-                    <th>datum</th>
-                    <th>naam van vak</th>
-                    <th>klaslokaal</th>
-                    <th>status</th>
+                    <th class="col-3">datum</th>
+                    <th class="col-3">naam van vak</th>
+                    <th class="col-3">klaslokaal</th>
+                    <th class="col-3">status</th>
                 </tr>
                 <c:forEach var="les" items="${list.value}" varStatus="status">
                     <c:if test="${les.status == 'Aanwezig'}">
