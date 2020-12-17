@@ -159,13 +159,13 @@ public class StudentDBSQL implements StudentDB {
         if (!aanwezig && !bevestiging && !gewettigdafwezig){
             status = "onbekend";
         }
-        if (aanwezig && bevestiging == true) {
+        if (aanwezig && bevestiging) {
             status = "aanwezig";
         }
-        if (!aanwezig && bevestiging == true) {
+        if (!aanwezig && bevestiging) {
             status = "aanwezig";
         }
-        if (aanwezig && bevestiging == false) {
+        if (aanwezig && !bevestiging) {
             status = "afwezig";
         }
         return status;
