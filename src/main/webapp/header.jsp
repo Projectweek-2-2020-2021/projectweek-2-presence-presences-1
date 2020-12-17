@@ -17,7 +17,7 @@
                 </li>
                 <c:if test="${rol == 'student'}">
                     <li ${param.actual eq 'Lesrooster' || param.actual eq 'Bevestig'? 'class="nav-item active"':'class="nav-item"'}>
-                        <a class="nav-link" href="Controller?command=StudentLessen">Lesrooster</a>
+                        <a class="nav-link" href="Controller?command=StudentLessen">Mijn Lesrooster</a>
                     </li>
                 </c:if>
                 <c:if test="${rol == 'lector'}">
@@ -32,6 +32,9 @@
 
                 </c:if>
                 <c:if test="${not empty loggedIn}">
+                    <li ${param.actual eq 'Zoeken'? 'class="nav-item active"':'class="nav-item"'}>
+                        <a class="nav-link" href="Controller?command=Zoeken">Zoek student</a>
+                    </li>
                     <li>
                         <form style="margin-bottom: 0;" action="Controller?command=Afmelden" method="POST" novalidate>
                             <button type="submit" class="btn btn-primary" style="background-color: #343a40;"><strong>Afmelden</strong>
