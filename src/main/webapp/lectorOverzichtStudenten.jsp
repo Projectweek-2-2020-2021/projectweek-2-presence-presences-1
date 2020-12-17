@@ -37,7 +37,7 @@
     <div class="table-responsive">
         <h2 style="margin-top: 35px"><strong>Aanwezigheden</strong></h2>
         <table class="table table-hover">
-            <tr class="table-row">
+            <tr>
                 <th class="col-2">r-Nummer</th>
                 <th class="col-2">Voornaam</th>
                 <th class="col-2">Achternaam</th>
@@ -79,7 +79,7 @@
     <div class="table-responsive">
         <h2><strong>Afwezigheden</strong></h2>
         <table class="table table-hover">
-            <tr class="table-row">
+            <tr>
                 <th class="col-2">r-Nummer</th>
                 <th class="col-2">Voornaam</th>
                 <th class="col-2">Achternaam</th>
