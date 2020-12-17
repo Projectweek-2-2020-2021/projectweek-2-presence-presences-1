@@ -92,7 +92,8 @@ public class LectorDBSQL implements LectorDB {
         String achternaam = resultSet.getString("achternaam");
         String nummer = resultSet.getString("nummer");
         String wachtwoord = resultSet.getString("wachtwoord");
-        Lector lector = new Lector(voornaam, achternaam, nummer, wachtwoord);
+        boolean stc = resultSet.getBoolean("stc");
+        Lector lector = new Lector(voornaam, achternaam, nummer, wachtwoord, stc);
         lectors.add(lector);
         return lector;
     }

@@ -24,6 +24,12 @@
                     <li ${param.actual eq 'lectorLessen'? 'class="nav-item active"':'class="nav-item"'}>
                         <a class="nav-link" href="Controller?command=LectorLessen">Mijn lessen</a>
                     </li>
+                <c:if test="${loggedIn.stc == true}">
+                    <li>
+                        <a class="nav-link" href="Controller?command=StcStudentenOverzicht">Stc studenten</a>
+                    </li>
+                </c:if>
+
                 </c:if>
                 <c:if test="${not empty loggedIn}">
                     <li>
