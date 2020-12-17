@@ -112,8 +112,27 @@ public class LesStudentDBSQL implements LesStudentDB{
             throw new DbException(e.getMessage());
         }
         return lessons;
+
     }
 
+    @Override
+    public String getGroep(int lesid){
+        String groep = null;
+        String sql = "SELECT groep FROM " + this.schema + ".lesstudent WHERE lesstudent.lesid = ?";
+        try {
+            PreparedStatement statementsql = connection.prepareStatement(sql);
+            statementsql.setInt(1, lesid);
+            ResultSet result = statementsql.executeQuery();
+            while (result.next()) {
+                groep = result.getString("groep");
+            }
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        }
+        return groep;
+    }
+
+    @Override
     public String getLokaal(int lesid){
         String lokaal = null;
         String sql = "SELECT lokaal FROM " + this.schema + ".lesstudent WHERE lesstudent.lesid = ?";
