@@ -20,6 +20,7 @@ public class Aanmelden extends RequestHandler {
 
     @Override
     public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws NoSuchAlgorithmException {
+        getApplicationService().reConnect();
         String gebruikersnaam = request.getParameter("gebruikersnaam");
         String wachtwoord = Utility.wachtwoordEncryptie(request.getParameter("wachtwoord"));
 
