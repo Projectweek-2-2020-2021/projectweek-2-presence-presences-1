@@ -95,7 +95,17 @@ public class StudentDBSQL implements StudentDB {
     public Student getStudent(String rnummer) {
         List<Student> students = new ArrayList<>();
         String sql = "select * from " + this.schema + ".student where r_nummer = ?";
-        makeStudents(rnummer, students, sql);
+
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, rnummer);
+            ResultSet resultset = preparedStatement.executeQuery();
+            while (resultset.next()) {
+                makeStudent(resultset, students);
+            }
+        } catch (SQLException | NoSuchAlgorithmException e) {
+            throw new DbException(e.getMessage());
+        }
         return students.get(0);
     }
 
@@ -103,11 +113,6 @@ public class StudentDBSQL implements StudentDB {
     public List<Student> getStudentenvoorLector(String nummer) {
         List<Student> students = new ArrayList<>();
         String sql = "select * from " + this.schema + ".student where stc = ?;";
-        makeStudents(nummer, students, sql);
-        return students;
-    }
-
-    private void makeStudents(String nummer, List<Student> students, String sql) {
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, nummer);
@@ -118,6 +123,7 @@ public class StudentDBSQL implements StudentDB {
         } catch (SQLException | NoSuchAlgorithmException e) {
             throw new DbException(e.getMessage());
         }
+        return students;
     }
 
     @Override
