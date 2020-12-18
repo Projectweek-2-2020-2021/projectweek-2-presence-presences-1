@@ -14,7 +14,7 @@
     <jsp:param name="actual" value="STC overzicht"/>
 </jsp:include>
 <main class="container">
-    <p class="lead">Hier hebt u een overzicht van de studenten waar u STC'er van bent.</p>
+    <p class="lead">Hier hebt u een overzicht van de studenten waar u STC'er van bent. Druk op een les om de opmerking bij die les te zien.</p>
     <div class="table-responsive">
         <c:forEach var="list" items="${lessenVoorStudenten}">
             <table class="table table-hover">
@@ -42,7 +42,7 @@
                     <c:if test="${les.status == 'Gewettigd afwezig'}">
                         <c:set var="studentStatus" value="table-info"/>
                     </c:if>
-                    <tr>
+                    <tr data-toggle="popover" title="Opmerking:" data-content="${les.opmerking}">
                         <td><c:out value="${les.datum}"/></td>
                         <td><c:out value="${les.lesNaam}"/></td>
                         <td><c:out value="${les.klaslokaal}"/></td>
@@ -60,4 +60,10 @@
         });
     });
 </script>
+<script>
+    $(document).ready(function(){
+        $('[data-toggle="popover"]').popover();
+    });
+</script>
+</body>
 </html>
