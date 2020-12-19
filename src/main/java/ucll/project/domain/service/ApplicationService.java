@@ -35,7 +35,10 @@ public class ApplicationService {
      * Reconnect DBSQL to database
      */
     public void reConnect() {
+        dbLesStudent.reConnect();
         dbLesson.reConnect();
+        dbLector.reConnect();
+        dbStudent.reConnect();
     }
 
     public List<Student> getStudentPerVak(int id) {

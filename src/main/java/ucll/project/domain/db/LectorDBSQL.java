@@ -11,12 +11,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LectorDBSQL implements LectorDB {
-    private final Connection connection;
+    private Connection connection;
     private final String schema;
 
     public LectorDBSQL() {
         this.connection = DbConnectionService.getDbConnection();
         this.schema = DbConnectionService.getSearchPath();
+    }
+
+    @Override
+    public void reConnect() {
+        DbConnectionService.disconnect();   // close connection with db properly
+        DbConnectionService.connect();      // reconnect application to db server
+        this.connection = DbConnectionService.getDbConnection();    // assign connection to DBSQL
     }
 
     @Override
